@@ -9,6 +9,7 @@
   .footer{
     text-align: center;
     margin-top: 52px;
+    padding-bottom: 116px; 
     img{
       height: 52px;
     }

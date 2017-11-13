@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="Login clearfix">
     <div class="logo">企业数据宏管理平台</div>
     <div class="content">
@@ -19,14 +20,20 @@
       </div>
     </div>
   </div>
+  <footer-inverse></footer-inverse>
+</div>
 </template>
 
 <script>
+  import footerInverse from 'components/footer'
   export default {
     data(){
       return {
         isAutoLogin: false
       }
+    },
+    components: {
+      footerInverse
     },
     methods: {
       autoLogin(){
