@@ -3,15 +3,15 @@
 > A qiantan hong project with vue.js
 
 ## 前端技术栈
-| 说明 | 备注 |
+| 说明 | 备注 | 说明 | 备注 |
 |--------|--------|
-|  MVVM框架 |  [vue.js](https://cn.vuejs.org) |
-| 路由 |  [vue-router](https://router.vuejs.org) |
-| 状态管理 | [vuex](https://vuex.vuejs.org) |
-| AJAX请求 | [axios](https://github.com/axios/axios) |
-| 组件库 | [iview](https://www.iviewui.com) |
-| 图表插件 | [ECharts](http://echarts.baidu.com) |
-| less | [less](http://lesscss.cn) |
+|  MVVM框架 |  [vue.js](https://cn.vuejs.org) | 组件库 | [iview](https://www.iviewui.com) |
+| 路由 |  [vue-router](https://router.vuejs.org) | 图表插件 | [ECharts](http://echarts.baidu.com) |
+| 状态管理 | [vuex](https://vuex.vuejs.org) | less | [less](http://lesscss.cn) |
+| AJAX请求 | [axios](https://github.com/axios/axios) | localStorage | localStorage |
+
+
+
 
 
 ## Build Setup
