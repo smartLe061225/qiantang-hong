@@ -10,10 +10,6 @@
 | 状态管理 | [vuex](https://vuex.vuejs.org) | less | [less](http://lesscss.cn) |
 | AJAX请求 | [axios](https://github.com/axios/axios) | localStorage | localStorage |
 
-
-
-
-
 ## Build Setup
 
 ``` bash
