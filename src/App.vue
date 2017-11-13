@@ -9,3 +9,6 @@ export default {
   name: 'app'
 }
 </script>
+<style lang="less">
+  @import "~assets/less/common.less";
+</style>
