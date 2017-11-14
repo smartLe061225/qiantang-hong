@@ -53,7 +53,9 @@
           </div>
           <h2 class="mbm-title">报表上传记录</h2>
         </div>
-        <div class="mormal-block-bd"></div>
+        <div class="mormal-block-bd">
+          <upload-log :upload-log-data="upload_log_data"></upload-log>
+        </div>
       </div>
       </Col>
       <Col span="12">
@@ -97,11 +99,13 @@
 </template>
 <script>
   import generalCount from "@/components/general_count";
+  import uploadLog from "@/components/upload_log";
 
   export default {
     name: "dashboard",
     components: {
-      generalCount
+      generalCount,
+      uploadLog
     },
     data() {
       return {
@@ -119,7 +123,33 @@
           total_cash_id: "total_cash_id",
           total_assets_id: "total_assets_id",
           total_warning_budget_id: "total_warning_budget_id"
-        }
+        },
+        // 上传历史
+        upload_log_data: [{
+          file_name: "Q3季度2017年Q3季度财报.xls",
+          upload_time: "2017/11/20 15:30",
+          user_name: "福根儿",
+          company_name: "华茂建设分公司",
+          department: "财务部",
+          avator_path: "https://img3.doubanio.com/icon/u120719501-15.jpg",
+          id: 1201
+        }, {
+            file_name: "17年Q3季度财20报.xls",
+            upload_time: "2017/11/20 15:30",
+            user_name: "大黄牛",
+            company_name: "华茂建设分公司",
+            department: "财务部",
+            avator_path: "https://img1.doubanio.com/icon/u3825598-137.jpg",
+            id: 1202
+          }, {
+            file_name: "2017年Q3季度017年Q3季度财报.xls",
+            upload_time: "2017/11/20 15:30",
+            user_name: "胡弃暗",
+            company_name: "华茂建设分公司",
+            department: "财务部",
+            avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
+            id: 1203
+          }]
       };
     }
   };
