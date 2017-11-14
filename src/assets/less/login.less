@@ -1,0 +1,136 @@
+body{
+  min-height: 100%;
+  background: #353f5a url('~assets/images/loginBg.jpg') center top no-repeat;
+  padding-top: 81px;
+}
+
+@placeholder-color: #56607c;
+@border-color: #464f6a;
+@text-color: #878d9a;
+@white: #fff;
+@gray: #ddd;
+@orange: #ff7b11;
+
+@disabled-background: #404c69;
+@disabled-color: #697185;
+@text-shadow: #08817a;
+
+::-webkit-input-placeholder {color: @placeholder-color}
+:-moz-placeholder,::-moz-placeholder {color: @placeholder-color}
+:-ms-input-placeholder {color: @placeholder-color}
+
+.common-title{
+  color: #fff;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 16px;
+}
+
+.logo-title{text-align: center;margin-bottom: 50px;}
+
+.form-items{
+  position: relative;
+  height: 56px;
+  padding: 10px 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid @border-color;
+  .input-text{
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    color: @white;
+  }
+}
+
+.common-content{
+  position: relative;
+  border: 1px solid @border-color;
+  background: rgba(54, 65, 94, 0.2);
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  .link{
+    font-size: 12px;
+    margin-bottom: 32px;
+    a{
+      color: @text-color;
+      &:hover{
+        color: @white;
+      }
+    }
+  }
+  .text{
+    text-align: center;
+    font-size: 12px;
+    color: @text-color;
+    display: block;
+    margin: 32px auto;
+    a{
+      color: @text-color;
+      &:hover{
+        color: @white;
+      }
+    }
+    label{
+      cursor: pointer;
+      i{
+        font-family: Ionicons;
+        margin-right: 8px;
+        font-size: 14px;
+        &.check{
+          color: @white;
+        }
+      }
+    }
+  }
+}
+
+
+.disabled-button(){
+  cursor: default;
+  background-color: @disabled-background;
+  color: @disabled-color;
+}
+.submit-active(){
+  color: @white;
+  cursor: pointer;
+  text-shadow: 1px 1px 1px @text-shadow;
+  background-color: #1385d2;
+  background-image: -webkit-linear-gradient(left, #19ce72 0%, #0bb2b8 60%, #1385d2 100%);
+  background-image: linear-gradient(to right, #19ce72 0%, #0bb2b8 60%, #1385d2 100%);
+}
+.sms-active(){
+  background: @orange;
+  color: @white;
+  cursor: pointer;
+}
+
+.submit-button{
+  width: 100%;
+  height: 42px;
+  font-size: 16px;
+  line-height: 42px;
+  border-radius: 21px;  
+  letter-spacing: 3px;  
+  margin: 0 auto;
+  .disabled-button();
+  &-active{
+    .submit-active();
+  }
+}
+
+.sms-button{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 16px;
+  border-radius: 3px;
+  transform: translateY(-50%);
+  .disabled-button();
+  &-active{
+    .sms-active();
+  } 
+}
