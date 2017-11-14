@@ -66,7 +66,9 @@
           </div>
           <h2 class="mbm-title">成员管理</h2>
         </div>
-        <div class="mormal-block-bd"></div>
+        <div class="mormal-block-bd">
+          <member :data="member_data"></member>
+        </div>
       </div>
       </Col>
     </Row>
@@ -106,6 +108,7 @@
   import uploadLog from "@/components/upload_log";
   import qtPush from "@/components/qt_push";
   import apiData from "@/components/api_data";
+  import member from "@/components/member";
 
   export default {
     name: "dashboard",
@@ -113,7 +116,8 @@
       generalCount,
       uploadLog,
       qtPush,
-      apiData
+      apiData,
+      member
     },
     data() {
       return {
@@ -206,7 +210,57 @@
             publisher: "末唐数据末唐数据末唐数据末唐数据末唐数据末唐数据",
             avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
             id: 1253
-          }]
+          }],
+          // 成员管理
+          member_data: [{
+            id: 1011,
+            name: "畅捷通",
+            department: "华贸集团",
+            duty: "CEO",
+            avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
+            children: [{
+              name: "分公司",
+              count: 20
+            }, {
+                name: "管理员",
+                count: 20
+              }, {
+                name: "库管",
+                count: 11
+              }]
+          }, {
+              id: 1011,
+              name: "畅捷通",
+              department: "华贸集团",
+              duty: "CEO",
+              avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
+              children: [{
+                name: "分公司",
+                count: 20
+              }, {
+                name: "管理员",
+                count: 20
+              }, {
+                name: "库管",
+                count: 11
+              }]
+            }, {
+              id: 1011,
+              name: "畅捷通",
+              department: "华贸集团",
+              duty: "CEO",
+              avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
+              children: [{
+                name: "分公司",
+                count: 20
+              }, {
+                name: "管理员",
+                count: 20
+              }, {
+                name: "库管",
+                count: 11
+              }]
+            }]
       };
     }
   };
