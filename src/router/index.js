@@ -4,6 +4,7 @@ import Router from 'vue-router'
 const admin = r => require.ensure([], () => r(require('../views/admin/admin')), 'admin')
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
 const join = r => require.ensure([], () => r(require('../views/join/join')), 'join')
+const forget = r => require.ensure([], () => r(require('../views/forget/forget')), 'forget')
 const dashboard = r => require.ensure([], () => r(require('../views/dashboard/')), 'dashboard')
 
 const notFound = r => require.ensure([], () => r(require('components/error/404')), 'notFound')
@@ -45,6 +46,14 @@ const routes = [
     component: join,
     meta: {
       title: '注册'
+    }
+  },
+  {
+    path: '/forget',
+    name: 'forget',
+    component: forget,
+    meta: {
+      title: '找回密码'
     }
   },
   {
