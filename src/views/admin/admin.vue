@@ -71,6 +71,9 @@
 	}
 </script>
 <style lang="less">
+.fl {
+	float: left;
+}
 	.main {
 		position: absolute;
 		width: 100%;

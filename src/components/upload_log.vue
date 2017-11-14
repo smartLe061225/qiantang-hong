@@ -6,7 +6,7 @@
                     <Col span="14">
                     <div class="upload-log-file">
                         <img src="../assets/logo-excle.png" alt="excle">
-                        <h3>
+                        <h3 class="text-overflow">
                             <a href="javascript:;">{{log.file_name}}</a>
                         </h3>
                         <div>上传于：{{log.upload_time}}</div>

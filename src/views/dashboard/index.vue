@@ -80,7 +80,9 @@
           </div>
           <h2 class="mbm-title">钱塘推送</h2>
         </div>
-        <div class="mormal-block-bd"></div>
+        <div class="mormal-block-bd">
+          <qt-push :data="qt_push_data"></qt-push>
+        </div>
       </div>
       </Col>
       <Col span="12">
@@ -91,7 +93,9 @@
           </div>
           <h2 class="mbm-title">数据服务</h2>
         </div>
-        <div class="mormal-block-bd"></div>
+        <div class="mormal-block-bd">
+          <api-data :data="api_data_data"></api-data>
+        </div>
       </div>
       </Col>
     </Row>
@@ -100,12 +104,16 @@
 <script>
   import generalCount from "@/components/general_count";
   import uploadLog from "@/components/upload_log";
+  import qtPush from "@/components/qt_push";
+  import apiData from "@/components/api_data";
 
   export default {
     name: "dashboard",
     components: {
       generalCount,
-      uploadLog
+      uploadLog,
+      qtPush,
+      apiData
     },
     data() {
       return {
@@ -149,12 +157,62 @@
             department: "财务部",
             avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
             id: 1203
+          }],
+          // 钱塘推送
+          qt_push_data:[{
+            title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
+            img: "http://p3.pstatp.com/large/39a200023931d8829cf9",
+            pv: "900",
+            timepass: "18小时",
+            avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
+            id: 1203
+          }, {
+              title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
+              img: "http://p3.pstatp.com/large/39a1000252adba97b994",
+              pv: "900",
+              timepass: "18小时",
+              avator_path: "http://p3.pstatp.com/large/39a00003f2267df41266",
+              id: 1203
+            }, {
+              title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
+              img: "http://p9.pstatp.com/large/37f30003fa72f6d28b77",
+              pv: "900",
+              timepass: "18小时",
+              avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
+              id: 1203
+            }],
+          // 数据服务
+        api_data_data: [{
+          title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
+          img: "http://p3.pstatp.com/large/39a200023931d8829cf9",
+          download: "362",
+          self_support: false,
+          publisher: "末唐数据末唐数据",
+          avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
+          id: 1203
+        }, {
+            title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
+            img: "http://p3.pstatp.com/large/39a200023931d8829cf9",
+            download: "362",
+            self_support: true,
+            publisher: "钱塘",
+            avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
+            id: 1231
+          }, {
+            title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
+            img: "http://p9.pstatp.com/large/37f30003fa72f6d28b77",
+            download: "362",
+            self_support: false,
+            publisher: "末唐数据末唐数据末唐数据末唐数据末唐数据末唐数据",
+            avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
+            id: 1253
           }]
       };
     }
   };
 </script>
 <style lang="less">
+  .text-overflow{overflow:hidden;text-overflow:ellipsis;display:block;white-space:nowrap}
   .general-view {
     background: #fff;
     padding: 35px 25px 30px 25px;
