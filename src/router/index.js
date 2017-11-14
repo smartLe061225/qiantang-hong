@@ -4,7 +4,10 @@ import Router from 'vue-router'
 const admin = r => require.ensure([], () => r(require('../views/admin/admin')), 'admin')
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
 const join = r => require.ensure([], () => r(require('../views/join/join')), 'join')
+const dashboard = r => require.ensure([], () => r(require('../views/dashboard/')), 'dashboard')
+
 const notFound = r => require.ensure([], () => r(require('components/error/404')), 'notFound')
+
 
 Vue.use(Router)
 
@@ -15,7 +18,17 @@ const routes = [
     component: admin,
     meta: {
       title: '管理中心'
-    }
+    },
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: dashboard,
+        meta: {
+          title: '管理首页'
+        }
+      }
+    ]
   },
   {
     path: '/login',
