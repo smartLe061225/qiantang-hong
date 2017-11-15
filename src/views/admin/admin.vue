@@ -5,7 +5,10 @@
 		</div>
 		<div class="main-header-con">
 			<div class="main-header">
-				<div class="current-company"><h1>浙江华茂贸易集团有限公司</h1><span>集团总部</span></div>
+				<div class="current-company">
+					<a class="logo"><img src="../../assets/images/logo-admin.png" alt=""></a>
+					<h1>浙江华茂贸易集团有限公司</h1><span>集团总部</span>
+					</div>
 				<div class="header-avator-con">
 					<!-- <div @click="showMessage" class="message-con">
 			                        <Tooltip :content="messageCount > 0 ? '有' + messageCount + '条未读消息' : '无未读消息'" placement="bottom">
@@ -122,12 +125,17 @@
 				display: inline-block;
 			}
 			.current-company {
+				float: left;
 				height: 29px;
 				line-height: 64px;
 				border-left: 1px solid #3c53f0;
 				padding-left: 20px;
-				margin-left: 20px;
+				.logo {
+					float: left;
+					padding-top: 13px;
+				}
 				h1 {
+					margin-left: 20px;
 					font-size: 16px;
 					font-weight: 400;
 					color: #fff;
@@ -198,7 +206,7 @@
 			transition: left 0.3s;
 			min-width: 1020px;
 			.single-page {
-				margin: 24px;
+				// margin: 24px;
 			}
 		}
 		&-copy {
@@ -214,5 +222,48 @@
 		background: #f1f3f7;
 		color: #aaa;
 		font-size: 12px;
+		margin:0 25px;
 	}
+	.bread-crumb-bar {
+		height: 46px;
+		line-height: 46px;
+		background: #fff;
+		padding-left: 25px;
+	}
+	.m-25 {margin: 25px;}
+	.mr-10 {margin-right: 10px;}
+
+	.normal-box-mod {
+    margin-bottom: 20px;
+    .normal-box-hd {
+        height: 46px;
+        line-height: 46px;
+        padding: 0 20px;
+        background: #F6F7FA;
+        border-bottom: 1px solid #EBEEF3;
+        .normal-box-opt {
+            float: right;
+            text-align: right;
+            font-size: 12px;
+        }
+        .normal-box-title {
+            .decorate-square {
+                width: 3px;
+                height: 18px;
+                background-color: #A609F0;
+                float: left;
+                margin-top: 14px
+            }
+            h2 {
+                font-size: 18px;
+                float: left;
+                margin-left: 10px;
+            }
+        }
+    }
+    .normal-box-bd {
+        padding: 20px;
+        background: #fff;
+    }
+}
 </style>

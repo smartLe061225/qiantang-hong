@@ -1,23 +1,16 @@
 <template>
-  <Menu active-name="1" width="180px" :theme="sidebar_theme">
-        <MenuGroup  title="我的宏管理">
-            <MenuItem name="1">
-                <Icon type="document-text"></Icon>
-                利润分析
-            </MenuItem>
-            <MenuItem name="2">
-                <Icon type="chatbubbles"></Icon>
-                资产分析
-            </MenuItem>
-            <MenuItem name="2">
-                <Icon type="chatbubbles"></Icon>
-                现金分析
-            </MenuItem>
-            <MenuItem name="2">
-                <Icon type="chatbubbles"></Icon>
-                预警分析
-            </MenuItem>
-        </MenuGroup>
+  <Menu active-name="1" width="180px" :theme="sidebar_theme" @on-select="changeMenu">
+      <Submenu name="analysis">
+                        <template slot="title">
+                            <Icon type="stats-bars"></Icon>
+                            我的宏管理
+                        </template>
+                        <MenuItem name="profits" key="profits">利润分析</MenuItem>
+                        <MenuItem name="assets" key="assets">资产分析</MenuItem>
+                        <MenuItem name="cash" key="cash">现金分析</MenuItem>
+                        <MenuItem name="warning" key="warning">预警分析</MenuItem>
+                    </Submenu>
+      
         <MenuGroup title="企业管理">
             <MenuItem name="3">
                 <Icon type="heart"></Icon>
@@ -55,6 +48,13 @@ export default {
       return {
           sidebar_theme: 'dark'
       }
+  },
+  methods: {
+      changeMenu(active) {
+        this.$router.push({
+          name: active
+        });
+    },
   }
 }
 </script>

@@ -5,7 +5,14 @@ const admin = r => require.ensure([], () => r(require('../views/admin/admin')), 
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
 const join = r => require.ensure([], () => r(require('../views/join/join')), 'join')
 const forget = r => require.ensure([], () => r(require('../views/forget/forget')), 'forget')
+
 const dashboard = r => require.ensure([], () => r(require('../views/dashboard/')), 'dashboard')
+
+const analysis = r => require.ensure([], () => r(require('../views/analysis/')), 'analysis')
+const assets = r => require.ensure([], () => r(require('../views/analysis/assets')), 'assets')
+const cash = r => require.ensure([], () => r(require('../views/analysis/cash')), 'cash')
+const profits = r => require.ensure([], () => r(require('../views/analysis/profits')), 'profits')
+const warning = r => require.ensure([], () => r(require('../views/analysis/warning')), 'warning')
 
 const notFound = r => require.ensure([], () => r(require('components/error/404')), 'notFound')
 
@@ -28,6 +35,43 @@ const routes = [
         meta: {
           title: '管理首页'
         }
+      },
+      {
+        path: 'analysis',
+        name: 'analysis',
+        component: analysis,
+        meta: {
+          title: '分析'
+        },
+        children: [{
+          path: 'assets',
+          name: 'assets',
+          component: assets,
+          meta: {
+            title: '资产分析'
+          }
+        }, {
+            path: 'cash',
+            name: 'cash',
+            component: cash,
+            meta: {
+              title: '现金分析'
+            }
+          }, {
+            path: 'profits',
+            name: 'profits',
+            component: profits,
+            meta: {
+              title: '利润分析'
+            }
+          }, {
+            path: 'warning',
+            name: 'warning',
+            component: warning,
+            meta: {
+              title: '预警分析'
+            }
+          }]
       }
     ]
   },
