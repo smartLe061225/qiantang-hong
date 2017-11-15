@@ -1,0 +1,16 @@
+.radius-input {
+  position: relative;
+}
+.radius-input .ivu-input {
+  border-radius: 16px;
+}
+.radius-input .ivu-btn {
+  background: none;
+  border: none;
+  right: 0;
+  z-index: 11;
+  width: 32px;
+  position: absolute;
+  display: block;
+  z-index: 3;
+}
