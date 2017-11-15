@@ -33,6 +33,12 @@
       <button class="submit-button" type="button" :disabled="(value.phone && value.code && value.password && value.cpassword && !errors.has('phone') && !errors.has('code') && !errors.has('password') && !errors.has('cpassword')) ? false : true" @click.prevent="checkForget" v-show="isNext">确定</button>
       <div class="text"><button class="default-button" type="button" @click.prevent="Prev" v-show="isNext">上一步</button></div>
       <div class="text">已有账号 <router-link to="/login">返回登录</router-link></div>
+
+      <div v-if="isOK" class="result-success" style="text-align:center;">
+        <i class="ivu-icon ivu-icon-ios-checkmark-outline"></i>
+        <p class="text">密码修改成功！</p>
+        <router-link to="/login" class="submit-button">马上登录</router-link>
+      </div>
     </div>
     <footer-inverse></footer-inverse>
   </div>
@@ -46,6 +52,7 @@
     data(){
       return {
         isNext: false,
+        isOK: false,
         computedTime: 0,
         value: {
           password: '',
@@ -107,11 +114,18 @@
         let self = this;
         this.$validator.validateAll().then((result) => {
           if (result) {
-            if (res.status == 'success') {
-              self.$router.push('login')
-            }else{
-              self.$Message.error(res.message);
+            let data = {
+              phone: self.value.phone,
+              code: self.value.code,
+              password: self.value.password
             }
+            Forget(data).then(res => {
+              if (res.status == 'success') {
+                self.isOK = true;
+              }else{
+                self.$Message.error(res.message);
+              }
+            })            
             return;
           }
         })
