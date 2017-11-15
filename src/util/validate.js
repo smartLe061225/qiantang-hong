@@ -18,9 +18,12 @@ const dictionary = {
         required: ( field )=> field + "不能为空"
       },
       attributes:{  // attributes: filed
+        username: '用户名',
          account: '帐号',
         password: '密码',
-           phone: '手机号'
+       cpassword: '确认密码',
+           phone: '手机号',
+            code: '验证码'
       }
   }
 };
