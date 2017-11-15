@@ -7,6 +7,7 @@ import VueCookie from 'vue-cookie';
 import Vuex from 'vuex'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css';
+import 'src/util/validate.js';
 
 import store from './store';
 
