@@ -80,6 +80,9 @@
 .fl {
 	float: left;
 }
+.fr {
+	float: right;
+}
 	.main {
 		position: absolute;
 		width: 100%;
