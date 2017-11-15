@@ -4,29 +4,34 @@
     <div class="Join common-content">
       <h2 class="common-title">找回密码 / Retrieve password</h2>
 
-      <div class="form" v-if="!isNext">
+      <div class="form" v-show="!isNext">
         <div class="form-items">
-          <input class="input-text" type="text" placeholder="手机号">          
+          <input class="input-text" type="text" v-model.trim="value.phone" v-validate="'required|phone'" name="phone" :placeholder="placeholder.phone">
+          <div v-show="errors.has('phone')" class="tooltip-verify">{{ errors.first('phone') }}</div>
         </div>
         <div class="form-items">
-          <input class="input-text input-code-text" type="text" placeholder="验证码">
-          <button class="sms-button" type="button" :class="{'sms-button-active' : isPhone}" v-show="!computedTime">获取验证码</button>
-          <button class="sms-button" type="button" v-show="computedTime">已发送({{computedTime}}s)</button>
+          <input class="input-text input-code-text" type="text" v-model.trim="value.code" v-validate="'required|numeric'" name="code" :placeholder="placeholder.code">
+          <button class="sms-button" type="button" @click.prevent="getSMSCode" :disabled="(value.phone && !errors.has('phone')) ? false : true" v-show="!computedTime">获取验证码</button>
+          <button class="sms-button" disabled type="button" v-show="computedTime">已发送({{computedTime}}s)</button>
+          <div v-show="errors.has('code')" class="tooltip-verify">{{ errors.first('code') }}</div>
         </div>
       </div>
 
-      <div class="form" v-else>
+      <div class="form" v-show="isNext">
         <div class="form-items">
-          <input class="input-text" type="password" placeholder="密码">
+          <input class="input-text" type="password" v-model.trim="value.password" v-validate="'required|string'" name="password" :placeholder="placeholder.password">
+          <div v-show="errors.has('password')" class="tooltip-verify">{{ errors.first('password') }}</div>
         </div>
         <div class="form-items">
-          <input class="input-text" type="password" placeholder="确认密码">
+          <input class="input-text" type="password" v-model.trim="value.cpassword" v-validate="'required|confirmed:password'" name="cpassword" :placeholder="placeholder.cpassword">
+          <div v-show="errors.has('cpassword')" class="tooltip-verify">{{ errors.first('cpassword') }}</div>
         </div>
       </div>
 
       <div style="height:26px;"></div>
-      <button class="submit-button" type="button" :class="{'submit-button-active' : isAgree}" v-if="!isNext">下一步</button>
-      <button class="submit-button" type="button" v-else>确定</button>
+      <button class="submit-button" type="button" :disabled="(value.phone && value.code && !errors.has('phone') && !errors.has('code')) ? false : true" @click.prevent="Next" v-show="!isNext">下一步</button>
+      <button class="submit-button" type="button" :disabled="(value.phone && value.code && value.password && value.cpassword && !errors.has('phone') && !errors.has('code') && !errors.has('password') && !errors.has('cpassword')) ? false : true" @click.prevent="checkForget" v-show="isNext">确定</button>
+      <div class="text"><button class="default-button" type="button" @click.prevent="Prev" v-show="isNext">上一步</button></div>
       <div class="text">已有账号 <router-link to="/login">返回登录</router-link></div>
     </div>
     <footer-inverse></footer-inverse>
@@ -35,21 +40,81 @@
 
 <script>
   import footerInverse from 'components/footer'
+  import { forgetSMS, Forget } from 'src/service/getData'
+
   export default {
     data(){
       return {
         isNext: false,
-        isAgree: false,
-        isPhone: false,
-        computedTime: 0
+        computedTime: 0,
+        value: {
+          password: '',
+          cpassword: '',
+          phone: '',
+          code: ''
+        },
+        placeholder: {
+          password: '密码',
+          cpassword: '确认密码',
+          phone: '手机号',
+          code: '验证码'
+        }
       }
     },
     components: {
       footerInverse
     },
     methods: {
-      checkAgree(){
-        this.isAgree = this.isAgree ? false : true;
+      getSMSCode(){
+        let self = this;
+        this.$validator.validate('phone').then((result) => {
+          if (result) {
+            self.computedTime = 60;
+            self.timer = setInterval(() => {
+                self.computedTime --;
+                if (self.computedTime == 0) {
+                    clearInterval(self.timer)
+                }
+            }, 1000)
+
+            let data = {
+              phone: self.value.phone
+            }
+            forgetSMS(data).then(res => {
+              if (res.status == 'error') {
+                self.computedTime = 0;
+                clearInterval(self.timer)
+                self.$Message.error(res.message);
+              }
+            })
+            return;
+          }
+        })
+      },
+      Next(){
+        let self = this;
+        this.$validator.validateAll(['phone','code']).then((result) => {
+          if (result) {
+            self.isNext = true;
+            return;
+          }
+        })
+      },
+      Prev(){
+        this.isNext = false;
+      },
+      checkForget(){
+        let self = this;
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            if (res.status == 'success') {
+              self.$router.push('login')
+            }else{
+              self.$Message.error(res.message);
+            }
+            return;
+          }
+        })
       }
     }
   }
