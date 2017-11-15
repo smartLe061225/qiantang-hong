@@ -45,6 +45,7 @@
 </template>
 <script>
 	import sidebarMenu from "@/components/sidebar_menu";
+	import store from "@/store/";
 
 
 	export default {
@@ -59,10 +60,7 @@
 		methods: {
 			 handleClickUserDropdown(name) {
 				if (name === "ownSpace") {
-					util.openNewPage(this, "normalRouter:setting");
-					this.$router.push({
-						name: "normalRouter:setting"
-					});
+					
 				} else if (name === "loginout") {
 					this.$store.dispatch("Logout");
 					this.$router.push({
@@ -70,7 +68,12 @@
 					});
 				}
 			},
-		}
+		},
+		watch: {
+			$route(to) {
+				store.commit('set_current_path', to.matched);
+			}
+		},
 	}
 </script>
 <style lang="less">

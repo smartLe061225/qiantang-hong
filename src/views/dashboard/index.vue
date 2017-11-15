@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m-25">
     <Row :gutter="28" class="mb-24">
       <Col span="6">
       <general-count :id-name="general_view_opt.total_profits_id" class-name="text-color-orange" :decimals=2 :end-val="general_view_data.total_profits"

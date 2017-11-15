@@ -8,7 +8,11 @@ import Vuex from 'vuex'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css';
 
+import store from './store';
+
 Vue.config.productionTip = false
+
+
 
 Vue.use(iView);
 Vue.use(VueCookie);
@@ -18,6 +22,7 @@ Vue.use(Vuex);
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
