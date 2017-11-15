@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { Message } from 'iview';
+import { Message,LoadingBar } from 'iview';
 
 
 // baseURL, 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL.
 if (process.env.NODE_ENV == 'development') {
-    axios.defaults.baseURL = 'http://dyh-api.chinadatatrading.com/';
+    // axios.defaults.baseURL = 'http://192.168.31.8:8762';
 } else if (process.env.NODE_ENV == 'debug') {
     axios.defaults.baseURL = '';
 } else if (process.env.NODE_ENV == 'production') {
@@ -18,10 +18,9 @@ axios.defaults.timeout = 30000
 
 // http request 拦截器
 axios.interceptors.request.use(config => {
-    console.log('正在发送请求。。。')
+    LoadingBar.start();
     return config;
 },error => {
-    Message.error(error)
     return Promise.reject(error);
 });
 
@@ -33,20 +32,25 @@ axios.interceptors.response.use(response => {
      */
     const res = response.data;
     if (response.status === 401 || res.status === 40101) {
+      LoadingBar.error();
       Message.error('401， 没有权限')
       return Promise.reject('error');
     }
     if (res.status === 40301) {
+      LoadingBar.error();
       Message.error('403, 当前用户无相关操作权限！')
       return Promise.reject('error');
     }
     if (response.status !== 200 && res.status !== 200) {
       Message.error(res.message)
+      LoadingBar.error();
     } else {
+      LoadingBar.finish()
       return response.data;
     }
   },error => {
-    Message.error(error)
+    Message.error('糟糕，服务器出错了！'+error)
+    LoadingBar.error();
     return Promise.reject(error);
   }
 );

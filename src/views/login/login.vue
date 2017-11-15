@@ -6,16 +6,18 @@
       <h2 class="common-title">登录/Login</h2>
       <div class="form">
         <div class="form-items">
-          <input class="input-text" type="text" placeholder="OA帐号">
+          <input class="input-text" type="text" v-model.trim="account" :placeholder="placeholder.account" v-validate="'required|string'" name="account">
+          <div v-show="errors.has('account')" class="tooltip-verify">{{ errors.first('account') }}</div>
         </div>
         <div class="form-items">
-          <input class="input-text" type="password" placeholder="OA密码">
+          <input class="input-text" type="password" v-model.trim="password" :placeholder="placeholder.password" v-validate="'required|string'" name="password">
+          <div v-show="errors.has('password')" class="tooltip-verify">{{ errors.first('password') }}</div>
         </div>
         <div class="link clearfix">
           <router-link to="/join" class="float-left">快速注册</router-link>
           <router-link to="/forget" class="float-right">忘记密码？</router-link>
         </div>
-        <button class="submit-button" type="button">登录</button>
+        <button class="submit-button" :disabled="(account && password && !errors.has('account') && !errors.has('password')) ? false : true" type="button" @click.prevent="checkLogin">登录</button>
         <div class="text"><label  @click="autoLogin"><i class="ivu-icon" :class="{'ivu-icon-android-checkbox-outline-blank': !isAutoLogin, 'ivu-icon-android-checkbox check': isAutoLogin }"></i>下次自动登录</label></div>
       </div>
     </div>
@@ -26,10 +28,18 @@
 
 <script>
   import footerInverse from 'components/footer'
+  import { Login } from 'src/service/getData'
+
   export default {
     data(){
       return {
-        isAutoLogin: false
+        account: '',
+        password: '',
+        isAutoLogin: false,
+        placeholder: {
+          account: '请输入帐号',
+          password: '请输入密码'
+        }
       }
     },
     components: {
@@ -38,6 +48,25 @@
     methods: {
       autoLogin(){
         this.isAutoLogin = this.isAutoLogin ? false : true;
+      },
+      checkLogin(){
+        let self = this;
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            let data = {
+              username: self.account,
+              password: self.password
+            }
+            Login(data).then(res => {
+              if (res.status == 'success') {
+                self.$router.push('/')
+              }else{
+                self.$Message.error(res.message);
+              }
+            })
+            return;
+          }
+        });
       }
     }
   }
