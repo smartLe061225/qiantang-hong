@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { Message,LoadingBar } from 'iview';
+import { get_token } from "./auth";
+import store from "../store/";
 
 
 // baseURL, 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL.
@@ -18,7 +20,10 @@ axios.defaults.timeout = 30000
 
 // http request 拦截器
 axios.interceptors.request.use(config => {
-    LoadingBar.start();
+    // LoadingBar.start();
+    if (store.getters.token) {
+      config.headers['Authorization'] = get_token(); // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+    }
     return config;
 },error => {
     return Promise.reject(error);

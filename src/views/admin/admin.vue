@@ -26,7 +26,7 @@
 								</a>
 								<DropdownMenu slot="list">
 									<DropdownItem name="ownSpace">个人中心</DropdownItem>
-									<DropdownItem name="loginout" divided>退出登录</DropdownItem>
+									<DropdownItem name="logout" divided>退出登录</DropdownItem>
 								</DropdownMenu>
 							</Dropdown>
 							<Avatar :src="avatorPath" style="background: #619fe7;margin-left: 10px;"></Avatar>
@@ -61,8 +61,8 @@
 			 handleClickUserDropdown(name) {
 				if (name === "ownSpace") {
 					
-				} else if (name === "loginout") {
-					this.$store.dispatch("Logout");
+				} else if (name === "logout") {
+					this.$store.dispatch("store_logout");
 					this.$router.push({
 						path: "/login"
 					});

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { get_token } from '../util/auth'
 
 const admin = r => require.ensure([], () => r(require('../views/admin/admin')), 'admin')
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
@@ -31,6 +32,7 @@ const routes = [
     path: '/',
     name: 'admin',
     component: admin,
+    redirect: '/dashboard',
     meta: {
       title: '管理中心',
       show_in_bread_curmb_bar: false,
@@ -180,10 +182,27 @@ const router = new Router({
   routes
 })
 
+const white_list = ['/login', '/join', '/forget']
+
 router.beforeEach((to, from, next) => {
 
   document.title = to.meta.title ? to.meta.title : '宏管理'
-  next()
+
+  if (get_token()) {
+    if (to.path === '/login') {
+      next({ path: '/dashboard' });
+    } else {
+      next();
+    }
+  } else {
+    if (white_list.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
+      next()
+    } else {
+      next('/login'); // 否则全部重定向到登录页
+    }
+  }
+
+  // next()
 
 })
 

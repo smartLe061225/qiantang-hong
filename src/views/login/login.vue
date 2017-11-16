@@ -29,6 +29,7 @@
 <script>
   import footerInverse from 'components/footer'
   import { Login } from 'src/service/getData'
+  import store from '../../store/'
 
   export default {
     data(){
@@ -57,14 +58,19 @@
               username: self.account,
               password: self.password
             }
-            Login(data).then(res => {
-              if (res.status == 'success') {
-                self.$router.push('/')
-              }else{
-                self.$Message.error(res.message);
-              }
+            // Login(data).then(res => {
+            //   if (res.status == 'success') {
+            //     self.$router.push('/dashboard')
+            //   }else{
+            //     self.$Message.error(res.message);
+            //   }
+            // })
+            // return;
+            this.$store
+            .dispatch('store_login', data)
+            .then( () => {
+              self.$router.push('/dashboard')
             })
-            return;
           }
         });
       }
