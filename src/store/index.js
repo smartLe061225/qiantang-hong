@@ -58,7 +58,7 @@ const store = new Vuex.Store({
         // 注销
         store_logout({ commit }) {
             commit('SET_TOKEN', '');
-            remove_token();
+            remove_token() ;
         },
     }
 });

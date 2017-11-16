@@ -115,6 +115,9 @@
           }
         })
       }
+    },
+    created(){
+      document.body.setAttribute("class","loginBg");
     }
   }
 </script>
