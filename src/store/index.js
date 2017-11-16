@@ -5,7 +5,7 @@ import {
     set_token,
     remove_token
 } from '../util/auth';
-import { Login } from 'src/service/getData'
+import { Login } from '../apis/user'
 
 Vue.use(Vuex);
 
@@ -19,6 +19,11 @@ const store = new Vuex.Store({
             }
         }],
         token: get_token()
+    },
+    getters: {
+        token: state => {
+            return state.token
+        } 
     },
     mutations: {
         SET_CURRENT_PATH: (state, current_path) => {

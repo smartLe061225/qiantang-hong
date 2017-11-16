@@ -19,7 +19,7 @@ const company = r => require.ensure([], () => r(require('../views/analysis/')), 
 const information = r => require.ensure([], () => r(require('../views/company/information')), 'information')
 const manager = r => require.ensure([], () => r(require('../views/company/manager')), 'manager')
 const department = r => require.ensure([], () => r(require('../views/company/department')), 'department')
-const group = r => require.ensure([], () => r(require('../views/company/group')), 'group')
+const member = r => require.ensure([], () => r(require('../views/company/member')), 'member')
 const role = r => require.ensure([], () => r(require('../views/company/role')), 'role')
 
 const notFound = r => require.ensure([], () => r(require('components/error/404')), 'notFound')
@@ -120,9 +120,9 @@ const routes = [
               show_in_bread_curmb_bar: true,
             }
           }, {
-            path: 'group',
-            name: 'group',
-            component: group,
+            path: 'member',
+            name: 'member',
+            component: member,
             meta: {
               title: '成员管理',
               show_in_bread_curmb_bar: true,

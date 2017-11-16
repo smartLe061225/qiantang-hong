@@ -272,4 +272,5 @@
         background: #fff;
     }
 }
+.clearfix:after{clear:both;content:".";display:block;height:0;visibility:hidden}
 </style>

@@ -5,7 +5,7 @@
  * @modify date 2017-11-15 10:47:07
  * @desc 公司管理模块相关接口
 */
-import fetch from '@/utils/fetch';
+import fetch from '@/util/fetch';
 
 /**
  * 新增公司
@@ -64,6 +64,16 @@ export function ajax_post_company(data) {
 export function ajax_get_company_all() {
     return fetch({
         url: "/api/company/all",
+        method: 'get'
+    })
+}
+
+/**
+ * 获取所属公司列表
+ */
+export function ajax_get_company_selectbox() {
+    return fetch({
+        url: "/api/company/selectbox",
         method: 'get'
     })
 }
