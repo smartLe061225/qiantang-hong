@@ -46,7 +46,7 @@
 
 <script>
   import footerInverse from 'components/footer'
-  import { forgetSMS, Forget } from 'src/service/getData'
+  import { forgetSMS, Forget } from 'src/apis/user'
 
   export default {
     data(){

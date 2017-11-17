@@ -28,7 +28,7 @@
 
 <script>
   import footerInverse from 'components/footer'
-  import { Login } from 'src/service/getData'
+  import { Login } from 'src/apis/user'
   import store from '../../store/'
 
   export default {

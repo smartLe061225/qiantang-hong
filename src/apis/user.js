@@ -10,3 +10,15 @@ export function Login(data) {
         data
     })
 }
+
+/** 注册 **/
+export const Join = (data) => fetch({ url: '/api/register/submit', method: 'post', data })
+
+/** 发送注册验证码 **/
+export const joinSMS = (data) => fetch({ url: '/api/register/code', method: 'post', data })
+
+/** 发送 找回密码 验证码 **/
+export const forgetSMS = (data) => fetch({ url: '/api/register/code', method: 'post', data })
+
+/** 找回密码 **/
+export const Forget = (data) => fetch({ url: '/api/register/forget', method: 'post', data })

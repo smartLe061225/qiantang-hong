@@ -37,7 +37,7 @@
 
 <script>
   import footerInverse from 'components/footer'
-  import { Join, joinSMS } from 'src/service/getData'
+  import { Join, joinSMS } from 'src/apis/user'
 
   export default {
     data(){
