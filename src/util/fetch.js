@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Message,LoadingBar } from 'iview';
 import { get_token } from "./auth";
+import router from '../router/'
 import store from "../store/";
 
 
@@ -25,7 +26,6 @@ const service = axios.create({
 
 // http request 拦截器
 service.interceptors.request.use(config => {
-    // LoadingBar.start();
     if (store.getters.token) {
       config.headers['Authorization'] = get_token(); // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
     }
@@ -35,48 +35,30 @@ service.interceptors.request.use(config => {
 });
 
 // respone拦截器
-service.interceptors.response.use(response => {
-    /**
-     * 下面的注释为通过response自定义code来标示请求状态，当code返回如下情况为权限有问题，登出并返回到登录页
-     * 如通过xmlhttprequest 状态码标识 逻辑可写在下面error中
-     */
-    const res = response.data;
-    if (response.status === 401 || res.status === 40101) {
-      LoadingBar.error();
-      Message.error('401， 没有权限')
-      return Promise.reject('error');
+service.interceptors.response.use(
+  (response) => {
+    const res_data = response.data;
+    return res_data;
+  },
+  (error) => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          Message.error('请重新登录!')
+          store.dispatch('store_logout');
+          router.replace({
+            path: '/login',
+          });
+        case 500:
+          Message.error('内部服务器错误!')
+      }
     }
-    if (res.status === 40301) {
-      LoadingBar.error();
-      Message.error('403, 当前用户无相关操作权限！')
-      return Promise.reject('error');
-    }
-    if (response.status !== 200 && res.status !== 200) {
-      Message.error(res.message)
-      LoadingBar.error();
-    } else {
-      LoadingBar.finish()
-      return response.data;
-    }
-  },error => {
-    Message.error('糟糕，服务器出错了！'+error)
-    LoadingBar.error();
-    return Promise.reject(error);
+    return Promise.reject(error.response.data);
   }
 );
 
+
+
 export default service;
-// export default function(url, params) {
-//   return new Promise((resolve, reject) => {
-//     axios.post(url, params)
-//     .then(response => {
-//         resolve(response);
-//     }, err => {
-//         reject(err);
-//     })
-//     .catch((error) => {
-//        reject(error)
-//     })
-//   })
-// }
+
 
