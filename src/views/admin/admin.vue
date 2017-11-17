@@ -71,7 +71,7 @@
 		},
 		watch: {
 			$route(to) {
-				store.commit('set_current_path', to.matched);
+				store.commit('SET_CURRENT_PATH', to.matched);
 			}
 		},
 		created(){

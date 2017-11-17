@@ -18,3 +18,15 @@ export function ajax_post_member(data) {
         data
     })
 }
+
+/**
+ * 获取成员列表
+ *
+ */
+export function ajax_get_member_list(data) {
+    return fetch({
+        url: "/api/member/list",
+        method: 'post',
+        data: data
+    })
+}
