@@ -6,6 +6,8 @@ import {
     remove_token
 } from '../util/auth';
 import { Login } from '../apis/user'
+import { Message } from 'iview'
+
 
 Vue.use(Vuex);
 
@@ -23,7 +25,7 @@ const store = new Vuex.Store({
     getters: {
         token: state => {
             return state.token
-        } 
+        }
     },
     mutations: {
         SET_CURRENT_PATH: (state, current_path) => {
@@ -43,12 +45,8 @@ const store = new Vuex.Store({
             return new Promise((resolve, reject) => {
                 Login(userInfo).then(response => {
                     const data = response;
-                    console.log('login', data);
-                    if (data.status === 500) {
-                        Message({
-                            message: '账户或密码错误！',
-                            type: 'warning'
-                        });
+                    if (data.status == 'error') {
+                        Message.error(data.message);
                         return Promise.reject('error');
                     } else {
                         set_token(data.data);
@@ -63,7 +61,7 @@ const store = new Vuex.Store({
         // 注销
         store_logout({ commit }) {
             commit('SET_TOKEN', '');
-            remove_token() ;
+            remove_token();
         },
     }
 });
