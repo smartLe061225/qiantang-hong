@@ -47,7 +47,6 @@ const store = new Vuex.Store({
                     const data = response;
                     if (data.status == 'error') {
                         Message.error(data.message);
-                        return Promise.reject('error');
                     } else {
                         set_token(data.data);
                         commit('SET_TOKEN', data.data);
