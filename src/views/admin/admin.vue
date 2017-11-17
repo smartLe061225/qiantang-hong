@@ -74,6 +74,9 @@
 				store.commit('set_current_path', to.matched);
 			}
 		},
+		created(){
+      document.body.setAttribute("class","");
+    }
 	}
 </script>
 <style lang="less">
