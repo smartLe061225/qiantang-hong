@@ -7,7 +7,8 @@ Validator.addLocale(zh_CN);
 
 // 2. 中文错误提示的配置
 const validateConfig = {
-    locale: 'zh_CN'
+    locale: 'zh_CN',
+    fieldsBagName: 'vee-fields'
 };
 Vue.use(VeeValidate, validateConfig);
 
