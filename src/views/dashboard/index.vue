@@ -29,7 +29,7 @@
           </div>
           <h2 class="mbm-title">集团资产变化曲线</h2>
         </div>
-        <div class="mormal-block-bd"></div>
+        <div class="mormal-block-bd"><bar></bar></div>
       </div>
       </Col>
       <Col span="12">
@@ -38,9 +38,9 @@
           <div class="mbm-opt">
             <a class="ghost-blue" href="javascript:;">详情</a>
           </div>
-          <h2 class="mbm-title">集团资产结构占比</h2>
+          <h2 class="mbm-title">流动资产来源构成</h2>
         </div>
-        <div class="mormal-block-bd"></div>
+        <div class="mormal-block-bd"><pie></pie></div>
       </div>
       </Col>
     </Row>
@@ -109,6 +109,8 @@
   import qtPush from "@/components/qt_push";
   import apiData from "@/components/api_data";
   import member from "@/components/member";
+  import Bar from "components/echarts/dashboard-bar";
+  import Pie from "components/echarts/dashboard-pie";
 
   export default {
     name: "dashboard",
@@ -117,7 +119,9 @@
       uploadLog,
       qtPush,
       apiData,
-      member
+      member,
+      Bar,
+      Pie
     },
     data() {
       return {
