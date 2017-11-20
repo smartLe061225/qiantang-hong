@@ -9,9 +9,12 @@
       </div>
       <div class="normal-box-bd">
         <div class="company-tabs">
-          <a href="javascript:;" :class="{'cur': company.id == current_company_id}" @click="change_company(company.id)" v-for="company in company_list_data" :key="company.id">{{company.name}}</a>
+          <a href="javascript:;" :class="{'cur': company.id == current_company_id}"
+           @click="change_company(index)"
+            v-for="(company, index) in company_list_data"
+             :key="company.id">{{company.name}}</a>
         </div>
-        <sub-department :id="current_company_id"></sub-department>
+        <sub-department :c_id="current_company_id" :c_name="current_company_name"></sub-department>
       </div>
     </div>
     
@@ -21,6 +24,7 @@
   import { Message } from "iview";
   import { ajax_get_company_selectbox } from "../../apis/company";
   import subDepartment from '../../components/member_manager/sub_department'
+  import store from '../../store'
 
   export default {
     components: {
@@ -30,25 +34,26 @@
       return {
         company_list_data: [], // 公司
         current_company_id: null,
+        current_company_name: ''
       };
     },
     methods: {
       // 公司列表
       get_company_select_box_data() {
         const _this = this;
-        ajax_get_company_selectbox()
-          .then(rs => {
-            const data = rs.data;
+        this.$store.dispatch('store_get_companies').then( rs => {
+            const data = rs;
             _this.company_list_data = data;
             _this.current_company_id = data[0].id;
-          })
-          .catch(error => {
+            _this.current_company_name = data[0].name;
+        }).catch(error => {
             Message.error(error);
           });
       },
       // change_company
-      change_company(id){
-        this.current_company_id = id;
+      change_company(index){
+        this.current_company_id = this.company_list_data[index].id;
+        this.current_company_name = this.company_list_data[index].name;
       }
     },
     created() {

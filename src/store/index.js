@@ -7,6 +7,7 @@ import {
 } from '../util/auth';
 import { Login } from '../apis/user'
 import { Message } from 'iview'
+import { ajax_get_company_selectbox } from "../apis/company";
 
 
 Vue.use(Vuex);
@@ -20,11 +21,15 @@ const store = new Vuex.Store({
                 title: '管理首页'
             }
         }],
+        company_list_data: [],
         token: get_token()
     },
     getters: {
         token: state => {
             return state.token
+        },
+        company_list_data: state => {
+            return state.company_list_data
         }
     },
     mutations: {
@@ -33,6 +38,9 @@ const store = new Vuex.Store({
         },
         SET_TOKEN: (state, token) => {
             state.token = token;
+        },
+        SET_COMPANY_LIST_DATA: (state, company_list_data) => {
+            state.company_list_data = company_list_data;
         }
     },
     actions: {
@@ -62,6 +70,24 @@ const store = new Vuex.Store({
             commit('SET_TOKEN', '');
             remove_token();
         },
+        // 获取公司列表
+        store_get_companies({
+            commit
+        }) {
+            return new Promise((resolve, reject) => {
+                ajax_get_company_selectbox().then(response => {
+                    const data = response;
+                    if (data.status == 'error') {
+                        Message.error(data.message);
+                    } else {
+                        commit('SET_COMPANY_LIST_DATA', data.data);
+                        resolve(data.data);
+                    }
+                }).catch(error => {
+                    reject(error);
+                });
+            });
+        }
     }
 });
 
