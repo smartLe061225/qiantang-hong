@@ -3,13 +3,10 @@
     <div class="member-department-bar clearfix">
 
       <div class="fr">
-        <Input placeholder="请输入成员姓名" v-model="keywords" class="radius-input" style="width: 300px;"></Input>
-        <Button icon="ios-search">{{id}}</Button>
-
-        <Button type="ghost" @click="show_create_new_member">
+        <Input placeholder="请输入成员姓名" v-model="keywords" icon="search" class="radius-input" @enter="do_search" style="width: 200px;"></Input>
+        <Button type="ghost" class="radius-button" @click="show_create_new_member">
           <Icon type="plus-round"></Icon> 添加成员</Button>
       </div>
-
       <div class="department-list">
         <a href="javascript:;" v-for="department in department_list_data" :key="department.id">{{department.name}}</a>
       </div>
@@ -18,7 +15,7 @@
 
     <div class="member-list">
     <ul class="clearfix">
-      <li class="member-list-item" v-for="member in member_list_data" :key="member.id">
+      <li class="member-list-item" v-for="(member, index) in member_list_data" :key="member.id">
         <div class="member-mod">
           <div class="is-department-leader" v-if="member.ifDepartLeader">负责人</div>
           <dl class="member-item clearfix">
@@ -33,14 +30,14 @@
                 <a href="javascript:;">{{member.name}}</a>
               </h3>
 
-              <div class="sub-content"><Icon type="iphone"></Icon> {{member.phone}}</div>
-              <div class="sub-content"><Icon type="ios-email-outline"></Icon> {{member.email}}</div>
+              <div class="sub-content"><Icon type="iphone" size=22></Icon> {{member.phone}}</div>
+              <div class="sub-content"><Icon type="ios-email-outline" size=18></Icon> {{member.email}}</div>
             </dd>
           </dl>
           <div class="opt-layer">
-            <a class="" href="javascript:;">删除</a>
+            <a @click="confirm_del_member(index)" href="javascript:;">删除</a>
             <span>|</span>
-            <a href="javascript:;">编辑</a>
+            <a @click="confirm_del_member(index)" href="javascript:;">编辑</a>
           </div>
         </div>
       </li>
@@ -51,13 +48,13 @@
     <Modal v-model="modals.member.is_show" :title="modals.member.title" @on-ok="post_member">
       <Form ref="member_form" :model="modals.member.data" :rules="modals.member.rules" :label-width="120">
         <FormItem label="姓名" prop="name">
-          <Input placeholder="请输入姓名" v-model="modals.member.data.name"></Input>
+          <Input placeholder="请输入姓名" v-model="modals.member.data.name" style="width:200px;"></Input>
         </FormItem>
         <FormItem label="邮箱" prop="email">
-          <Input placeholder="请输入邮箱" v-model="modals.member.data.email"></Input>
+          <Input placeholder="请输入邮箱" v-model="modals.member.data.email" style="width:200px;"></Input>
         </FormItem>
         <FormItem label="手机号码" prop="phone">
-          <Input placeholder="请输入手机号码" v-model="modals.member.data.phone"></Input>
+          <Input placeholder="请输入手机号码" v-model="modals.member.data.phone" style="width:200px;"></Input>
         </FormItem>
         <FormItem label="所属公司" prop="companyid">
           <Select style="width:200px" v-model="modals.member.data.companyid">
@@ -107,7 +104,10 @@
 </template>
 <script>
 import { Message } from "iview";
-import { ajax_post_member, ajax_get_member_list } from "../../apis/member";
+import { 
+  ajax_post_member, 
+  ajax_get_member_list,
+  ajax_del_member } from "../../apis/member";
 import { ajax_get_company_selectbox } from "../../apis/company";
 import { ajax_get_deparment_by_company_id } from "../../apis/department";
 
@@ -131,12 +131,11 @@ export default {
           company_list_data: [],
           department_list_data: [],
           data: {
-            companyid: 0,
+            companyid: 1,
             departLeaderFlag: 0,
             companyLeaderFlag: 0,
-            departid: 0,
+            departid: 5,
             email: "",
-            id: 0,
             name: "",
             phone: "",
             status: 1
@@ -149,6 +148,12 @@ export default {
   methods: {
     show_create_new_member() {
       this.modals.member.is_show = true;
+    },
+    // 根据关键词搜索
+    do_search(){
+      console.log('wer')
+      this.pageNum = 1;
+      this.get_member_list_data();
     },
     // 获取部门
     get_department_list_data(id) {
@@ -172,7 +177,7 @@ export default {
     get_member_list_data() {
       const _this = this;
       ajax_get_member_list({
-        pageSize: this.pageNum,
+        pageSize: this.pageSize,
         pageNum: this.pageNum,
         data: {
           companyid: this.id,
@@ -188,7 +193,40 @@ export default {
           Message.error(error);
         });
     },
-    post_member() {}
+    // 新建成员
+    post_member() {
+      ajax_post_member(this.modals.member.data)
+      .then( res => {
+        this.$Notice.success({title: '新建成员成功！'});
+        this.get_department_list_data(this.id);
+      })
+      .catch( error => {
+        this.$Notice.error({title: '新建成员失败！'});
+      }) 
+    },
+    // 删除成员
+    del_member(id) {
+      ajax_del_member({id: id}).then( res => {
+        this.$Notice.success({title: '删除成员成功！'});
+        this.get_department_list_data(this.id);
+      })
+      .catch( error => {
+        this.$Notice.error({title: '删除成员失败！'});
+      })
+    },
+    // 删除成员确认
+    confirm_del_member(index) {
+      const _name = this.member_list_data[index].name;
+      const _id = this.member_list_data[index].id;
+      this.$Modal.confirm({
+          title: '删除成员确认',
+          content: '<div class="fz-14"><p>确认删除姓名为 <strong>'+_name+'</strong> 的用户吗？</p><p>删除后将不能恢复，请谨慎操作！</p></div>',
+          onOk: () => {
+            this.del_member(_id);
+          },
+          
+      });
+    }
   },
   created() {
     if (this.id == null) return;
@@ -212,6 +250,7 @@ export default {
     float: left;
     width: 30%;
     margin-left: 3%;
+    margin-bottom: 20px;
     .member-mod {
       position: relative;
       border: 1px solid #ececec;

@@ -15,7 +15,7 @@ const cash = r => require.ensure([], () => r(require('../views/analysis/cash')),
 const profits = r => require.ensure([], () => r(require('../views/analysis/profits')), 'profits')
 const warning = r => require.ensure([], () => r(require('../views/analysis/warning')), 'warning')
 
-const company = r => require.ensure([], () => r(require('../views/analysis/')), 'company')
+const company = r => require.ensure([], () => r(require('../views/company/')), 'company')
 const information = r => require.ensure([], () => r(require('../views/company/information')), 'information')
 const manager = r => require.ensure([], () => r(require('../views/company/manager')), 'manager')
 const department = r => require.ensure([], () => r(require('../views/company/department')), 'department')

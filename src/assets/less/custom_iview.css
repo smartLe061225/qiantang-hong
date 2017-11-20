@@ -3,6 +3,7 @@
 }
 .radius-input .ivu-input {
   border-radius: 16px;
+  padding-left: 12px;
 }
 .radius-input .ivu-btn {
   background: none;
@@ -13,4 +14,7 @@
   position: absolute;
   display: block;
   z-index: 3;
+}
+.radius-button.ivu-btn {
+  border-radius: 16px;
 }

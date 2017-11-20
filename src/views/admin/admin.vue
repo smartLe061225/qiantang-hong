@@ -86,6 +86,12 @@
 .fr {
 	float: right;
 }
+.fz-14 {
+	font-size: 14px;
+}
+.m-25 {margin: 25px;}
+	.mr-10 {margin-right: 10px;}
+	.mt-65 {margin-top: 65px;}
 	.main {
 		position: absolute;
 		width: 100%;
@@ -234,13 +240,18 @@
 		margin:0 25px;
 	}
 	.bread-crumb-bar {
+		position: fixed;
+		top: 64px;
+		left: 181px;
+		right: 0;
+		z-index: 90;
 		height: 46px;
 		line-height: 46px;
-		background: #fff;
+		background: rgba(255,255,255, 0.9);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#e5ffffff, endColorstr=#e5ffffff);
 		padding-left: 25px;
 	}
-	.m-25 {margin: 25px;}
-	.mr-10 {margin-right: 10px;}
+	
 
 	.normal-box-mod {
     margin-bottom: 20px;

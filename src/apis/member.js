@@ -13,9 +13,9 @@ import fetch from '@/util/fetch';
  */
 export function ajax_post_member(data) {
     return fetch({
-        url: "/api/member",
+        url: "/api/member/update",
         method: 'post',
-        data
+        data: {data: data}
     })
 }
 
@@ -28,5 +28,17 @@ export function ajax_get_member_list(data) {
         url: "/api/member/list",
         method: 'post',
         data: data
+    })
+}
+
+/**
+ * 删除成员
+ *
+ */
+export function ajax_del_member(data) {
+    return fetch({
+        url: "/api/member/delete",
+        method: 'post',
+        data: { data: data }
     })
 }
