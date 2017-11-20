@@ -42,7 +42,7 @@
     </ul>
     </div>
     <div class="page-bar">
-      <Page :total="total_record" on-change="change_page_data"></Page>
+      <Page :total="total_record" :page-size="page_size" @on-change="change_page_data"></Page>
     </div>
 
     <!--新增成员-->
@@ -128,7 +128,7 @@ export default {
       current_department_id: null,
       member_list_data: [],
       pageNum: 1,
-      pageSize: 4,
+      page_size: 5,
       total_record: null,
       keywords: "",
       modals: {
@@ -206,9 +206,8 @@ export default {
     },
     // 翻页
     change_page_data(page) {
-      // pageNum = this.pageNum ++;
-      console.log(page)
-      get_member_list_data()
+      this.page_num = page;
+      this.get_member_list_data();
 
     },
     // 获取部门下拉数据
@@ -229,16 +228,15 @@ export default {
     // 改变部门
     change_department(index) {
       this.current_department_id = this.department_list_data[index].id;
-      // this.current_department_name = this.department_list_data[index].name;
     },
     // 获取成员列表
     get_member_list_data() {
       const _this = this;
       ajax_get_member_list({
-        pageSize: this.pageSize,
+        pageSize: this.page_size,
         pageNum: this.pageNum,
         data: {
-          companyid: this.id,
+          companyid: this.c_id,
           departid: this.current_department_id,
           name: this.keywords
         }
