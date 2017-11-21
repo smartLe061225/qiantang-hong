@@ -186,7 +186,7 @@ const routes = [
 
 
 const router = new Router({
-  mode: 'history',
+  mode: 'hash',
   linkActiveClass: 'active',
   routes
 })
