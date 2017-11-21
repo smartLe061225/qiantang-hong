@@ -42,7 +42,7 @@
                 const resultData = result.data[0].data;
                 if (resultData.length>0) {
                   resultData.forEach(function(v){
-                    self.seriesData.push(v.sum_month_total)
+                    self.seriesData.push(v.total)
                   })
                   self.setChartOption()
                 }

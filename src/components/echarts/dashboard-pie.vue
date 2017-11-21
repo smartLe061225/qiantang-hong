@@ -40,12 +40,10 @@
             ajaxPostAnalysisReportassets(data).then(result=>{
               if (result.status == 'success') {
                 const resultData = result.data[0].data;
-                console.log(resultData)
                 if (resultData.length>0) {
                   resultData.forEach(function(v){
-                      self.seriesData.push({value: v.sum_early_balance,name: v.index_name})
+                      self.seriesData.push({value: v.total,name: v.index_name})
                   })
-                  console.log(self.seriesData)
                   self.setChartOption()
                 }else{
                   self.myChart.hideLoading()
