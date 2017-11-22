@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m-25 mt-65">
     <div class="normal-box-mod">
       <div class="normal-box-hd clearfix">
         <div class="normal-box-title">

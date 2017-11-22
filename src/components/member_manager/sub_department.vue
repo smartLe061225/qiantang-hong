@@ -127,8 +127,8 @@ export default {
       department_select_list_data: [],
       current_department_id: null,
       member_list_data: [],
-      pageNum: 1,
-      page_size: 5,
+      page_num: 1,
+      page_size: 9,
       total_record: null,
       keywords: "",
       modals: {
@@ -183,7 +183,7 @@ export default {
     },
     // 根据关键词搜索
     do_search(){
-      this.pageNum = 1;
+      this.page_num = 1;
       this.get_member_list_data();
     },
     // 获取部门和成员列表数据
@@ -207,6 +207,7 @@ export default {
     // 翻页
     change_page_data(page) {
       this.page_num = page;
+      console.log('page', page)
       this.get_member_list_data();
 
     },
@@ -234,7 +235,7 @@ export default {
       const _this = this;
       ajax_get_member_list({
         pageSize: this.page_size,
-        pageNum: this.pageNum,
+        pageNum: this.page_num,
         data: {
           companyid: this.c_id,
           departid: this.current_department_id,
@@ -252,7 +253,7 @@ export default {
     },
     // 新建成员
     post_member() {
-      this.modals.member.data.companyid = this.id;
+      this.modals.member.data.companyid = this.c_id;
       this.modals.member.data.departid = this.current_department_id;
       ajax_post_member(this.modals.member.data)
       .then( res => {
