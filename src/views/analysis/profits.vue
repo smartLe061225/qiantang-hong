@@ -36,6 +36,7 @@
 <script>
   import echarts from 'echarts'
   import echartsConfig from 'src/util/echarts'
+  import * as tools from 'src/util/tools'
   import { ajax_get_company_selectbox } from "src/apis/company";
   import { ajaxPostAnalysisPublicdata, ajaxPostAnalysisReportprofit } from "src/apis/analysis";
 
@@ -51,7 +52,7 @@
         pic: '',
         dateFilter: {
           model: 1,
-          select: [{value: 1,label: '当月余额'},{value: 2,label: '本年累计'}]
+          select: echartsConfig.filterDateArr
         }
       }
     },
@@ -87,37 +88,6 @@
         }
         echartsConfig.resize(self.myChart)
         this.pic = self.myChart.getDataURL()
-      },
-      keyToValue(companyIds, resourceData){
-        let result = [];
-        for (let j = 0; j < companyIds.length; j++) {
-          for(let i = 0; i < resourceData.length; i++){          
-            if(resourceData[i].value == companyIds[j]){
-              result.push(resourceData[i].label);
-            }
-          }
-        }
-        return result;
-      },
-      formatBarSeriesData(resourceArr, legendDataArr){
-        let result = [];
-        for (let i = 0; i < legendDataArr.length; i++) {
-          let dataArr = [];
-          for (let j = 0; j < resourceArr.length; j++) {
-            let itemsArrData = resourceArr[j].data;            
-            if (itemsArrData.length>0) {
-              for (let k = 0; k < itemsArrData.length; k++) {
-                if(itemsArrData[k].index_name == legendDataArr[i]){
-                  dataArr.push(itemsArrData[k].total)
-                }
-              }              
-            }else{
-              dataArr.push('')
-            }
-          }
-          result.push({ name: legendDataArr[i], type: 'bar',barWidth: 42, data: dataArr })
-        }
-        return result;
       },
       get_company_select_box_data() {
         const self = this;
@@ -156,7 +126,7 @@
         ajaxPostAnalysisReportprofit(data).then(rs => {
           let data = rs.data;
           if (data.length>0) {
-            self.seriesData = self.formatBarSeriesData(data, self.modelIndex)
+            self.seriesData = tools.formatBarSeriesData(data, self.modelIndex)
             if (callback && typeof callback === "function") {
               callback();
             }
@@ -167,7 +137,7 @@
     computed: {
       companyNames: function(){
         const self = this;
-        return this.keyToValue(self.companyIds, self.cityList)
+        return tools.getCompanyName(self.companyIds, self.cityList)
       }
     },
     mounted() {
