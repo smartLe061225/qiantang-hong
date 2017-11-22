@@ -81,8 +81,8 @@
       },
       keyToValue(companyIds, resourceData){
         let result = [];
-        for (var j = 0; j < companyIds.length; j++) {
-          for(var i = 0; i < resourceData.length; i++){          
+        for (let j = 0; j < companyIds.length; j++) {
+          for(let i = 0; i < resourceData.length; i++){          
             if(resourceData[i].value == companyIds[j]){
               result.push(resourceData[i].label);
             }
@@ -92,12 +92,16 @@
       },
       formatBarSeriesData(resourceArr, legendDataArr){
         let result = [];
-        for (var i = 0; i < legendDataArr.length; i++) {
+        for (let i = 0; i < legendDataArr.length; i++) {
           let dataArr = [];
-          for (var j = 0; j < resourceArr.length; j++) {
-            let itemsArr = resourceArr[j].data
-            if (itemsArr.length>0 && itemsArr[i].index_name == legendDataArr[i]) {
-              dataArr.push(itemsArr[i].total)
+          for (let j = 0; j < resourceArr.length; j++) {
+            let itemsArrData = resourceArr[j].data;            
+            if (itemsArrData.length>0) {
+              for (let k = 0; k < itemsArrData.length; k++) {
+                if(itemsArrData[k].index_name == legendDataArr[i]){
+                  dataArr.push(itemsArrData[k].total)
+                }
+              }              
             }else{
               dataArr.push('')
             }
@@ -115,7 +119,6 @@
             result.push({'value':v.id, 'label':v.name})
           })
           self.cityList = result;
-          // self.companyNames = self.keyToValue(self.companyIds, result)
         })
       },
       getProfitsIndex(){
