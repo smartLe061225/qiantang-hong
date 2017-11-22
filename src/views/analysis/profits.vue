@@ -20,6 +20,9 @@
                 <Select v-model="modelIndex" multiple style="width:280px" placeholder="请选择指标" @on-change="reDrawChart">
                   <Option v-for="item in indexList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
+                <Select v-model="dateFilter.model" style="width:100px" placeholder="请选择查询日期" @on-change="reDrawChart">
+                  <Option v-for="item in dateFilter.select" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
               </div>
           </div>
           <div class="normal-box-bd">
@@ -44,7 +47,11 @@
         indexList: [],
         modelIndex: ['营业收入','营业利润','净利润'],
         seriesData: [],
-        myChart: {}
+        myChart: {},
+        dateFilter: {
+          model: 1,
+          select: [{value: 1,label: '当月余额'},{value: 2,label: '本年累计'}]
+        }
       }
     },
     methods: {
@@ -141,7 +148,7 @@
           "data":{
             "indexNames": self.modelIndex.join(','),
             "companyIds": self.companyIds.join(','),
-            "type": 1
+            "type": self.dateFilter.model
           }
         }
         ajaxPostAnalysisReportprofit(data).then(rs => {
