@@ -14,10 +14,10 @@
           </div>
           <div class="normal-box-bd">
               <div class="chart-filter">
-                <Select v-model="companyIds" multiple style="width:220px" placeholder="请选择公司">
+                <Select v-model="companyIds" multiple style="width:220px" placeholder="请选择公司" @on-change="reDrawChart">
                   <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
-                <Select v-model="modelIndex" multiple style="width:280px" placeholder="请选择指标">
+                <Select v-model="modelIndex" multiple style="width:280px" placeholder="请选择指标" @on-change="reDrawChart">
                   <Option v-for="item in indexList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
               </div>
@@ -41,7 +41,6 @@
       return {
         cityList: [],
         companyIds: [1,2],
-        companyNames: [],
         indexList: [],
         modelIndex: ['营业收入','营业利润','净利润'],
         seriesData: [],
@@ -52,27 +51,17 @@
       init(){        
         const self = this
         this.get_company_select_box_data();
-        this.getProfitsIndex();
-        this.getSeriesData();
-        echartsConfig.resize(self.myChart)
+        this.getProfitsIndex();      
         this.reDrawChart()
       },
       reDrawChart(){
         const self = this;
-        this.initChart()
-        setTimeout(function(){
-          self.setChart()
-        },1500)
-        echartsConfig.resize(self.myChart)
-      },
-      initChart(){
-        this.myChart = echarts.init(document.querySelector('.profits-bar .echarts'));
-        this.myChart.showLoading();
+        this.getSeriesData(self.setChart);
       },
       setChart(){
         const self = this;
-        self.myChart.hideLoading()
-        self.myChart.setOption({
+        this.myChart = echarts.init(document.querySelector('.profits-bar .echarts'));
+        let option = {
           tooltip: {},
           legend: {
             data: self.modelIndex,
@@ -84,12 +73,16 @@
           yAxis: {},      
           color: echartsConfig.color,
           series: self.seriesData
-        });
+        }        
+        if (option && typeof option === "object") {
+            this.myChart.setOption(option, true);
+        }
+        echartsConfig.resize(self.myChart)
       },
       keyToValue(companyIds, resourceData){
         let result = [];
-        for(var i = 0; i < resourceData.length; i++){
-          for (var j = 0; j < companyIds.length; j++) {
+        for (var j = 0; j < companyIds.length; j++) {
+          for(var i = 0; i < resourceData.length; i++){          
             if(resourceData[i].value == companyIds[j]){
               result.push(resourceData[i].label);
             }
@@ -105,6 +98,8 @@
             let itemsArr = resourceArr[j].data
             if (itemsArr.length>0 && itemsArr[i].index_name == legendDataArr[i]) {
               dataArr.push(itemsArr[i].total)
+            }else{
+              dataArr.push('')
             }
           }
           result.push({ name: legendDataArr[i], type: 'bar',barWidth: 42, data: dataArr })
@@ -120,7 +115,7 @@
             result.push({'value':v.id, 'label':v.name})
           })
           self.cityList = result;
-          self.companyNames = self.keyToValue(self.companyIds, result)
+          // self.companyNames = self.keyToValue(self.companyIds, result)
         })
       },
       getProfitsIndex(){
@@ -137,7 +132,7 @@
           })
         })
       },
-      getSeriesData(){
+      getSeriesData(callback){
         const self = this;
         let data = {
           "data":{
@@ -150,24 +145,20 @@
           let data = rs.data;
           if (data.length>0) {
             self.seriesData = self.formatBarSeriesData(data, self.modelIndex)
+            if (callback && typeof callback === "function") {
+              callback();
+            }
           }
         })
       }
     },
-    watch:{
-      companyIds: function(){
+    computed: {
+      companyNames: function(){
         const self = this;
-        this.companyNames = this.keyToValue(self.companyIds, self.cityList)
-        // this.getSeriesData()
-        // this.reDrawChart()
-      },
-      modelIndex: function(){
-        /*this.getSeriesData()
-        this.reDrawChart()*/
+        return this.keyToValue(self.companyIds, self.cityList)
       }
     },
     mounted() {
-
       this.init()
     }
   }
