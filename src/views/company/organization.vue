@@ -38,8 +38,8 @@
                     <div class="sub-company">
                         <h3 class="title">我的分公司</h3>
                         <ul class="sub-company-list">
-                            <li v-for="company in company_list_data" :key="company.id" :class="{cur: company.id == current_company_id}">
-                                <a href="javascript:;">
+                            <li v-for="(company, index) in company_list_data" :key="company.id" :class="{cur: company.id == current_company_id}">
+                                <a href="javascript:;" @click="change_company(index)">
                                     <img src="https://img1.doubanio.com/icon/u2629298-7.jpg" :alt="company.name">
                                     <strong>{{company.name}}</strong>
                                 </a>
@@ -51,7 +51,7 @@
                     <div class="sub-company-department-list">
                         <h3 class="title">分公司部门</h3>
                         <div class="sub-company-department-nav-bar clearfix">
-                            <a href="javascript:;" :class="{cur: department.id == current_department_id}" v-for="department in department_list_data" :key="department.id">{{department.name}}</a>    
+                            <a href="javascript:;" @click="change_department(index)" :class="{cur: department.id == current_department_id}" v-for="(department, index) in department_list_data" :key="department.id">{{department.name}}</a>    
                         </div>  
                         <div class="member-list">
                             <ul class="clearfix">
@@ -59,8 +59,8 @@
                                     <div class="ml-box">
                                     <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt="毛梦琪">
                                     <strong class="name">{{member.name}}</strong>
-                                    <span class="dep">市场部</span>  
-                                    <span class="is-leader">负责人</span>
+                                    <!-- <span class="dep">市场部</span>   -->
+                                    <span class="is-leader" v-if="member.ifDepartLeader">负责人</span>
                                     </div>
                                 </li>
                             </ul>
@@ -215,8 +215,15 @@ export default {
       })
         .then(res => {
           this.department_list_data = res.data;
-          this.current_department_id = res.data[0].id;
-          this.get_member_by_department_id();
+          if(res.data.length == 0) {
+            this.member_list_data = [];
+            this.$Notice.info({
+                title: '该公司下还未建立任何部门',
+            });
+          } else {
+            this.current_department_id = res.data[0].id;
+            this.get_member_by_department_id();
+          }
         })
         .catch(error => {
           Message.error(error);
@@ -225,7 +232,6 @@ export default {
     // 成员列表
     get_member_by_department_id() {
       const _this = this;
-      console.log('eee')
       ajax_get_member_list({
         pageSize: this.page_size,
         pageNum: this.page_num,
@@ -290,6 +296,18 @@ export default {
       ajax_post_company(this.modals.company.create.data).then(res => {
         console.log("res", res);
       });
+    },
+    // 切换公司
+    change_company(index){
+      this.page_num = 1;
+      this.current_company_id = this.company_list_data[index].id;
+      this.get_department_by_company_id(this.current_company_id);
+    },
+    // 切换部门
+    change_department(index){
+      this.page_num = 1;
+      this.current_department_id = this.department_list_data[index].id;
+      this.get_member_by_department_id();
     }
   },
   created() {
