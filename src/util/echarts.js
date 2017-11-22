@@ -1,3 +1,5 @@
+import { ajaxPostAnalysisPublicData } from "src/apis/analysis";
+
 const echartsConfig = {
   color: ['#00c35c','#0e7ccf','#ffd900','#b7a3df','#e55e7e','#ffc0c0','#ff9a23','#f1c2e6','#f8c66e','#26a9e6','#8be0db','#ff6b08'],
   setColor(params){
@@ -8,7 +10,22 @@ const echartsConfig = {
       obj.resize()
     }.bind(this))
   },
-  filterDateArr: [{value: 1,label: '当月余额'},{value: 2,label: '本年累计'}]
+  filterDateArr: [{value: 1,label: '当月余额'},{value: 2,label: '本年累计'}],
+  getProfitsIndex(type){
+    let data = {
+      "data":{
+        "dataType": type
+      }
+    }
+    let results = [];
+    ajaxPostAnalysisPublicData(data).then(rs => {
+      let result = rs.data.data;
+      result.forEach(function(v){
+        results.push({'value':v.dataIndexName,'label':v.dataIndexName})
+      })
+    })
+    return results;
+  }
 }
 
 export default echartsConfig;
