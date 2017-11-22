@@ -7,7 +7,7 @@
   import echarts from 'echarts'
   import echartsConfig from 'src/util/echarts'
   import { ajax_get_company_selectbox } from "src/apis/company";
-  import { ajaxPostAnalysisReportassets } from "src/apis/analysis";
+  import { ajaxPostAnalysisReportAssets } from "src/apis/analysis";
 
   export default {
     data() {
@@ -37,7 +37,7 @@
                 indexNames: self.legendData.join(',')
               }
             }
-            ajaxPostAnalysisReportassets(data).then(result=>{
+            ajaxPostAnalysisReportAssets(data).then(result=>{
               if (result.status == 'success') {
                 const resultData = result.data[0].data;
                 if (resultData.length>0) {

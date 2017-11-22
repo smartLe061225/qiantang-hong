@@ -33,7 +33,7 @@ export function ajax_post_profits(data) {
 export const ajaxPostAnalysisReportprofit = (data) => fetch({ url: '/api/reportprofit/list', method: 'post', data })
 
 /* 获取分析(资产分析)列表 */
-export const ajaxPostAnalysisReportassets = (data) => fetch({ url: '/api/reportassets/list', method: 'post', data })
+export const ajaxPostAnalysisReportAssets = (data) => fetch({ url: '/api/reportassets/list', method: 'post', data })
 
 /* 获取分析(现金分析)列表 */
 export const ajaxPostAnalysisReportcashflow = (data) => fetch({ url: '/api/reportcashflow/list', method: 'post', data })
