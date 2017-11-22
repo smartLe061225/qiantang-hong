@@ -37,15 +37,12 @@
   import echarts from 'echarts'
   import echartsConfig from 'src/util/echarts'
   import * as tools from 'src/util/tools'
-  import { ajax_get_company_selectbox } from "src/apis/company";
-  import { ajaxPostAnalysisPublicdata, ajaxPostAnalysisReportAssets } from "src/apis/analysis";
+  import { ajaxPostAnalysisReportAssets } from "src/apis/analysis";
 
   export default {
     data () {
       return {
-        cityList: [],
         companyIds: [1],
-        indexList: [],
         modelIndex: ['流动资产','货币资金','应收账款'],
         seriesData: [],
         myChart: {},
@@ -57,10 +54,7 @@
       }
     },
     methods: {
-      init(){        
-        const self = this
-        this.get_company_select_box_data();
-        this.getProfitsIndex();      
+      init(){
         this.reDrawChart()
       },
       reDrawChart(){
@@ -89,31 +83,6 @@
         echartsConfig.resize(self.myChart)
         this.pic = self.myChart.getDataURL()
       },
-      get_company_select_box_data() {
-        const self = this;
-        ajax_get_company_selectbox().then(rs => {
-          let data = rs.data;
-          let result = [];
-          data.forEach(function(v) {
-            result.push({'value':v.id, 'label':v.name})
-          })
-          self.cityList = result;
-        })
-      },
-      getProfitsIndex(){
-        const self = this;
-        let data = {
-          "data":{
-            "dataType": 2
-          }
-        }
-        ajaxPostAnalysisPublicdata(data).then(rs => {
-          const result = rs.data.data;
-          result.forEach(function(v){
-            self.indexList.push({'value':v.dataIndexName,'label':v.dataIndexName})
-          })
-        })
-      },
       getSeriesData(callback){
         const self = this;
         let data = {
@@ -138,6 +107,12 @@
       companyNames: function(){
         const self = this;
         return tools.getCompanyName(self.companyIds, self.cityList)
+      },
+      indexList: function(){
+        return echartsConfig.getProfitsIndex(2);
+      },
+      cityList: function(){
+        return echartsConfig.getCompanyData()
       }
     },
     mounted() {
