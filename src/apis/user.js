@@ -22,3 +22,13 @@ export const forgetSMS = (data) => fetch({ url: '/api/register/code', method: 'p
 
 /** 找回密码 **/
 export const Forget = (data) => fetch({ url: '/api/register/forget', method: 'post', data })
+
+/**
+ * 获取登录信息
+ **/
+export function ajax_get_baseinfo() {
+    return fetch({
+        url: "/api/user/baseinfo",
+        method: 'get',
+    })
+}

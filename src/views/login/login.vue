@@ -58,18 +58,12 @@
               username: self.account,
               password: self.password
             }
-            // Login(data).then(res => {
-            //   if (res.status == 'success') {
-            //     self.$router.push('/dashboard')
-            //   }else{
-            //     self.$Message.error(res.message);
-            //   }
-            // })
-            // return;
             this.$store
             .dispatch('store_login', data)
             .then( () => {
-              self.$router.push('/dashboard')
+              self.$store.dispatch('store_get_baseinfo').then( res => {
+                self.$router.push('/dashboard')
+              })
             })
           }
         });
