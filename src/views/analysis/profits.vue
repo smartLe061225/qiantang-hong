@@ -5,7 +5,7 @@
               <div class="normal-box-opt">
                   <a href="javascript:;" class="mr-10">标准利润表</a>
                   <a href="javascript:;" class="mr-10">重新导入</a>
-                  <a href="javascript:;">导出</a>
+                  <a :href="pic" download title="导出图表">导出</a>
               </div>
             <div class="normal-box-title">
               <div class="decorate-square"></div>
@@ -48,6 +48,7 @@
         modelIndex: ['营业收入','营业利润','净利润'],
         seriesData: [],
         myChart: {},
+        pic: '',
         dateFilter: {
           model: 1,
           select: [{value: 1,label: '当月余额'},{value: 2,label: '本年累计'}]
@@ -85,6 +86,7 @@
             this.myChart.setOption(option, true);
         }
         echartsConfig.resize(self.myChart)
+        this.pic = self.myChart.getDataURL()
       },
       keyToValue(companyIds, resourceData){
         let result = [];
