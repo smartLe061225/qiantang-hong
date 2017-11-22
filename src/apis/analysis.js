@@ -36,7 +36,7 @@ export const ajaxPostAnalysisReportprofit = (data) => fetch({ url: '/api/reportp
 export const ajaxPostAnalysisReportAssets = (data) => fetch({ url: '/api/reportassets/list', method: 'post', data })
 
 /* 获取分析(现金分析)列表 */
-export const ajaxPostAnalysisReportcashflow = (data) => fetch({ url: '/api/reportcashflow/list', method: 'post', data })
+export const ajaxPostAnalysisReportCashflow = (data) => fetch({ url: '/api/reportcashflow/list', method: 'post', data })
 
 /* 获取分析指标 */
 export const ajaxPostAnalysisPublicdata = (data) => fetch({ url: '/api/publicdata/list', method: 'post', data })
