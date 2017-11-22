@@ -17,3 +17,14 @@ export function ajax_get_deparment_by_company_id(data) {
         data: { data: data}
     })
 }
+
+/**
+新增部门
+ */
+export function ajax_post_department(data) {
+    return fetch({
+        url: "/api/department/update",
+        method: 'post',
+        data: { data: data }
+    })
+}

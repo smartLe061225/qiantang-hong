@@ -1,9 +1,7 @@
 <template>
   <div>
     <bread-curm-bar></bread-curm-bar>
-    <div class="m-25 mt-65">
       <router-view></router-view>
-    </div>
   </div>
 </template>
 <script>
@@ -19,3 +17,4 @@ export default {
   }
 };
 </script>
+

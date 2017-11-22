@@ -7,7 +7,7 @@
 			<div class="main-header">
 				<div class="current-company">
 					<a class="logo"><img src="../../assets/images/logo-admin.png" alt=""></a>
-					<h1>浙江华茂贸易集团有限公司</h1><span>集团总部</span>
+					<h1>{{enterprise_name}}</h1><span v-if="enterprise_type==1">集团总部</span>
 					</div>
 				<div class="header-avator-con">
 					<!-- <div @click="showMessage" class="message-con">
@@ -21,7 +21,7 @@
 						<Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
 							<Dropdown trigger="click" @on-click="handleClickUserDropdown">
 								<a href="javascript:;" class="login-username">
-									<span class="main-user-name">MADe</span>
+									<span class="main-user-name">{{user.name}}</span>
 									<Icon type="arrow-down-b"></Icon>
 								</a>
 								<DropdownMenu slot="list">
@@ -54,7 +54,10 @@
 		},
 		data(){
 			return {
-				avatorPath: 'https://p1.pstatp.com/thumb/249800157ac04c1b79ab'
+				avatorPath: 'https://p1.pstatp.com/thumb/249800157ac04c1b79ab',
+				enterprise_type: store.getters.enterprise_type,
+				enterprise_name: store.getters.enterprise_name,
+				user: store.getters.user,
 			}
 		},
 		methods: {
@@ -88,6 +91,9 @@
 }
 .fz-14 {
 	font-size: 14px;
+}
+.p-25 {
+	padding: 25px;
 }
 .m-25 {margin: 25px;}
 	.mr-10 {margin-right: 10px;}

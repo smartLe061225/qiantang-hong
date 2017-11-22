@@ -134,7 +134,9 @@ export default {
       modals: {
         member: {
           is_show: false,
-          rules: {},
+          rules: {
+            
+          },
           title: "新增成员",
           company_list_data: [],
           department_list_data: [],
@@ -228,6 +230,7 @@ export default {
     },
     // 改变部门
     change_department(index) {
+      this.page_num = 1;
       this.current_department_id = this.department_list_data[index].id;
     },
     // 获取成员列表

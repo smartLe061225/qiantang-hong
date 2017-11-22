@@ -33,9 +33,9 @@ import fetch from '@/util/fetch';
  */
 export function ajax_post_company(data) {
     return fetch({
-        url: "/api/company",
+        url: "/api/company/update",
         method: 'post',
-        data
+        data: {data: data}
     })
 }
 
@@ -78,4 +78,13 @@ export function ajax_get_company_selectbox() {
     })
 }
 
-
+/**
+ * 获取地区列表
+ */
+export function ajax_get_area(data) {
+    return fetch({
+        url: "/api/area/get",
+        method: 'post',
+        data: {data:data}
+    })
+}
