@@ -47,6 +47,22 @@ const echartsConfig = {
     }
     return options;
   },
+  barChartOptions(params){
+    let options = {
+      tooltip: {},
+      legend: {
+        data: params.legendData,
+        y: 'bottom'
+      },
+      xAxis: {
+        data: params.xAxis
+      },
+      yAxis: {},
+      color: echartsConfig.color,
+      series: params.seriesData
+    }
+    return options;
+  },
   getProfitsIndex(type){
     let data = {
       "data":{
