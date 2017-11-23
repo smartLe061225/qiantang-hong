@@ -12,6 +12,41 @@ const echartsConfig = {
     }.bind(this))
   },
   filterDateArr: [{value: 1,label: '当月余额'},{value: 2,label: '本年累计'}],
+  pieChartOptions(params){
+    let self = this;
+    let legendType = params.type ? params.type : 'vertical';
+    let legendOptions = {}
+    switch(legendType){
+      case 'vertical':
+        legendOptions = { data: params.legendData, orient: 'vertical',x: 'left' }
+        break;
+      case 'horizontal':
+        legendOptions = { data: params.legendData, orient: 'horizontal', y:'bottom'}
+        break;
+    }
+    let options = {
+      tooltip: {
+        trigger: 'item', formatter: "{a} <br/>{b}: {c} ({d}%)"
+      },
+      legend: legendOptions,
+      itemStyle: { 
+        normal:{ color: function (param){ return self.setColor(param.dataIndex) } }
+      },
+      series: [{
+        name:params.seriesName,
+        type:'pie',
+        radius: ['50%', '80%'],
+        avoidLabelOverlap: false,
+        label: {
+          normal: { show: false, position: 'center' },
+          emphasis: { show: true, textStyle: { fontSize: '26', fontWeight: 'bold' } }
+        },
+        labelLine: { normal: { show: false } },
+        data: params.seriesData
+      }]
+    }
+    return options;
+  },
   getProfitsIndex(type){
     let data = {
       "data":{
