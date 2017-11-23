@@ -25,9 +25,9 @@
                         </Dropdown>
                         <Button type="ghost">修改资料</Button>
                     </div>
-                    <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt="露得清">
-                    <strong class="name">露得清</strong>
-                    <span class="is-leader">负责人</span>
+                    <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" :alt="create_name">
+                    <strong class="name">{{create_name}}</strong>
+                    <!-- <span class="is-leader">负责人</span> -->
                     <span class="is-certification">资料已认证</span>
                 </div>
             </div>
@@ -73,6 +73,40 @@
 
 
     <!--管理公司-->
+    <Modal class-name="no-footer-modal" v-model="modals.company.manager.is_show" :mask-closable="false" :title="modals.company.manager.title">
+      <ul class="modal_company_list">
+        <li v-for="(company, index) in company_list_data" :key="company.id" class="clearfix">
+          {{company.name}}
+          <span class="fr">
+            <Button type="ghost" size="small" @click="show_update_company_modal(index)" class="mr-5">编辑</Button>
+            <Button type="ghost" size="small" @click="confirm_del_company(index)">删除</Button>
+          </span>
+        </li>        
+      </ul>
+      <div slot="footer"></div>
+    </Modal>
+
+
+    <!--管理部门-->
+    <Modal class-name="no-footer-modal" v-model="modals.department.manager.is_show" :mask-closable="false" :title="modals.department.manager.title">
+      <div class="mb-20">
+        <Select style="width:200px" v-model="modals.department.manager.data.companyid" @on-change="get_department_by_change_company">
+            <Option :value="item.id" v-for="(item, index) in company_list_data" :key="item.id">{{ item.name }}</Option>
+          </Select>
+      </div>
+      <ul class="modal_company_list">
+        <li v-for="(department, index) in modals.department.manager.department_list_data" :key="department.id" class="clearfix">
+          {{department.name}}
+          <span class="fr">
+            <Button type="ghost" size="small" @click="show_update_department_modal(index)" class="mr-5">编辑</Button>
+            <Button type="ghost" size="small" @click="confirm_del_department(index)">删除</Button>
+          </span>
+        </li>        
+      </ul>
+      <div slot="footer"></div>
+    </Modal>
+
+
     <!--添加公司-->
     <Modal v-model="modals.company.create.is_show" :mask-closable="false" :title="modals.company.create.title" @on-ok="post_create_company">
       <Form ref="create_company_form" :model="modals.company.create.data" :rules="modals.company.create.rules" :label-width="120">
@@ -96,12 +130,12 @@
       </Form>
     </Modal>
 
-    <!--管理部门-->
+
     <!--添加部门-->
     <Modal v-model="modals.department.create.is_show" :mask-closable="false" :title="modals.department.create.title" @on-ok="post_create_department">
       <Form ref="create_department_form" :model="modals.department.create.data" :rules="modals.department.create.rules" :label-width="120">
         <FormItem label="所属公司" prop="companyid">
-          <Select style="width:200px" v-model="modals.department.create.data.companyid">
+          <Select style="width:200px" v-model="modals.department.create.data.companyId">
             <Option :value="item.id" v-for="(item, index) in company_list_data" :key="item.id">{{ item.name }}</Option>
           </Select>
         </FormItem>
@@ -112,7 +146,6 @@
     </Modal>
 
 
-
     </div>
 </template>
 <script>
@@ -120,11 +153,13 @@ import {
   ajax_get_company_all,
   ajax_get_company_selectbox,
   ajax_get_area,
-  ajax_post_company
+  ajax_post_company,
+  ajax_del_company
 } from "../../apis/company";
 import {
   ajax_post_department,
-  ajax_get_deparment_by_company_id
+  ajax_get_deparment_by_company_id,
+  ajax_del_department
 } from "../../apis/department";
 import {
   get_enterprise_creater_name,
@@ -139,6 +174,7 @@ export default {
   data() {
     return {
       page_title: store.getters.enterprise_name,
+      create_name: store.getters.enterprise_creater_name,
       company_list_data: [],
       department_list_data: [],
       member_list_data: [],
@@ -159,9 +195,24 @@ export default {
               name: ""
             },
             rules: {}
-          }
+          },
+          manager: {
+            is_show: false,
+            title: "管理部门",
+            department_list_data: [],
+            data: {
+              companyid: null
+            }
+          },
         },
         company: {
+          manager: {
+            is_show: false,
+            title: "管理公司",
+            data: {
+
+            }
+          },
           create: {
             is_show: false,
             title: "新建公司",
@@ -183,12 +234,17 @@ export default {
     // 组织管理
     handle_manager_organization(name) {
       if (name === "manager_company") {
+        this.modals.company.manager.is_show = true;
       } else if (name === "create_company") {
         this.modals.company.create.is_show = true;
         this.get_area_data("province");
       } else if (name === "manager_department") {
+        this.modals.department.manager.is_show = true;
+        this.modals.department.manager.data.companyid = this.company_list_data[0].id;
+        this.get_department_by_change_company();
       } else if (name === "create_department") {
         this.modals.department.create.is_show = true;
+        this.modals.department.create.data = {}
       }
     },
     // 公司列表
@@ -245,7 +301,6 @@ export default {
           this.member_list_data = res.data.data;
         })
         .catch(error => {
-          console.log('error', error)
           Message.error(error);
         });
     },
@@ -253,7 +308,8 @@ export default {
     post_create_department() {
       ajax_post_department({
         companyId: this.modals.department.create.data.companyid,
-        name: this.modals.department.create.data.name
+        name: this.modals.department.create.data.name,
+        id: this.modals.department.create.data.id || undefined
       }).then(res => {});
     },
     // 获取子地区信息
@@ -294,7 +350,7 @@ export default {
     // 提交新增公司数据
     post_create_company() {
       ajax_post_company(this.modals.company.create.data).then(res => {
-        console.log("res", res);
+
       });
     },
     // 切换公司
@@ -308,7 +364,86 @@ export default {
       this.page_num = 1;
       this.current_department_id = this.department_list_data[index].id;
       this.get_member_by_department_id();
-    }
+    },
+    // 显示编辑公司
+    show_update_company_modal(index){
+      this.modals.company.create.title = "修改公司信息";
+      this.modals.company.create.is_show = true;
+      this.modals.company.create.data.province = parseInt(this.company_list_data[index].province);
+      this.modals.company.create.data.city = parseInt(this.company_list_data[index].city);
+      this.modals.company.create.data.area = parseInt(this.company_list_data[index].area);
+      this.modals.company.create.data.name = this.company_list_data[index].name;
+      this.modals.company.create.data.address = this.company_list_data[index].address;
+      this.modals.company.create.data.enterpriseId = get_enterpri_id();
+      this.modals.company.create.data.id = this.company_list_data[index].id;
+      this.get_area_data("province");
+      this.get_area_data("city", parseInt(this.company_list_data[index].city));
+      this.get_area_data("region", parseInt(this.company_list_data[index].region));
+    },
+    // 修改部门弹层，切换公司
+    get_department_by_change_company(){
+      ajax_get_deparment_by_company_id({
+        id: this.modals.department.manager.data.companyid
+      })
+      .then(res => {
+        this.modals.department.manager.department_list_data = res.data;
+      })
+      .catch(error => {
+        Message.error(error);
+      });
+    },
+    // 显示管理部门
+    show_update_department_modal(index){
+      this.modals.department.create.title = "修改部门信息";
+      this.modals.department.create.is_show = true;
+      this.modals.department.create.data = JSON.parse(JSON.stringify(this.modals.department.manager.department_list_data[index]));
+      this.modals.department.create.data.companyid = this.modals.department.manager.department_list_data[index].companyId;
+      this.modals.department.create.data.id = this.modals.department.manager.department_list_data[index].id;
+    },
+    // 删除公司
+    confirm_del_company(index){
+      const _company_name = JSON.parse(JSON.stringify(this.company_list_data))[index].name;
+      const _id = JSON.parse(JSON.stringify(this.company_list_data))[index].id;
+      this.$Modal.confirm({
+            title: '确认删除公司',
+            content: '<p>您确认删除名称为 <strong>'+_company_name+'</strong> 的公司吗?</p><p>删除后将无法撤销，请谨慎操作！</p>',
+            loading: true,
+            onOk: () => {
+                ajax_del_company({
+                  id: _id
+                }).then( res => {
+                  this.$Modal.remove();
+                  this.$Notice.success({
+                    title: '删除成功',
+                  });
+                  this.get_company_select_box_data();
+                })
+            },
+            
+        });
+    },
+    // 删除部门 
+    confirm_del_department(index){
+      const _department_name = JSON.parse(JSON.stringify(this.modals.department.manager.department_list_data))[index].name;
+      const _id = JSON.parse(JSON.stringify(this.modals.department.manager.department_list_data))[index].id;
+      this.$Modal.confirm({
+            title: '确认删除公司',
+            content: '<p>您确认删除名称为 <strong>'+_department_name+'</strong> 的部门吗?</p><p>删除后将无法撤销，请谨慎操作！</p>',
+            loading: true,
+            onOk: () => {
+                ajax_del_department({
+                  id: _id
+                }).then( res => {
+                  this.$Modal.remove();
+                  this.$Notice.success({
+                    title: '删除成功',
+                  });
+                  this.get_department_by_change_company();
+                })
+            },
+            
+        });
+    },
   },
   created() {
     this.get_company_select_box_data();
@@ -317,6 +452,9 @@ export default {
 </script>
 
 <style lang="less">
+.mr-5 {
+  margin-right: 5px;
+}
 .mt-46 {
   margin-top: 46px;
 }
@@ -441,12 +579,18 @@ export default {
             &:hover {
               background-color: #4e7bfa;
               color: #fff;
+              strong {
+                color: #fff;
+              }
             }
           }
           &.cur {
             a {
               background-color: #4e7bfa;
               color: #fff;
+              strong {
+                color: #fff;
+              }
             }
           }
         }
@@ -530,6 +674,17 @@ export default {
           }
         }
       }
+    }
+  }
+}
+.modal_company_list {
+  background: #fcfcfc;
+  border-top: 1px solid #e9e9e9;
+  li {
+    padding: 6px;
+    border-bottom: 1px solid #e9e9e9; 
+    &:hover {
+      background-color: #ebf7ff;
     }
   }
 }

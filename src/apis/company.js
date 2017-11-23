@@ -88,3 +88,14 @@ export function ajax_get_area(data) {
         data: {data:data}
     })
 }
+
+/**
+ * 删除公司
+ */
+export function ajax_del_company(data) {
+    return fetch({
+        url: "/api/company/delete",
+        method: 'post',
+        data: { data: data }
+    })
+}

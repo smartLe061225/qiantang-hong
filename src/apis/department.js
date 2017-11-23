@@ -28,3 +28,14 @@ export function ajax_post_department(data) {
         data: { data: data }
     })
 }
+
+/**
+删除部门
+ */
+export function ajax_del_department(data) {
+    return fetch({
+        url: "/api/department/delete",
+        method: 'post',
+        data: { data: data }
+    })
+}

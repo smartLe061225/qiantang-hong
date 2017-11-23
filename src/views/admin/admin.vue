@@ -96,8 +96,16 @@
 	padding: 25px;
 }
 .m-25 {margin: 25px;}
+.mb-20 {margin-bottom: 20px;}
+
 	.mr-10 {margin-right: 10px;}
 	.mt-65 {margin-top: 65px;}
+	  .no-footer-modal {
+    .ivu-modal-footer {
+      padding: 0;
+      border-top: none;
+    }
+  }
 	.main {
 		position: absolute;
 		width: 100%;

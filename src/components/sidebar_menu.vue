@@ -22,7 +22,7 @@
                 <!-- <MenuItem name="manager" key="manager">公司管理</MenuItem>
                 <MenuItem name="department" key="department">部门管理</MenuItem> -->
                 <MenuItem name="member" key="member">成员管理</MenuItem>
-                <MenuItem name="role" key="role">角色管理</MenuItem>
+                <!-- <MenuItem name="role" key="role">角色管理</MenuItem> -->
             </Submenu>
         </Menu>
     </div>
