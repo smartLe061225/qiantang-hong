@@ -58,49 +58,12 @@
       setChartOption(){
         let self = this;
         self.myChart.hideLoading()
-        self.myChart.setOption({
-          tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b}: {c} ({d}%)"
-          },
-          legend: {
-            orient: 'vertical',
-            x: 'left',
-            data: self.legendData
-          },
-          itemStyle: { 
-            normal:{ 
-              color: function (params){
-                return echartsConfig.setColor(params.dataIndex)
-              }
-            }
-          },
-          series: [{
-            name:'访问来源',
-            type:'pie',
-            radius: ['50%', '80%'],
-            avoidLabelOverlap: false,
-            label: {
-              normal: {
-                show: false,
-                position: 'center'
-              },
-              emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: '26',
-                  fontWeight: 'bold'
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: self.seriesData
-          }]
-        });
+        let options = echartsConfig.pieChartOptions({
+          legendData: self.legendData,
+          seriesName: '流动资产来源构成',
+          seriesData: self.seriesData,
+        })
+        self.myChart.setOption(options);
       }
     },
     mounted() {      
