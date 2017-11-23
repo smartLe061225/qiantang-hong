@@ -15,7 +15,7 @@
           <div class="normal-box-bd">
               <div class="chart-filter">
                 <Select v-model="companyIds" multiple style="width:220px" placeholder="请选择公司" @on-change="reDrawChart">
-                  <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                  <Option v-for="item in companyList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
                 <Select v-model="modelIndex" multiple style="width:350px" placeholder="请选择指标" @on-change="reDrawChart">
                   <Option v-for="item in indexList" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -26,7 +26,7 @@
               </div>
           </div>
           <div class="normal-box-bd">
-            <div class="assets-bar">
+            <div class="cash-bar">
               <div class="echarts"></div>
             </div>
           </div>
@@ -47,6 +47,8 @@
         seriesData: [],
         myChart: {},
         pic: '',
+        companyList: [],
+        indexList: [],
         dateFilter: {
           model: 1,
           select: echartsConfig.filterDateArr
@@ -63,7 +65,7 @@
       },
       setChart(){
         const self = this;
-        this.myChart = echarts.init(document.querySelector('.assets-bar .echarts'));
+        this.myChart = echarts.init(document.querySelector('.cash-bar .echarts'));
         let option = {
           tooltip: {},
           legend: {
@@ -106,14 +108,12 @@
     computed: {
       companyNames: function(){
         const self = this;
-        return tools.getCompanyName(self.companyIds, self.cityList)
-      },
-      indexList: function(){
-        return echartsConfig.getProfitsIndex(3);
-      },
-      cityList: function(){
-        return echartsConfig.getCompanyData()
+        return tools.getCompanyName(self.companyIds, self.companyList)
       }
+    },
+    created: function(){
+      this.companyList = echartsConfig.getCompanyData()
+      this.indexList = echartsConfig.getProfitsIndex(3);
     },
     mounted() {
       this.init()
@@ -121,7 +121,7 @@
   }
 </script>
 <style lang="less" scoped>
-  .assets-bar{
+  .cash-bar{
     height: 500px;
     .echarts{
       width: 100%;

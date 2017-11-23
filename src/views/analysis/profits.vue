@@ -15,7 +15,7 @@
           <div class="normal-box-bd">
               <div class="chart-filter">
                 <Select v-model="companyIds" multiple style="width:220px" placeholder="请选择公司" @on-change="reDrawChart">
-                  <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                  <Option v-for="item in companyList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
                 <Select v-model="modelIndex" multiple style="width:280px" placeholder="请选择指标" @on-change="reDrawChart">
                   <Option v-for="item in indexList" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -47,6 +47,8 @@
         seriesData: [],
         myChart: {},
         pic: '',
+        companyList: [],
+        indexList: [],
         dateFilter: {
           model: 1,
           select: echartsConfig.filterDateArr
@@ -59,11 +61,13 @@
       },
       reDrawChart(){
         const self = this;
-        this.getSeriesData(self.setChart);
+        this.myChart = echarts.init(document.querySelector('.profits-bar .echarts'));
+        this.myChart.showLoading()
+        this.getSeriesData(self.setChart);    
       },
       setChart(){
         const self = this;
-        this.myChart = echarts.init(document.querySelector('.profits-bar .echarts'));
+        this.myChart.hideLoading();
         let option = {
           tooltip: {},
           legend: {
@@ -106,14 +110,12 @@
     computed: {
       companyNames: function(){
         const self = this;
-        return tools.getCompanyName(self.companyIds, self.cityList)
-      },
-      indexList: function(){
-        return echartsConfig.getProfitsIndex(1);
-      },
-      cityList: function(){
-        return echartsConfig.getCompanyData()
+        return tools.getCompanyName(self.companyIds, self.companyList)
       }
+    },
+    created: function(){
+      this.companyList = echartsConfig.getCompanyData()
+      this.indexList = echartsConfig.getProfitsIndex(1);
     },
     mounted() {
       this.init()
