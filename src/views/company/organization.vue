@@ -115,13 +115,13 @@
         </FormItem>
         <FormItem label="所在地区" prop="area">
           <Select style="width:100px" v-model="modals.company.create.data.province" @on-change="change_province">
-            <Option :value="item.id" v-for="(item, index) in province_data" :key="item.id">{{ item.areaName }}</Option>
+            <Option :value="item.id" number v-for="(item, index) in province_data" :key="item.id">{{ item.areaName }}</Option>
           </Select>
           <Select style="width:100px" v-model="modals.company.create.data.city" @on-change="change_city">
-            <Option :value="item.id" v-for="(item, index) in city_data" :key="item.id">{{ item.areaName }}</Option>
+            <Option :value="item.id" number v-for="(item, index) in city_data" :key="item.id">{{ item.areaName }}</Option>
           </Select>
           <Select style="width:100px" v-model="modals.company.create.data.area">
-            <Option :value="item.id" v-for="(item, index) in region_data" :key="item.id">{{ item.areaName }}</Option>
+            <Option :value="item.id" number v-for="(item, index) in region_data" :key="item.id">{{ item.areaName }}</Option>
           </Select>
         </FormItem>
         <FormItem label="详细地址" prop="department">
@@ -236,13 +236,16 @@ export default {
       if (name === "manager_company") {
         this.modals.company.manager.is_show = true;
       } else if (name === "create_company") {
+        this.modals.company.create.title = "创建公司";
         this.modals.company.create.is_show = true;
+        this.modals.company.create.data = {};
         this.get_area_data("province");
       } else if (name === "manager_department") {
         this.modals.department.manager.is_show = true;
         this.modals.department.manager.data.companyid = this.company_list_data[0].id;
         this.get_department_by_change_company();
       } else if (name === "create_department") {
+        this.modals.department.create.title = "创建部门";
         this.modals.department.create.is_show = true;
         this.modals.department.create.data = {}
       }
@@ -350,7 +353,7 @@ export default {
     // 提交新增公司数据
     post_create_company() {
       ajax_post_company(this.modals.company.create.data).then(res => {
-
+        this.get_company_select_box_data();
       });
     },
     // 切换公司

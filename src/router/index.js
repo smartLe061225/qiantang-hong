@@ -7,6 +7,8 @@ const login = r => require.ensure([], () => r(require('../views/login/login')), 
 const join = r => require.ensure([], () => r(require('../views/join/join')), 'join')
 const forget = r => require.ensure([], () => r(require('../views/forget/forget')), 'forget')
 
+const certification = r => require.ensure([], () => r(require('../views/certification')), 'certification')
+
 const dashboard = r => require.ensure([], () => r(require('../views/dashboard/')), 'dashboard')
 
 const analysis = r => require.ensure([], () => r(require('../views/analysis/')), 'analysis')
@@ -171,6 +173,14 @@ const routes = [
     component: forget,
     meta: {
       title: '找回密码'
+    }
+  },
+  {
+    path: '/rz',
+    name: 'certification',
+    component: certification,
+    meta: {
+      title: '企业资料认证'
     }
   },
   {

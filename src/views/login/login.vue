@@ -62,7 +62,11 @@
             .dispatch('store_login', data)
             .then( () => {
               self.$store.dispatch('store_get_baseinfo').then( res => {
-                self.$router.push('/dashboard')
+                if(res.hasEnterprise){
+                  self.$router.push('/dashboard');
+                } else {
+                  self.$router.push('/rz');
+                }
               })
             })
           }

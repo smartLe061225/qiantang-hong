@@ -12,10 +12,10 @@ export function Login(data) {
 }
 
 /** 注册 **/
-export const Join = (data) => fetch({ url: '/api/register/submit', method: 'post', data })
+export const Join = (data) => fetch({ url: '/api/register/submit', method: 'post', data: { data: data } })
 
 /** 发送注册验证码 **/
-export const joinSMS = (data) => fetch({ url: '/api/register/code', method: 'post', data })
+export const joinSMS = (data) => fetch({ url: '/api/register/code', method: 'post', data: {data: data} })
 
 /** 发送 找回密码 验证码 **/
 export const forgetSMS = (data) => fetch({ url: '/api/register/code', method: 'post', data })

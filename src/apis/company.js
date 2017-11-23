@@ -99,3 +99,14 @@ export function ajax_del_company(data) {
         data: { data: data }
     })
 }
+
+/**
+ * 添加认证
+ */
+export function ajax_post_enterprise(data) {
+    return fetch({
+        url: "/api/enterprise/update",
+        method: 'post',
+        data: { data: data }
+    })
+}

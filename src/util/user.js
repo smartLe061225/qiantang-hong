@@ -69,7 +69,11 @@ export function remove_enterpri_id() {
 }
 
 export function get_has_enterprise() {
-    return VueCookie.get('has_enterprise')
+    if (VueCookie.get('has_enterprise') == 'true'){
+        return true
+    } else {
+        return false
+    }
 }
 
 export function set_has_enterprise(has_enterprise) {
