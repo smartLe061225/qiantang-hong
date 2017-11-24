@@ -28,7 +28,7 @@
 
 <script>
   import echartsConfig from 'src/util/echarts'  
-  import { ajaxPostAnalysisReportRecord,ajaxGetAnalysisProfitDown } from "src/apis/analysis";
+  import { ajaxPostAnalysisReportRecord } from "src/apis/analysis";
 
   export default {
     data () {
@@ -67,9 +67,7 @@
                   return h('div', {class: 'action-group'}, [
                     h('a', {
                       class: 'items download',
-                      on: { 
-                        click: () => { this.download(params.row.id,params.row.reporttime) } 
-                      }
+                      attrs: { download:'' , href: this.download(params.row.id, params.row.reporttime) }
                     }, [
                       h('Icon', { props: { type: 'arrow-down-a' } }),
                       h('span', '下载')
@@ -102,22 +100,8 @@
       }
     },
     methods:{
-      download(id,time){
-        let actionType = null;
-        switch(this.type.id)
-        {
-        case 1:
-          actionType = 'reportprofit'
-          break;
-        case 2:
-          actionType = 'reportassets'
-          break;
-        case 3:
-          actionType = 'reportcashflow'
-          break;
-        }
-        let url = this.downloadHost + '/api/' + actionType + '/downExcel?recordid=' + id + '&reportTime=' + time;
-        window.open(url)
+      download(id,time){       
+        return this.downloadHost + '/api/' + this.actionType + '/downExcel?recordid=' + id + '&reportTime=' + time;
       },
       import(index){
         console.log(index)
@@ -169,6 +153,21 @@
         if(reg.test(to.path)){
           let typeId = this.type.id = Number(this.$route.params.id) || 1;
           this.getRecordData(typeId);
+        }
+      }
+    },
+    computed:{
+      actionType: function(){
+        switch(this.type.id){
+          case 1:
+            return 'reportprofit'
+            break;
+          case 2:
+            return 'reportassets'
+            break;
+          case 3:
+            return 'reportcashflow'
+            break;
         }
       }
     },
