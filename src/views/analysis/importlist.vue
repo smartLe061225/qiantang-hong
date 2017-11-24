@@ -28,7 +28,7 @@
 
 <script>
   import echartsConfig from 'src/util/echarts'  
-  import { ajaxPostAnalysisReportRecord } from "src/apis/analysis";
+  import { ajaxPostAnalysisReportRecord,ajaxPostAnalysisDelete } from "src/apis/analysis";
 
   export default {
     data () {
@@ -86,7 +86,7 @@
                     h('button', {
                       class: 'items trash',
                       on: { 
-                        click: () => { this.delete(params.index) } 
+                        click: () => { this.delete(params.row.id , params.index) } 
                       }
                     }, [
                       h('Icon', { props: { type: 'trash-a' } }),
@@ -106,15 +106,36 @@
       import(index){
         console.log(index)
       },
-      delete(index){
-        console.log(index)
+      delete(id,index){
+        const self = this;
+        this.$Modal.confirm({
+            title: '操作提示',
+            content: '<p style="font-size: 14px;">确定要删除吗？</p>',
+            loading: true,
+            onOk: () => {
+              let data = {
+                data: {
+                  recordid: id
+                }
+              }
+              ajaxPostAnalysisDelete(self.actionType, data).then(rs => {
+                self.$Modal.remove();
+                if (rs.status == 'success') {
+                  self.$Message.success('操作成功！')
+                  self.results.splice(index, 1);
+                }else{
+                  self.$Message.error(rs.message)
+                }
+              })
+            }
+        });        
       },
       searchRecord(){
-        let self = this;
+        const self = this;
         this.getRecordData(self.type.id);
       },
       pager(page) {
-        let self = this;
+        const self = this;
         this.pageNum = page;
         this.getRecordData(self.type.id);
       },
