@@ -16,6 +16,7 @@ const assets = r => require.ensure([], () => r(require('../views/analysis/assets
 const cash = r => require.ensure([], () => r(require('../views/analysis/cash')), 'cash')
 const profits = r => require.ensure([], () => r(require('../views/analysis/profits')), 'profits')
 const warning = r => require.ensure([], () => r(require('../views/analysis/warning')), 'warning')
+const importlist = r => require.ensure([], () => r(require('../views/analysis/importlist')), 'importlist')
 
 const company = r => require.ensure([], () => r(require('../views/company/')), 'company')
 const information = r => require.ensure([], () => r(require('../views/company/information')), 'information')
@@ -79,6 +80,14 @@ const routes = [
           component: profits,
           meta: {
             title: '利润分析',
+            show_in_bread_curmb_bar: true,
+          }
+        }, {
+          path: 'list/:id',
+          name: 'list',
+          component: importlist,
+          meta: {
+            title: '导入列表',
             show_in_bread_curmb_bar: true,
           }
         }, {

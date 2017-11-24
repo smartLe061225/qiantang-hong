@@ -40,3 +40,9 @@ export const ajaxPostAnalysisReportCashflow = (data) => fetch({ url: '/api/repor
 
 /* 获取分析指标 */
 export const ajaxPostAnalysisPublicData = (data) => fetch({ url: '/api/publicdata/list', method: 'post', data })
+
+/* 获取分析导入列表 */
+export const ajaxPostAnalysisReportRecord = (data) => fetch({ url: '/api/reportrecord/list', method: 'post', data })
+
+/* 删除分析(利润分析)列表 */
+export const ajaxPostAnalysisDelete = (type,data) => fetch({ url: '/api/' + type + '/delete', method: 'post', data })
