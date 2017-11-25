@@ -68,3 +68,25 @@ export const getCompanyName = (companyIds, resourceData) => {
   }
   return result;
 }
+
+/**
+ * 方法说明： 格式化年月日
+ * @method getCompanyName
+ * @param {string}   date, 'Sun Jan 01 2017 00:00:00 GMT+0800 (China Standard Time)''
+ * @return {string}  2017-11
+ */
+export const getFormattedMonth = (date) => {
+  var d = new Date(date);
+  return d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-01";
+}
+
+/**
+ * 方法说明： 通过 格式化年月
+ * @method getCompanyName
+ * @param {string}   date, 'Sun Jan 01 2017 00:00:00 GMT+0800 (China Standard Time)''
+ * @return {string}  2017-11
+ */
+export const cutDate = (date) => {
+  var d = new Date(date);
+  return date.substring(0,7);
+}

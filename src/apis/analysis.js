@@ -46,3 +46,6 @@ export const ajaxPostAnalysisReportRecord = (data) => fetch({ url: '/api/reportr
 
 /* 删除分析(利润分析)列表 */
 export const ajaxPostAnalysisDelete = (type,data) => fetch({ url: '/api/' + type + '/delete', method: 'post', data })
+
+/* 删除分析(利润分析)列表 */
+export const ajaxPostAnalysisUpload = (type,data) => fetch({ url: '/api/' + type + '/upload', method: 'post', data })
