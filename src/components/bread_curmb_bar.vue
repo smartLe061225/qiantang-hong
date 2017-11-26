@@ -34,21 +34,21 @@ export default {
             matched = [
               { name: "dashboard", path: "/dashboard", meta: { title: "首页" } },
               { name: "profits", path: "/analysis/profits", meta: { title: "利润分析" } },
-              { name: "list", path: "javascript:;", meta: { title: "导入列表" } }
+              { name: "list", path: "", meta: { title: "导入列表" } }
             ];
             break;
           case 2:
             matched = [
               { name: "dashboard", path: "/dashboard", meta: { title: "首页" } },
               { name: "assets", path: "/analysis/assets", meta: { title: "资产分析" } },
-              { name: "list", path: "javascript:;", meta: { title: "导入列表" } }
+              { name: "list", path: "", meta: { title: "导入列表" } }
             ];
             break;
           case 3:
             matched = [
               { name: "dashboard", path: "/dashboard", meta: { title: "首页" } },
               { name: "cash", path: "/analysis/cash", meta: { title: "现金分析" } },
-              { name: "list", path: "javascript:;", meta: { title: "导入列表" } }
+              { name: "list", path: "", meta: { title: "导入列表" } }
             ];
             break;
         }

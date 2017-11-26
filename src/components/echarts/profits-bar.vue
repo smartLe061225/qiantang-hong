@@ -3,7 +3,7 @@
     <div class="normal-box-hd clearfix">
         <div class="normal-box-opt">
             <a href="javascript:;" class="mr-10">标准利润表</a>
-            <a href="javascript:;" class="mr-10">重新导入</a>
+            <router-link to="/analysis/list/1">重新导入</router-link>
             <a :href="pic" download title="导出图表">导出</a>
         </div>
       <div class="normal-box-title">
