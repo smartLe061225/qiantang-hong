@@ -96,6 +96,7 @@
           }
         }
         ajaxPostAnalysisReportprofit(data).then(rs => {
+          if (rs.status == 'success') {
           let data = rs.data;
           if (data.length>0) {
             self.seriesData = tools.formatBarSeriesData(data, self.modelIndex)
@@ -103,6 +104,9 @@
               callback();
             }
           }
+        }else{
+          self.$Message.error(rs.message)
+        }
         })
       }
     },
