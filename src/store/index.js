@@ -153,28 +153,29 @@ const store = new Vuex.Store({
         store_get_baseinfo({commit}){
             return new Promise((resolve, reject) => {
                 ajax_get_baseinfo().then(response => {
-                    const data = response.data;
+                    if (response.status == 'success') {
+                        const data = response.data;
 
-                    commit('SET_ENTERPRISE_NAME', data.enterpriseName);
-                    set_enterprise_name(data.enterpriseName);
+                        commit('SET_ENTERPRISE_NAME', data.enterpriseName);
+                        set_enterprise_name(data.enterpriseName);
 
-                    commit('SET_ENTERPRISE_TYPE', data.enterpriseType);
-                    set_enterprise_type(data.enterpriseType);
+                        commit('SET_ENTERPRISE_TYPE', data.enterpriseType);
+                        set_enterprise_type(data.enterpriseType);
 
-                    commit('SET_USER', data.user);
-                    set_user_info(data.user);
+                        commit('SET_USER', data.user);
+                        set_user_info(data.user);
 
-                    commit('SET_ENTERPRISE_CREATER_NAME', data.enterpriseCreaterName);
-                    set_enterprise_creater_name(data.enterpriseCreaterName);
-                    
-                    commit('SET_ENTERPRI_ID', data.enterpriId);
-                    set_enterpri_id(data.enterpriId);
+                        commit('SET_ENTERPRISE_CREATER_NAME', data.enterpriseCreaterName);
+                        set_enterprise_creater_name(data.enterpriseCreaterName);
+                        
+                        commit('SET_ENTERPRI_ID', data.enterpriId);
+                        set_enterpri_id(data.enterpriId);
 
-                    commit('SET_HAS_ENTERPRISE', data.hasEnterprise);
-                    set_has_enterprise(data.hasEnterprise);
+                        commit('SET_HAS_ENTERPRISE', data.hasEnterprise);
+                        set_has_enterprise(data.hasEnterprise);
 
-                    resolve(data);
-                    
+                        resolve(data);
+                    }
                 }).catch(error => {
                     reject(error);
                 });

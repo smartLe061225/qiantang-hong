@@ -81,10 +81,14 @@ const echartsConfig = {
   getCompanyData(){
     let result = [];
     ajax_get_company_selectbox().then(rs => {
-      let data = rs.data;
-      data.forEach(function(v) {
-        result.push({'value':v.id, 'label':v.name})
-      })
+      if (rs.status == 'success') {
+        let data = rs.data;
+        data.forEach(function(v) {
+          result.push({'value':v.id, 'label':v.name})
+        })
+      }else{
+        alert(rs.message)
+      }
     })
     return result;
   }
