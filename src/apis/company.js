@@ -110,3 +110,15 @@ export function ajax_post_enterprise(data) {
         data: { data: data }
     })
 }
+
+/**
+ * 获取认证信息
+ * @param {*} data 
+ */
+export function ajax_get_enterprise_info() {
+    return fetch({
+        url: "/api/enterprise/info",
+        method: 'get',
+    })
+}
+

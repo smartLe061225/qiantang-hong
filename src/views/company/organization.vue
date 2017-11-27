@@ -313,7 +313,12 @@ export default {
         companyId: this.modals.department.create.data.companyid,
         name: this.modals.department.create.data.name,
         id: this.modals.department.create.data.id || undefined
-      }).then(res => {});
+      }).then(res => {
+        // 如果是修改，刷新部门数据
+        if(this.modals.department.create.data.id){
+          this.get_department_by_change_company();
+        }
+      });
     },
     // 获取子地区信息
     get_area_data(type, pid) {

@@ -1,13 +1,10 @@
 <template>
     <div>
         <Form ref="create_cert_form" :model="certification.data" :rules="certification.rules" :label-width="120">
-            <FormItem label="" prop="">
-                <strong>企业资料认证</strong>
-            </FormItem>
             <FormItem label="公司logo" prop="logo">
                 <div class="logo-box">
                     <div class="logo-default">
-                        <img src="../assets/images/logo-default.png" alt="" v-if="certification.data.logo == null">
+                        <img src="../../assets/images/logo-default.png" alt="" v-if="certification.data.logo == null">
                         <img :src="certification.data.logo" alt="" v-if="certification.data.logo != null">
                     </div>
                     <Upload ref="upload-logo"
@@ -128,13 +125,14 @@
     </div>
 </template>
 <script>
-import { ajax_post_enterprise, ajax_get_area } from "../apis/company";
+import { ajax_post_enterprise, ajax_get_area,ajax_get_enterprise_info } from "../../apis/company";
 import {
   get_enterpri_id,
-} from "../util/user";
-import store from "../store/";
+} from "../../util/user";
+import store from "../../store/";
 export default {
   name: "certification",
+  props: ['type'],
   data() {
     return {
       modals: {
@@ -281,6 +279,12 @@ export default {
               this.$Notice.success({
                 title: "提交认证信息成功"
               });
+              // 修改认证
+              if (this.type == 'update') {
+                this.$router.push('/company/information');
+              } else {
+                this.$router.push('/login');
+              }
             } else {
               this.$Notice.error({
                 title: "提交认证信息失败"
@@ -296,10 +300,22 @@ export default {
         this.get_company_select_box_data();
       });
     },
+    // 获取已有认证信息
+    get_enterprise_data(){
+      if (this.type == 'update') {
+        ajax_get_enterprise_info().then(res => {
+          this.certification.data = res.data;
+          this.certification.data.province = parseInt(res.data.province);
+          this.certification.data.city = parseInt(res.data.city);
+          this.certification.data.area = parseInt(res.data.area);
+        });
+      }
+    }
   },
   created() {
     document.body.setAttribute("class", "");
     this.get_area_data("province");
+    this.get_enterprise_data();
   }
 };
 </script>
@@ -326,12 +342,12 @@ export default {
     .icon-legalperson {
       width: 142px;
       height: 95px;
-      background: url(../assets/images/bg-upload-rz.png) no-repeat right center;
+      background: url(../../assets/images/bg-upload-rz.png) no-repeat right center;
     }
     .icon-businesslicense {
       width: 142px;
       height: 95px;
-      background: url(../assets/images/bg-upload-rz.png) no-repeat left center;
+      background: url(../../assets/images/bg-upload-rz.png) no-repeat left center;
     }
   }
   .uploaded-status {

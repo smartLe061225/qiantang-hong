@@ -25,6 +25,7 @@ const department = r => require.ensure([], () => r(require('../views/company/dep
 const member = r => require.ensure([], () => r(require('../views/company/member')), 'member')
 const role = r => require.ensure([], () => r(require('../views/company/role')), 'role')
 const organization = r => require.ensure([], () => r(require('../views/company/organization')), 'organization')
+const certification_change = r => require.ensure([], () => r(require('../views/company/certification')), 'certification_change')
 
 const notFound = r => require.ensure([], () => r(require('components/error/404')), 'notFound')
 
@@ -121,6 +122,14 @@ const routes = [
             component: organization,
             meta: {
               title: '组织架构',
+              show_in_bread_curmb_bar: true,
+            }
+          }, {
+            path: 'change-certification',
+            name: 'change_certification',
+            component: certification_change,
+            meta: {
+              title: '修改认证信息',
               show_in_bread_curmb_bar: true,
             }
           },{
