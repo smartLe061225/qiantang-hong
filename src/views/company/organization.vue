@@ -197,8 +197,15 @@ export default {
               name: ""
             },
             rules: {
-              name: [{ required: true, message: "公司名称不能为空", trigger: "blur" }],
-              companyid: [{ required: true, type:'number', message: "所属公司不能为空", trigger: "change" }],
+              name: [{ required: true, message: "部门名称不能为空", trigger: "blur" }],
+              companyid: [
+                {
+                  required: true,
+                  type: "number",
+                  message: "所属公司不能为空",
+                  trigger: "change"
+                }
+              ]
             }
           },
           manager: {
@@ -218,6 +225,7 @@ export default {
           },
           create: {
             is_show: false,
+            loading: true,
             title: "新建公司",
             data: {
               province: null,
@@ -227,7 +235,9 @@ export default {
               name: "",
               enterpriseId: get_enterpri_id()
             },
-            rules: {}
+            rules: {
+              name: [{ required: true, message: "公司名称不能为空", trigger: "blur" }]
+            }
           }
         }
       }
@@ -239,9 +249,11 @@ export default {
       if (name === "manager_company") {
         this.modals.company.manager.is_show = true;
       } else if (name === "create_company") {
+        this.$refs["create_company_form"].resetFields();
         this.modals.company.create.title = "创建公司";
         this.modals.company.create.is_show = true;
         this.modals.company.create.data = {};
+        this.modals.company.create.data.enterpriseId = get_enterpri_id();
         this.get_area_data("province");
       } else if (name === "manager_department") {
         this.modals.department.manager.is_show = true;
@@ -376,8 +388,28 @@ export default {
     },
     // 提交新增公司数据
     post_create_company() {
-      ajax_post_company(this.modals.company.create.data).then(res => {
-        this.get_company_select_box_data();
+      this.$refs["create_company_form"].validate(valid => {
+        if (valid) {
+          ajax_post_company(this.modals.company.create.data).then(res => {
+            this.modals.company.create.loading = false;
+            if (res.status == 'success'){
+              this.get_company_select_box_data();
+              this.modals.company.create.is_show = false;
+              this.$Notice.success({
+                title: "保存成功!"
+              });
+            } else {
+              this.$Notice.error({
+                title: res.message
+              });
+            }
+          });
+        } else {
+          this.modals.company.create.loading = false;
+          this.$nextTick(() => {
+            this.modals.company.create.loading = true;
+          });
+        }
       });
     },
     // 切换公司
@@ -495,6 +527,7 @@ export default {
             this.$Notice.success({
               title: "删除成功"
             });
+            this.get_department_by_company_id(this.current_company_id);
             this.get_department_by_change_company();
           });
         }
