@@ -36,94 +36,103 @@
 </template>
 
 <script>
-  import footerInverse from 'components/footer'
-  import { Join, joinSMS } from 'src/apis/user'
+import footerInverse from "components/footer";
+import { Join, joinSMS } from "src/apis/user";
 
-  export default {
-    data(){
-      return {
-        isAgree: false,
-        isPhone: false,
-        computedTime: 0,
-        value: {
-          username: '',
-          password: '',
-          cpassword: '',
-          phone: '',
-          code: ''
-        },
-        placeholder: {
-          username: '用户名',
-          password: '密码',
-          cpassword: '确认密码',
-          phone: '手机号',
-          code: '验证码'
+export default {
+  data() {
+    return {
+      isAgree: false,
+      isPhone: false,
+      computedTime: 0,
+      value: {
+        username: "",
+        password: "",
+        cpassword: "",
+        phone: "",
+        code: ""
+      },
+      placeholder: {
+        username: "用户名",
+        password: "密码",
+        cpassword: "确认密码",
+        phone: "手机号",
+        code: "验证码"
+      }
+    };
+  },
+  components: {
+    footerInverse
+  },
+  methods: {
+    checkAgree() {
+      this.isAgree = this.isAgree ? false : true;
+    },
+    getSMSCode() {
+      let self = this;
+      this.$validator.validate("phone").then(result => {
+        if (result) {
+          self.computedTime = 60;
+          self.timer = setInterval(() => {
+            self.computedTime--;
+            if (self.computedTime == 0) {
+              clearInterval(self.timer);
+            }
+          }, 1000);
+
+          let data = {
+            phone: self.value.phone
+          };
+          joinSMS(data).then(res => {
+            if (res.status == "error") {
+              self.computedTime = 0;
+              clearInterval(self.timer);
+              self.$Message.error(res.message);
+            }
+          });
+          return;
         }
-      }
+      });
     },
-    components: {
-      footerInverse
-    },
-    methods: {
-      checkAgree(){
-        this.isAgree = this.isAgree ? false : true;
-      },
-      getSMSCode(){
-        let self = this;
-        this.$validator.validate('phone').then((result) => {
-          if (result) {
-            self.computedTime = 60;
-            self.timer = setInterval(() => {
-                self.computedTime --;
-                if (self.computedTime == 0) {
-                    clearInterval(self.timer)
-                }
-            }, 1000)
-
-            let data = {
-              phone: self.value.phone
+    checkJoin() {
+      let self = this;
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          let data = {
+            username: self.value.username,
+            password: self.value.password,
+            phone: self.value.phone,
+            code: self.value.code
+          };
+          Join(data).then(res => {
+            if (res.status == "success") {
+              // 获取用户token，并且设置值
+              self.$store.dispatch("store_set_token", res.data).then(() => {
+                self.$store.dispatch("store_get_baseinfo").then(res => {
+                  if (res.hasEnterprise) {
+                    self.$router.push("/dashboard");
+                  } else {
+                    self.$router.push("/rz");
+                  }
+                });
+              });
+            } else {
+              self.$Message.error(res.message);
             }
-            joinSMS(data).then(res => {
-              if (res.status == 'error') {
-                self.computedTime = 0;
-                clearInterval(self.timer)
-                self.$Message.error(res.message);
-              }
-            })
-            return;
-          }
-        })
-      },
-      checkJoin(){
-        let self = this;
-        this.$validator.validateAll().then((result) => {
-          if (result) {
-            let data = {
-              username: self.value.username,
-              password: self.value.password,
-              phone: self.value.phone,
-              code: self.value.code
-            }
-            Join(data).then(res => {
-              if (res.status == 'success') {
-                self.$router.push('login')
-              }else{
-                self.$Message.error(res.message);
-              }
-            })
-            return;
-          }
-        })
-      }
-    },
-    created(){
-      document.body.setAttribute("class","loginBg");
+          });
+          return;
+        }
+      });
     }
+  },
+  created() {
+    document.body.setAttribute("class", "loginBg");
   }
+};
 </script>
 <style lang="less">
-@import url('~assets/less/login.less');
-.Join{  
+@import url("~assets/less/login.less");
+.Join {
   width: 492px;
   padding: 44px 82px;
 }

@@ -128,8 +128,11 @@ const store = new Vuex.Store({
         },
         // 注销
         store_logout({ commit }) {
-            commit('SET_TOKEN', '');
-            remove_token();
+            return new Promise((resolve, reject) => {
+                commit('SET_TOKEN', '');
+                remove_token();
+                resolve();
+            });
         },
         // 获取公司列表
         store_get_companies({
@@ -149,8 +152,13 @@ const store = new Vuex.Store({
                 });
             });
         },
+        // 设置token
+        store_set_token({ commit }, token) {
+            set_token(token);
+            commit('SET_TOKEN', token);
+        },
         // 获取当前登录用户信息
-        store_get_baseinfo({commit}){
+        store_get_baseinfo({ commit }) {
             return new Promise((resolve, reject) => {
                 ajax_get_baseinfo().then(response => {
                     if (response.status == 'success') {
@@ -167,7 +175,7 @@ const store = new Vuex.Store({
 
                         commit('SET_ENTERPRISE_CREATER_NAME', data.enterpriseCreaterName);
                         set_enterprise_creater_name(data.enterpriseCreaterName);
-                        
+
                         commit('SET_ENTERPRI_ID', data.enterpriId);
                         set_enterpri_id(data.enterpriId);
 
