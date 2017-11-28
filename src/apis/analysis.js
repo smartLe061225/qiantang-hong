@@ -49,3 +49,9 @@ export const ajaxPostAnalysisDelete = (type,data) => fetch({ url: '/api/' + type
 
 /* 删除分析(利润分析)列表 */
 export const ajaxPostAnalysisUpload = (type,data) => fetch({ url: '/api/' + type + '/upload', method: 'post', data })
+
+/* 资产分析指标 */
+export const ajaxPostAssetsIndex = (data) => fetch({ url: '/api/reportassets/typeList', method: 'post', data })
+
+/* 资产分析数据 */
+export const ajaxPostAssetsData = (data) => fetch({ url: '/api/reportassets/dataList', method: 'post', data})
