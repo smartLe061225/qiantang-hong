@@ -52,6 +52,7 @@
 
     <!--新增成员-->
     <Modal v-model="modals.member.is_show" :mask-closable="false" :loading="modals.member.loading" :title="modals.member.title" @on-ok="post_member">
+      {{modals.member.data}}
       <Form ref="member_form" :model="modals.member.data" :rules="modals.member.rules" :label-width="120">
         <FormItem label="姓名" prop="name">
           <Input placeholder="请输入姓名" v-model="modals.member.data.name" style="width:200px;"></Input>
@@ -172,6 +173,7 @@ export default {
       this.modals.member.data.email = "";
       this.modals.member.data.name = "";
       this.modals.member.data.phone = "";
+      this.modals.member.data.id = undefined;
       this.modals.member.data.status = 1;
       this.modals.member.data.companyid = this.c_id;
       this.modals.member.data.departid = this.current_department_id;
@@ -276,8 +278,8 @@ export default {
     post_member() {
       this.$refs["member_form"].validate(valid => {
         if (valid) {
-          this.modals.member.data.companyid = this.c_id;
-          this.modals.member.data.departid = this.current_department_id;
+          // this.modals.member.data.companyid = this.c_id;
+          // this.modals.member.data.departid = this.current_department_id;
           ajax_post_member(this.modals.member.data)
             .then(res => {
               this.modals.member.is_show = false;
