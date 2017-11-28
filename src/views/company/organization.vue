@@ -23,7 +23,7 @@
                                 <DropdownItem name="create_department">添加部门</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
-                        <Button type="ghost">修改资料</Button>
+                        <!-- <Button type="ghost">修改资料</Button> -->
                     </div>
                     <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" :alt="create_name">
                     <strong class="name">{{create_name}}</strong>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="organization-bd">
-            <Row>
+            <Row v-if="enterprise_type==2">
                 <Col span="8">
                     <div class="sub-company">
                         <h3 class="title">我的分公司</h3>
@@ -67,6 +67,29 @@
                         </div>                      
                     </div>
                 </Col>
+            </Row>
+
+            <Row v-if="enterprise_type==1">
+              <Col span="24">
+                <div class="sub-company-department-list" style="background:#fff;">
+                        <h3 class="title">部门</h3>
+                        <div class="sub-company-department-nav-bar clearfix">
+                            <a href="javascript:;" @click="change_department(index)" :class="{cur: department.id == current_department_id}" v-for="(department, index) in department_list_data" :key="department.id">{{department.name}}</a>    
+                        </div>  
+                        <div class="member-list">
+                            <ul class="clearfix">
+                                <li v-for="member in member_list_data" :key="member.id">
+                                    <div class="ml-box">
+                                    <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt="毛梦琪">
+                                    <strong class="name">{{member.name}}</strong>
+                                    <!-- <span class="dep">市场部</span>   -->
+                                    <span class="is-leader" v-if="member.ifDepartLeader">负责人</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>                      
+                    </div>
+              </Col>
             </Row>
         </div>
     </div>
