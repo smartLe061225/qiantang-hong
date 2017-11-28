@@ -10,7 +10,6 @@
         <a href="javascript:;" :class="{'cur': department.id == current_department_id}" v-for="(department, index) in department_list_data" @click="change_department(index)" :key="department.id">{{department.name}}</a>
       </div>
     </div>
-
     <div class="member-list">
     <ul class="clearfix">
       <li class="member-list-item" v-for="(member, index) in member_list_data" :key="member.id">
@@ -19,7 +18,7 @@
           <dl class="member-item clearfix">
             <dt class="member-item-hd">
               <div class="face-box">
-                <img src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt="">
+                <!-- <img src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt=""> -->
                 <div class="account-suspend" v-if="member.status==0">已离职</div>
               </div>
             </dt>
@@ -52,7 +51,6 @@
 
     <!--新增成员-->
     <Modal v-model="modals.member.is_show" :mask-closable="false" :loading="modals.member.loading" :title="modals.member.title" @on-ok="post_member">
-      {{modals.member.data}}
       <Form ref="member_form" :model="modals.member.data" :rules="modals.member.rules" :label-width="120">
         <FormItem label="姓名" prop="name">
           <Input placeholder="请输入姓名" v-model="modals.member.data.name" style="width:200px;"></Input>
@@ -122,7 +120,7 @@ import store from "../../store/";
 
 export default {
   name: "subDepartment",
-  props: ["c_id", "c_ame"],
+  props: ["c_id", "c_ame", "page"],
   computed: {
     company_list_data() {
       return this.$store.getters.company_list_data;
@@ -134,7 +132,7 @@ export default {
       department_select_list_data: [],
       current_department_id: null,
       member_list_data: [],
-      page_num: 1,
+      page_num: this.page,
       page_size: 9,
       total_record: null,
       keywords: "",

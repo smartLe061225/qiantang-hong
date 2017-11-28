@@ -14,7 +14,7 @@
             v-for="(company, index) in company_list_data"
              :key="company.id">{{company.name}}</a>
         </div>
-        <sub-department :c_id="current_company_id" :c_name="current_company_name"></sub-department>
+        <sub-department page="1" :c_id="current_company_id" :c_name="current_company_name"></sub-department>
       </div>
     </div>
     
