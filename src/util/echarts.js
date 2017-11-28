@@ -114,6 +114,32 @@ const echartsConfig = {
       }
     })
     return result;
+  },
+  getCompanyList: function(rs){
+    if (rs.status == 'success') {
+      let data = rs.data;
+      let result = [];
+      data.forEach(function(v) {
+        result.push({'value':v.id, 'label':v.name})
+      })
+      return result;
+    }else{
+      alert(rs.message)
+    }
+  },
+  getIndexList: function(rs){
+    if (rs.status == 'success' ) {
+      let data = rs.data;
+      let result = [];
+      if (data.length>0) {              
+        data.forEach(function(v){
+          result.push(v.parentclass)
+        })
+        return result;
+      }
+    }else{
+      alert(rs.message)
+    }
   }
 }
 

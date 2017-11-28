@@ -44,6 +44,7 @@
   import echarts from 'echarts'
   import echartsConfig from 'src/util/echarts'
   import * as tools from 'src/util/tools'
+  import { ajax_get_company_selectbox } from "src/apis/company";
   import { ajaxPostAssetsIndex,ajaxPostAssetsData } from "src/apis/analysis";
 
   export default {
@@ -59,20 +60,14 @@
             list: []
           },
           time: {
-            value: '期末余额',
-            list: ['年初余额','期末余额']
+            value: '',
+            list: []
           }
         },
         resource: []
       }
     },
     methods: {
-      init(){
-        const self = this;
-        setTimeout(function(){
-          self.getResourceData(self.setChart())
-        },1000)
-      },
       setChart(){
         const self = this;
         this.myChart = echarts.init(document.querySelector('.assets-line .echarts'));
@@ -90,16 +85,15 @@
         });
       },
       reLoadChart(){
-        const self = this;
-        self.getResourceData(self.setChart())
+        this.getResourceData()
       },
-      getResourceData(callback){
+      getResourceData(){
         const self = this;
         let data = {
           data:{
             indexNames: self.filter.index.value,
-            companyIds: self.companyIds,
-            type: self.indexType
+            companyIds: this.filter.company.value.join(','),
+            type: self.dateType
           }
         }
         this.$Loading.start();
@@ -107,35 +101,19 @@
           if (rs.status == 'success') {
             self.$Loading.finish();
             self.resource = rs.data[0].data;
-            if (callback && typeof callback === "function") {
-              callback();
-            }
+            self.setChart()
           }else{
             self.Message.error(rs.message)
             self.$Loading.error();
           }
         })
       },
-      getProfitsIndexData(){
-        const self = this;
-        let result = [];
-        ajaxPostAssetsIndex().then(rs => {
-          if (rs.status == 'success' ) {
-            let data = rs.data;            
-            if (data.length>0) {              
-              data.forEach(function(v){
-                result.push(v.parentclass)
-              })
-            }
-          }else{
-            self.$Message.error(rs.message)
-          }
-        })
-        return result;
+      getTimeType: function(){        
+        return ['年初余额','期末余额']
       }
     },
     computed: {
-      indexType: function(){
+      dateType: function(){
         switch(this.filter.time.value){
           case '年初余额':
             return 1
@@ -155,16 +133,25 @@
     },
     created: function(){
       const self = this;
-      this.filter.company.list = echartsConfig.getCompanyData();
-      this.filter.index.list = this.getProfitsIndexData();      
-      setTimeout(function(){
-        let a = self.filter.company.list[0] ? self.filter.company.list[0].value : 1;
-        self.filter.company.value = [a];
-        self.filter.index.value = self.filter.index.list[0] || '资产总计';
-      },30)
-    },
-    mounted() {
-      this.init()
+      Promise.all([ajax_get_company_selectbox(), ajaxPostAssetsIndex(), self.getTimeType()]).then(rs => {
+        let companyData = echartsConfig.getCompanyList(rs[0])
+        if (companyData.length) {
+          self.filter.company.list = companyData;
+          self.filter.company.value = [companyData[0].value];
+        }
+
+        let indexData = echartsConfig.getIndexList(rs[1])
+        if (indexData.length) {
+          self.filter.index.list = indexData;
+          self.filter.index.value = indexData[0]
+        }
+
+        let timeData = rs[2]
+        self.filter.time.list = timeData;
+        self.filter.time.value = timeData[1]
+      }).then(rs => {
+        self.getResourceData()
+      })
     }
   }
 </script>
