@@ -25,7 +25,7 @@
                 <Input placeholder="请输入企业名称" v-model="certification.data.name" style="width:300px;"></Input>
             </FormItem>
             <FormItem label="企业类型" prop="type">
-                <Select style="width:100px" v-model="certification.data.type">
+                <Select style="width:100px" v-model="certification.data.type" >
                     <Option :value=2 number >集团</Option>
                     <Option :value=1 number >公司</Option>
                 </Select>

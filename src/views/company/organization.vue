@@ -132,14 +132,14 @@
 
 
     <!--添加部门-->
-    <Modal v-model="modals.department.create.is_show" :mask-closable="false" :title="modals.department.create.title" @on-ok="post_create_department">
+    <Modal v-model="modals.department.create.is_show" :loading = "modals.department.create.loading" :mask-closable="false" :title="modals.department.create.title" @on-ok="post_create_department">
       <Form ref="create_department_form" :model="modals.department.create.data" :rules="modals.department.create.rules" :label-width="120">
         <FormItem label="所属公司" prop="companyid">
-          <Select style="width:200px" v-model="modals.department.create.data.companyId">
+          <Select style="width:200px" v-model="modals.department.create.data.companyid">
             <Option :value="item.id" v-for="(item, index) in company_list_data" :key="item.id">{{ item.name }}</Option>
           </Select>
         </FormItem>
-        <FormItem label="部门名称" prop="department">
+        <FormItem label="部门名称" prop="name">
           <Input placeholder="请输入部门名称" v-model="modals.department.create.data.name" style="width:200px;"></Input>
         </FormItem>
       </Form>
@@ -197,7 +197,8 @@ export default {
               name: ""
             },
             rules: {
-              name: [{ required: true, message: "公司名称不能为空", trigger: "blur" }]
+              name: [{ required: true, message: "公司名称不能为空", trigger: "blur" }],
+              companyid: [{ required: true, type:'number', message: "所属公司不能为空", trigger: "change" }],
             }
           },
           manager: {
@@ -247,6 +248,7 @@ export default {
         this.modals.department.manager.data.companyid = this.company_list_data[0].id;
         this.get_department_by_change_company();
       } else if (name === "create_department") {
+        this.$refs["create_department_form"].resetFields();
         this.modals.department.create.title = "创建部门";
         this.modals.department.create.is_show = true;
         this.modals.department.create.data = {};
@@ -311,14 +313,29 @@ export default {
     },
     // 新增部门数据提交
     post_create_department() {
-      ajax_post_department({
-        companyId: this.modals.department.create.data.companyid,
-        name: this.modals.department.create.data.name,
-        id: this.modals.department.create.data.id || undefined
-      }).then(res => {
-        // 如果是修改，刷新部门数据
-        if (this.modals.department.create.data.id) {
-          this.get_department_by_change_company();
+      this.$refs["create_department_form"].validate(valid => {
+        if (valid) {
+          ajax_post_department({
+            companyId: this.modals.department.create.data.companyid,
+            name: this.modals.department.create.data.name,
+            id: this.modals.department.create.data.id || undefined
+          }).then(res => {
+            this.get_department_by_company_id(this.current_company_id);
+            // 如果是修改，刷新部门数据
+            if (this.modals.department.create.data.id) {
+              this.get_department_by_change_company();
+            }
+            this.modals.department.create.is_show = false;
+            this.modals.department.create.loading = false;
+            this.$Notice.success({
+              title: "保存成功!"
+            });
+          });
+        } else {
+          this.modals.department.create.loading = false;
+          this.$nextTick(() => {
+            this.modals.department.create.loading = true;
+          });
         }
       });
     },
