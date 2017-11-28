@@ -37,6 +37,7 @@
         <div class="echarts"></div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -85,9 +86,10 @@
         });
       },
       reLoadChart(){
-        this.getResourceData()
+        const self = this;
+        this.getResourceData(self.setChart)
       },
-      getResourceData(){
+      getResourceData(callback){
         const self = this;
         let data = {
           data:{
@@ -101,7 +103,9 @@
           if (rs.status == 'success') {
             self.$Loading.finish();
             self.resource = rs.data[0].data;
-            self.setChart()
+            if (callback && typeof callback === "function") {
+              callback();
+            }
           }else{
             self.Message.error(rs.message)
             self.$Loading.error();
@@ -109,7 +113,7 @@
         })
       },
       getTimeType: function(){        
-        return ['年初余额','期末余额']
+        return ['期末余额']
       }
     },
     computed: {
@@ -148,9 +152,9 @@
 
         let timeData = rs[2]
         self.filter.time.list = timeData;
-        self.filter.time.value = timeData[1]
+        self.filter.time.value = timeData[0]
       }).then(rs => {
-        self.getResourceData()
+        self.getResourceData(self.setChart)
       })
     }
   }
