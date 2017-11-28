@@ -23,7 +23,7 @@
                                 <DropdownItem name="create_department">添加部门</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
-                        <!-- <Button type="ghost">修改资料</Button> -->
+                        <Button type="ghost" @click="goto_cert">修改资料</Button>
                     </div>
                     <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" :alt="create_name">
                     <strong class="name">{{create_name}}</strong>
@@ -288,6 +288,12 @@ export default {
         this.modals.department.create.is_show = true;
         this.modals.department.create.data = {};
       }
+    },
+    // 跳转到修改认证信息
+    goto_cert(){
+      this.$router.push({
+        name: 'change_certification'
+      })
     },
     // 公司列表
     get_company_select_box_data() {
