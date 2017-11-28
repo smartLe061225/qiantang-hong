@@ -166,6 +166,7 @@ export default {
   methods: {
     // 显示新建用户弹出层
     show_create_new_member_modal() {
+      this.modals.member.title = '新建成员';
       this.modals.member.data.departLeaderFlag = 0;
       this.modals.member.data.companyLeaderFlag = 0;
       this.modals.member.data.email = "";
@@ -179,6 +180,7 @@ export default {
     },
     // 显示修改用户弹出层id
     show_update_member_modal(index) {
+      this.modals.member.title = '编辑成员';
       this.modals.member.data.id = this.member_list_data[index].id;
       this.modals.member.data.departLeaderFlag = this.member_list_data[
         index
@@ -201,7 +203,6 @@ export default {
     },
     // 根据关键词搜索
     do_search() {
-      console.log('he')
       this.page_num = 1;
       this.get_member_list_data();
     },
@@ -232,7 +233,6 @@ export default {
     // 翻页
     change_page_data(page) {
       this.page_num = page;
-      console.log("page", page);
       this.get_member_list_data();
     },
     // 获取部门下拉数据
@@ -282,11 +282,11 @@ export default {
             .then(res => {
               this.modals.member.is_show = false;
               this.modals.member.loading = false;
-              this.$Notice.success({ title: "新建成员成功！" });
+              this.$Notice.success({ title: "保存成功！" });
               this.get_member_list_data();
             })
             .catch(error => {
-              this.$Notice.error({ title: "新建成员失败！" });
+              this.$Notice.error({ title: "保存失败！" });
             });
         } else {
           this.modals.member.loading = false;
