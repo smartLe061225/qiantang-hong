@@ -70,6 +70,24 @@ export const getCompanyName = (companyIds, resourceData) => {
 }
 
 /**
+ * 方法说明： 通过 公司ID(companyIds) 返回 对应公司名(result)
+ * @method getCompanyName
+ * @param {array}   companyIds, 公司ID
+ * @param {array}   resourceData, 包含公司ID和公司名的数组
+ * @return {array}
+ */
+export const getCompanyID = (companyName, resourceData) => {
+  let result = [];
+  for (let i = 0; i < companyName.length; i++) {
+    for(let j = 0; j < resourceData.length; j++){          
+      if(resourceData[j].label == companyName[i]){
+        result.push(resourceData[j].value);
+      }
+    }
+  }
+  return result;
+}
+/**
  * 方法说明： 格式化年月日
  * @method getCompanyName
  * @param {string}   date, 'Sun Jan 01 2017 00:00:00 GMT+0800 (China Standard Time)''
@@ -201,4 +219,26 @@ export const getLineChartSeriesData = (resource, companyNameArr) => {
       }
     }
     return result;
+}
+
+/**
+ * 方法说明： 把数据处理成 echarts-柱状图 所需的数组格式
+ * @method formatBarSeriesData
+ * @param {array}   resourceArr,服务器返回数据结果
+ * @param {array}   legendDataArr, 指标，格式如：['营业收入','营业利润','净利润']
+ * @return {array}
+ */
+export const getPieChartSeriesData = (resourceArr, legendDataArr) => {
+  let resourceData = resourceArr[0].data[0].data
+  let result = [];
+  for (let i = 0; i < legendDataArr.length; i++) {    
+    for (let j = 0; j < resourceData.length; j++) {
+      if(resourceData[j].index_name == legendDataArr[i]){
+        result.push({name: legendDataArr[i], value: resourceData[j].total})
+      }else{
+        result.push({name: legendDataArr[i], value: '-'})
+      }
+    }
+  }
+  return result;
 }

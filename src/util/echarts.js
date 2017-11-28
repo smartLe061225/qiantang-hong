@@ -1,3 +1,4 @@
+import { Message } from 'iview';
 import { ajaxPostAnalysisPublicData } from "src/apis/analysis";
 import { ajax_get_company_selectbox } from "src/apis/company";
 
@@ -86,6 +87,41 @@ const echartsConfig = {
     }
     return options;
   },
+  pie1ChartOptions(params){
+    // url: http://echarts.baidu.com/echarts2/doc/example/pie1.html
+    let options = {
+        tooltip : { trigger: 'item', formatter: "{a} <br/>{b} : {c} ({d}%)" },
+        legend: { orient : 'vertical', x : 'left', data: params.legendData },
+        calculable : true,
+        series : params.seriesData
+    }
+    return options;
+  },
+  pie3ChartOptions(params){
+    // url: http://echarts.baidu.com/echarts2/doc/example/pie3.html
+    let options = {
+      tooltip : {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+      },
+      color: echartsConfig.color,
+      legend: {
+          orient : 'vertical', x : 'left', data: params.legendData
+      },
+      calculable : false,
+      series : [
+        {
+          name:'', type:'pie', selectedMode: 'single', radius : [0, 70], x: '20%',width: '40%',funnelAlign: 'right', itemStyle : { normal : { label : { position : 'inner' }, labelLine : { show : false } } },
+          data: params.seriesData
+        },
+        {
+          name:'', type:'pie', radius : [100, 140], x: '60%', width: '35%', funnelAlign: 'left',
+          data: params.seriesSubData
+        }
+      ]
+    };
+    return options;
+  },
   getProfitsIndex(type){
     let data = {
       "data":{
@@ -110,7 +146,7 @@ const echartsConfig = {
           result.push({'value':v.id, 'label':v.name})
         })
       }else{
-        alert(rs.message)
+        Message.error(rs.message)
       }
     })
     return result;
@@ -124,21 +160,21 @@ const echartsConfig = {
       })
       return result;
     }else{
-      alert(rs.message)
+      Message.error(rs.message)
     }
   },
   getIndexList: function(rs){
     if (rs.status == 'success' ) {
       let data = rs.data;
       let result = [];
-      if (data.length>0) {              
+      if (data.length>0) {
         data.forEach(function(v){
           result.push(v.parentclass)
         })
         return result;
       }
     }else{
-      alert(rs.message)
+      Message.error(rs.message)
     }
   }
 }
