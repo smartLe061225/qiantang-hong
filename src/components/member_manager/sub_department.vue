@@ -2,12 +2,12 @@
   <div>
     <div class="member-department-bar clearfix">
       <div class="fr">
-        <Input placeholder="请输入成员姓名" v-model="keywords" icon="search" class="radius-input" @enter="do_search" style="width: 200px;"></Input>
+        <Input placeholder="请输入成员姓名" v-model="keywords" icon="search" class="radius-input search-input-box" @on-click="do_search" style="width: 200px;"></Input>
         <Button type="ghost" class="radius-button" @click="show_create_new_member_modal">
           <Icon type="plus-round"></Icon> 添加成员</Button>
       </div>
       <div class="department-list">
-        <a href="javascript:;" v-for="(department, index) in department_list_data" @click="change_department(index)" :key="department.id">{{department.name}}</a>
+        <a href="javascript:;" :class="{'cur': department.id == current_department_id}" v-for="(department, index) in department_list_data" @click="change_department(index)" :key="department.id">{{department.name}}</a>
       </div>
     </div>
 
@@ -28,8 +28,8 @@
                 <a href="javascript:;">{{member.name}}</a>
               </h3>
 
-              <div class="sub-content"><Icon type="iphone" size=22></Icon> {{member.phone}}</div>
-              <div class="sub-content"><Icon type="ios-email-outline" size=18></Icon> {{member.email}}</div>
+              <div class="sub-content" v-if="member.phone.length"><Icon type="iphone" size=22></Icon> {{member.phone}}</div>
+              <div class="sub-content" v-if="member.email.length"><Icon type="ios-email-outline" size=18></Icon> {{member.email}}</div>
             </dd>
           </dl>
           <div class="opt-layer">
@@ -41,12 +41,17 @@
       </li>
     </ul>
     </div>
-    <div class="page-bar">
+    <div v-if="member_list_data.length==0">
+      <Alert show-icon>
+        暂未添加成员
+    </Alert>
+    </div>
+    <div class="page-bar" v-if="member_list_data.length">
       <Page :total="total_record" :page-size="page_size" @on-change="change_page_data"></Page>
     </div>
 
     <!--新增成员-->
-    <Modal v-model="modals.member.is_show" :title="modals.member.title" @on-ok="post_member">
+    <Modal v-model="modals.member.is_show" :mask-closable="false" :loading="modals.member.loading" :title="modals.member.title" @on-ok="post_member">
       <Form ref="member_form" :model="modals.member.data" :rules="modals.member.rules" :label-width="120">
         <FormItem label="姓名" prop="name">
           <Input placeholder="请输入姓名" v-model="modals.member.data.name" style="width:200px;"></Input>
@@ -105,20 +110,21 @@
 </template>
 <script>
 import { Message } from "iview";
-import { 
-  ajax_post_member, 
+import {
+  ajax_post_member,
   ajax_get_member_list,
-  ajax_del_member } from "../../apis/member";
+  ajax_del_member
+} from "../../apis/member";
 import { ajax_get_company_selectbox } from "../../apis/company";
 import { ajax_get_deparment_by_company_id } from "../../apis/department";
 import store from "../../store/";
 
 export default {
   name: "subDepartment",
-  props: ["c_id", 'c_ame'],
+  props: ["c_id", "c_ame"],
   computed: {
-  company_list_data () {
-      return this.$store.getters.company_list_data
+    company_list_data() {
+      return this.$store.getters.company_list_data;
     }
   },
   data() {
@@ -134,8 +140,10 @@ export default {
       modals: {
         member: {
           is_show: false,
+          loading: true,
           rules: {
-            
+            name: [{ required: true, message: "姓名不能为空", trigger: "blur" }],
+            email: [{type:'email', message: "电子邮箱格式不准确", trigger: "blur" }]
           },
           title: "新增成员",
           company_list_data: [],
@@ -172,20 +180,35 @@ export default {
     // 显示修改用户弹出层id
     show_update_member_modal(index) {
       this.modals.member.data.id = this.member_list_data[index].id;
-      this.modals.member.data.departLeaderFlag = this.member_list_data[index].departLeaderFlag;
-      this.modals.member.data.companyLeaderFlag = this.member_list_data[index].companyLeaderFlag;
+      this.modals.member.data.departLeaderFlag = this.member_list_data[
+        index
+      ].departLeaderFlag;
+      this.modals.member.data.companyLeaderFlag = this.member_list_data[
+        index
+      ].companyLeaderFlag;
       this.modals.member.data.email = this.member_list_data[index].email;
       this.modals.member.data.name = this.member_list_data[index].name;
       this.modals.member.data.phone = this.member_list_data[index].phone;
       this.modals.member.data.status = 1;
-      this.modals.member.data.companyid = this.member_list_data[index].companyid;
+      this.modals.member.data.companyid = this.member_list_data[
+        index
+      ].companyid;
       this.modals.member.data.departid = this.member_list_data[index].departid;
       this.modals.member.is_show = true;
-      this.get_department_select_list_data(this.member_list_data[index].companyid);
+      this.get_department_select_list_data(
+        this.member_list_data[index].companyid
+      );
     },
     // 根据关键词搜索
-    do_search(){
+    do_search() {
+      console.log('he')
       this.page_num = 1;
+      this.get_member_list_data();
+    },
+    // 改变部门
+    change_department(index){
+      this.page_num = 1;
+      this.current_department_id = this.department_list_data[index].id;
       this.get_member_list_data();
     },
     // 获取部门和成员列表数据
@@ -209,9 +232,8 @@ export default {
     // 翻页
     change_page_data(page) {
       this.page_num = page;
-      console.log('page', page)
+      console.log("page", page);
       this.get_member_list_data();
-
     },
     // 获取部门下拉数据
     get_department_select_list_data(id, had_val) {
@@ -222,16 +244,12 @@ export default {
         .then(rs => {
           const data = rs.data;
           _this.modals.member.department_list_data = data;
-          _this.modals.member.departid = had_val != false ? data[0].id : had_val;
+          _this.modals.member.departid =
+            had_val != false ? data[0].id : had_val;
         })
         .catch(error => {
           Message.error(error);
-        })
-    },
-    // 改变部门
-    change_department(index) {
-      this.page_num = 1;
-      this.current_department_id = this.department_list_data[index].id;
+        });
     },
     // 获取成员列表
     get_member_list_data() {
@@ -256,38 +274,52 @@ export default {
     },
     // 新建成员
     post_member() {
-      this.modals.member.data.companyid = this.c_id;
-      this.modals.member.data.departid = this.current_department_id;
-      ajax_post_member(this.modals.member.data)
-      .then( res => {
-        this.$Notice.success({title: '新建成员成功！'});
-        this.get_member_list_data();
-      })
-      .catch( error => {
-        this.$Notice.error({title: '新建成员失败！'});
-      }) 
+      this.$refs["member_form"].validate(valid => {
+        if (valid) {
+          this.modals.member.data.companyid = this.c_id;
+          this.modals.member.data.departid = this.current_department_id;
+          ajax_post_member(this.modals.member.data)
+            .then(res => {
+              this.modals.member.is_show = false;
+              this.modals.member.loading = false;
+              this.$Notice.success({ title: "新建成员成功！" });
+              this.get_member_list_data();
+            })
+            .catch(error => {
+              this.$Notice.error({ title: "新建成员失败！" });
+            });
+        } else {
+          this.modals.member.loading = false;
+          this.$nextTick(() => {
+            this.modals.member.loading = true;
+          });
+        }
+      });
     },
     // 删除成员
     del_member(id) {
-      ajax_del_member({id: id}).then( res => {
-        this.$Notice.success({title: '删除成员成功！'});
-        this.get_member_list_data();
-      })
-      .catch( error => {
-        this.$Notice.error({title: '删除成员失败！'});
-      })
+      ajax_del_member({ id: id })
+        .then(res => {
+          this.$Notice.success({ title: "删除成员成功！" });
+          this.get_member_list_data();
+        })
+        .catch(error => {
+          this.$Notice.error({ title: "删除成员失败！" });
+        });
     },
     // 删除成员确认
     confirm_del_member(index) {
       const _name = this.member_list_data[index].name;
       const _id = this.member_list_data[index].id;
       this.$Modal.confirm({
-          title: '删除成员确认',
-          content: '<div class="fz-14"><p>确认删除姓名为 <strong>'+_name+'</strong> 的用户吗？</p><p>删除后将不能恢复，请谨慎操作！</p></div>',
-          onOk: () => {
-            this.del_member(_id);
-          },
-          
+        title: "删除成员确认",
+        content:
+          '<div class="fz-14"><p>确认删除姓名为 <strong>' +
+          _name +
+          "</strong> 的用户吗？</p><p>删除后将不能恢复，请谨慎操作！</p></div>",
+        onOk: () => {
+          this.del_member(_id);
+        }
       });
     }
   },
@@ -306,7 +338,20 @@ export default {
 .member-department-bar {
   padding: 20px 0;
 }
-
+.department-list {
+  a {
+    margin-right: 10px;
+    color: #666;
+    &.cur {
+      color: #2d8cf0;
+    }
+  }
+}
+.search-input-box {
+  .ivu-icon-search {
+    cursor: pointer;
+  }
+}
 .member-list {
   margin-left: -3%;
   .member-list-item {
@@ -318,6 +363,7 @@ export default {
       position: relative;
       border: 1px solid #ececec;
       padding: 18px;
+      height: 140px;
       .member-item {
         .member-item-hd {
           float: right;
