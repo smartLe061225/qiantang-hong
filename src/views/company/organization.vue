@@ -18,7 +18,7 @@
                             </a>
                             <DropdownMenu slot="list">
                                 <DropdownItem name="manager_company">管理公司</DropdownItem>
-                                <DropdownItem name="create_company">添加公司</DropdownItem>
+                                <DropdownItem v-if="enterprise_type == 2" name="create_company">添加公司</DropdownItem>
                                 <DropdownItem name="manager_department">管理部门</DropdownItem>
                                 <DropdownItem name="create_department">添加部门</DropdownItem>
                             </DropdownMenu>
@@ -108,9 +108,9 @@
 
 
     <!--添加公司-->
-    <Modal v-model="modals.company.create.is_show" :mask-closable="false" :title="modals.company.create.title" @on-ok="post_create_company">
+    <Modal v-model="modals.company.create.is_show" :loading="modals.company.create.loading" :mask-closable="false" :title="modals.company.create.title" @on-ok="post_create_company">
       <Form ref="create_company_form" :model="modals.company.create.data" :rules="modals.company.create.rules" :label-width="120">
-        <FormItem label="公司名称" prop="company_name">
+        <FormItem label="公司名称" prop="name">
           <Input placeholder="请输入公司名称" v-model="modals.company.create.data.name" style="width:200px;"></Input>
         </FormItem>
         <FormItem label="所在地区" prop="area">
@@ -175,6 +175,7 @@ export default {
     return {
       page_title: store.getters.enterprise_name,
       create_name: store.getters.enterprise_creater_name,
+      enterprise_type: store.getters.enterprise_type,
       company_list_data: [],
       department_list_data: [],
       member_list_data: [],
@@ -190,11 +191,14 @@ export default {
           create: {
             is_show: false,
             title: "新建部门",
+            loading: true,
             data: {
               companyid: null,
               name: ""
             },
-            rules: {}
+            rules: {
+              name: [{ required: true, message: "公司名称不能为空", trigger: "blur" }]
+            }
           },
           manager: {
             is_show: false,
@@ -203,15 +207,13 @@ export default {
             data: {
               companyid: null
             }
-          },
+          }
         },
         company: {
           manager: {
             is_show: false,
             title: "管理公司",
-            data: {
-
-            }
+            data: {}
           },
           create: {
             is_show: false,
@@ -247,7 +249,7 @@ export default {
       } else if (name === "create_department") {
         this.modals.department.create.title = "创建部门";
         this.modals.department.create.is_show = true;
-        this.modals.department.create.data = {}
+        this.modals.department.create.data = {};
       }
     },
     // 公司列表
@@ -274,10 +276,10 @@ export default {
       })
         .then(res => {
           this.department_list_data = res.data;
-          if(res.data.length == 0) {
+          if (res.data.length == 0) {
             this.member_list_data = [];
             this.$Notice.info({
-                title: '该公司下还未建立任何部门',
+              title: "该公司下还未建立任何部门"
             });
           } else {
             this.current_department_id = res.data[0].id;
@@ -297,7 +299,7 @@ export default {
         data: {
           companyid: this.current_company_id,
           departid: this.current_department_id,
-          name: ''
+          name: ""
         }
       })
         .then(res => {
@@ -315,7 +317,7 @@ export default {
         id: this.modals.department.create.data.id || undefined
       }).then(res => {
         // 如果是修改，刷新部门数据
-        if(this.modals.department.create.data.id){
+        if (this.modals.department.create.data.id) {
           this.get_department_by_change_company();
         }
       });
@@ -362,96 +364,125 @@ export default {
       });
     },
     // 切换公司
-    change_company(index){
+    change_company(index) {
       this.page_num = 1;
       this.current_company_id = this.company_list_data[index].id;
       this.get_department_by_company_id(this.current_company_id);
     },
     // 切换部门
-    change_department(index){
+    change_department(index) {
       this.page_num = 1;
       this.current_department_id = this.department_list_data[index].id;
       this.get_member_by_department_id();
     },
     // 显示编辑公司
-    show_update_company_modal(index){
+    show_update_company_modal(index) {
       this.modals.company.create.title = "修改公司信息";
       this.modals.company.create.is_show = true;
-      this.modals.company.create.data.province = parseInt(this.company_list_data[index].province);
-      this.modals.company.create.data.city = parseInt(this.company_list_data[index].city);
-      this.modals.company.create.data.area = parseInt(this.company_list_data[index].area);
+      this.modals.company.create.data.province = parseInt(
+        this.company_list_data[index].province
+      );
+      this.modals.company.create.data.city = parseInt(
+        this.company_list_data[index].city
+      );
+      this.modals.company.create.data.area = parseInt(
+        this.company_list_data[index].area
+      );
       this.modals.company.create.data.name = this.company_list_data[index].name;
-      this.modals.company.create.data.address = this.company_list_data[index].address;
+      this.modals.company.create.data.address = this.company_list_data[
+        index
+      ].address;
       this.modals.company.create.data.enterpriseId = get_enterpri_id();
       this.modals.company.create.data.id = this.company_list_data[index].id;
       this.get_area_data("province");
       this.get_area_data("city", parseInt(this.company_list_data[index].city));
-      this.get_area_data("region", parseInt(this.company_list_data[index].region));
+      this.get_area_data(
+        "region",
+        parseInt(this.company_list_data[index].region)
+      );
     },
     // 修改部门弹层，切换公司
-    get_department_by_change_company(){
+    get_department_by_change_company() {
       ajax_get_deparment_by_company_id({
         id: this.modals.department.manager.data.companyid
       })
-      .then(res => {
-        this.modals.department.manager.department_list_data = res.data;
-      })
-      .catch(error => {
-        Message.error(error);
-      });
+        .then(res => {
+          this.modals.department.manager.department_list_data = res.data;
+        })
+        .catch(error => {
+          Message.error(error);
+        });
     },
     // 显示管理部门
-    show_update_department_modal(index){
+    show_update_department_modal(index) {
       this.modals.department.create.title = "修改部门信息";
       this.modals.department.create.is_show = true;
-      this.modals.department.create.data = JSON.parse(JSON.stringify(this.modals.department.manager.department_list_data[index]));
-      this.modals.department.create.data.companyid = this.modals.department.manager.department_list_data[index].companyId;
-      this.modals.department.create.data.id = this.modals.department.manager.department_list_data[index].id;
+      this.modals.department.create.data = JSON.parse(
+        JSON.stringify(
+          this.modals.department.manager.department_list_data[index]
+        )
+      );
+      this.modals.department.create.data.companyid = this.modals.department.manager.department_list_data[
+        index
+      ].companyId;
+      this.modals.department.create.data.id = this.modals.department.manager.department_list_data[
+        index
+      ].id;
     },
     // 删除公司
-    confirm_del_company(index){
-      const _company_name = JSON.parse(JSON.stringify(this.company_list_data))[index].name;
+    confirm_del_company(index) {
+      const _company_name = JSON.parse(JSON.stringify(this.company_list_data))[
+        index
+      ].name;
       const _id = JSON.parse(JSON.stringify(this.company_list_data))[index].id;
       this.$Modal.confirm({
-            title: '确认删除公司',
-            content: '<p>您确认删除名称为 <strong>'+_company_name+'</strong> 的公司吗?</p><p>删除后将无法撤销，请谨慎操作！</p>',
-            loading: true,
-            onOk: () => {
-                ajax_del_company({
-                  id: _id
-                }).then( res => {
-                  this.$Modal.remove();
-                  this.$Notice.success({
-                    title: '删除成功',
-                  });
-                  this.get_company_select_box_data();
-                })
-            },
-            
-        });
+        title: "确认删除公司",
+        content:
+          "<p>您确认删除名称为 <strong>" +
+          _company_name +
+          "</strong> 的公司吗?</p><p>删除后将无法撤销，请谨慎操作！</p>",
+        loading: true,
+        onOk: () => {
+          ajax_del_company({
+            id: _id
+          }).then(res => {
+            this.$Modal.remove();
+            this.$Notice.success({
+              title: "删除成功"
+            });
+            this.get_company_select_box_data();
+          });
+        }
+      });
     },
-    // 删除部门 
-    confirm_del_department(index){
-      const _department_name = JSON.parse(JSON.stringify(this.modals.department.manager.department_list_data))[index].name;
-      const _id = JSON.parse(JSON.stringify(this.modals.department.manager.department_list_data))[index].id;
+    // 删除部门
+    confirm_del_department(index) {
+      const _department_name = JSON.parse(
+        JSON.stringify(this.modals.department.manager.department_list_data)
+      )[index].name;
+      const _id = JSON.parse(
+        JSON.stringify(this.modals.department.manager.department_list_data)
+      )[index].id;
       this.$Modal.confirm({
-            title: '确认删除公司',
-            content: '<p>您确认删除名称为 <strong>'+_department_name+'</strong> 的部门吗?</p><p>删除后将无法撤销，请谨慎操作！</p>',
-            loading: true,
-            onOk: () => {
-                ajax_del_department({
-                  id: _id
-                }).then( res => {
-                  this.$Modal.remove();
-                  this.$Notice.success({
-                    title: '删除成功',
-                  });
-                  this.get_department_by_change_company();
-                })
-            },
-            
-        });
-    },
+        title: "确认删除公司",
+        content:
+          "<p>您确认删除名称为 <strong>" +
+          _department_name +
+          "</strong> 的部门吗?</p><p>删除后将无法撤销，请谨慎操作！</p>",
+        loading: true,
+        onOk: () => {
+          ajax_del_department({
+            id: _id
+          }).then(res => {
+            this.$Modal.remove();
+            this.$Notice.success({
+              title: "删除成功"
+            });
+            this.get_department_by_change_company();
+          });
+        }
+      });
+    }
   },
   created() {
     this.get_company_select_box_data();
@@ -690,7 +721,7 @@ export default {
   border-top: 1px solid #e9e9e9;
   li {
     padding: 6px;
-    border-bottom: 1px solid #e9e9e9; 
+    border-bottom: 1px solid #e9e9e9;
     &:hover {
       background-color: #ebf7ff;
     }

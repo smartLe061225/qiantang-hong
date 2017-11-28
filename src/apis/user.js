@@ -32,3 +32,24 @@ export function ajax_get_baseinfo() {
         method: 'get',
     })
 }
+
+/**
+ * 获取用户展示信息
+ **/
+export function ajax_get_user_front_info() {
+    return fetch({
+        url: "/user/front/info",
+        method: 'get',
+    })
+}
+
+/**
+ * 修改密码
+ **/
+export function ajax_put_user_password(data) {
+    return fetch({
+        url: "/api/user/updpwd",
+        method: 'post',
+        data: {data: data}
+    })
+}

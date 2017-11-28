@@ -7,7 +7,7 @@
 			<div class="main-header">
 				<div class="current-company">
 					<a class="logo"><img src="../../assets/images/logo-admin.png" alt=""></a>
-					<h1>{{enterprise_name}}</h1><span v-if="enterprise_type==1">集团总部</span>
+					<h1>{{enterprise_name}}</h1><span v-if="enterprise_type==2">集团总部</span>
 					</div>
 				<div class="header-avator-con">
 					<!-- <div @click="showMessage" class="message-con">
@@ -25,7 +25,7 @@
 									<Icon type="arrow-down-b"></Icon>
 								</a>
 								<DropdownMenu slot="list">
-									<DropdownItem name="ownSpace">个人中心</DropdownItem>
+									<DropdownItem name="setting">个人中心</DropdownItem>
 									<DropdownItem name="logout" divided>退出登录</DropdownItem>
 								</DropdownMenu>
 							</Dropdown>
@@ -61,7 +61,10 @@ export default {
   },
   methods: {
     handleClickUserDropdown(name) {
-      if (name === "ownSpace") {
+      if (name === "setting") {
+        this.$router.push({
+          path: "/setting/info"
+        });
       } else if (name === "logout") {
         this.$store.dispatch("store_logout");
         this.$router.push({
@@ -189,10 +192,12 @@ export default {
         font-weight: 400;
         color: #fff;
         float: left;
+        margin-right: 10px;
       }
       span {
         display: inline-block;
         height: 16px;
+        font-size: 12px;
         line-height: 16px;
         border: 1px solid #6579f4;
         color: #8698fc;
@@ -265,6 +270,7 @@ export default {
   }
 }
 .hong-copyright {
+  text-align: center;
   height: 44px;
   line-height: 44px;
   text-indent: 15px;

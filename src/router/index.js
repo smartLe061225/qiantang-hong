@@ -11,6 +11,9 @@ const certification = r => require.ensure([], () => r(require('../views/certific
 
 const dashboard = r => require.ensure([], () => r(require('../views/dashboard/')), 'dashboard')
 
+const setting_index = r => require.ensure([], () => r(require('../views/setting/')), 'setting_index')
+const setting = r => require.ensure([], () => r(require('../views/setting/setting')), 'setting')
+
 const analysis = r => require.ensure([], () => r(require('../views/analysis/')), 'analysis')
 const assets = r => require.ensure([], () => r(require('../views/analysis/assets')), 'assets')
 const cash = r => require.ensure([], () => r(require('../views/analysis/cash')), 'cash')
@@ -50,6 +53,23 @@ const routes = [
         meta: {
           title: '控制台'
         }
+      },
+      {
+        path: 'setting',
+        name: 'setting',
+        component: setting_index,
+        meta: {
+          title: '个人设置',
+          how_in_bread_curmb_bar: false,
+        },
+        children: [{
+          path: 'info',
+          name: 'info',
+          component: setting,
+          meta: {
+            title: '个人设置',
+          }
+        }]
       },
       {
         path: 'analysis',

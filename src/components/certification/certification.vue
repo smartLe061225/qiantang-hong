@@ -30,6 +30,9 @@
                     <Option :value=1 number >公司</Option>
                 </Select>
             </FormItem>
+            <FormItem label="子公司名称" prop="branch" v-if="certification.data.type == 2">
+                <Input placeholder="请输入子公司名称" v-model="certification.data.branch" style="width:300px;"></Input>
+            </FormItem>
             <FormItem label="所在地区" prop="area">
                 <Select style="width:100px" v-model="certification.data.province" @on-change="change_province">
                     <Option :value="item.id" number v-for="(item, index) in province_data" :key="item.id">{{ item.areaName }}</Option>
@@ -171,15 +174,9 @@ export default {
             }
           ],
           contacts: [{ required: true, message: "联系人不能为空", trigger: "blur" }],
+          branch: [{ required: true, message: "子公司不能为空", trigger: "blur" }],
           phone: [{ required: true, message: "手机号码不能为空", trigger: "blur" }],
-          address: [{ required: true, message: "详细地址不能为空", trigger: "blur" }]
-          // area: [
-          // { required: true, message: '地区不能为空', trigger: 'blur' }
-          // ],
-          // type: [
-          //     { type: 'email', message: '电子邮件格式不正确', trigger: 'blur' },
-          // { required: true, message: '公司类型不能为空', trigger: 'blur' }
-          // ],
+          // address: [{ required: true, message: "详细地址不能为空", trigger: "blur" }]
         },
         data: {
           logo: null,
@@ -283,7 +280,15 @@ export default {
               if (this.type == 'update') {
                 this.$router.push('/company/information');
               } else {
-                this.$router.push('/login');
+                // 新建认证成功，刷新用户信息
+                this.$store.dispatch('store_get_baseinfo').then( res => {
+                  if(res.hasEnterprise){
+                    this.$router.push('/dashboard');
+                  } else {
+                    this.$router.push('/rz');
+                  }
+                })
+           
               }
             } else {
               this.$Notice.error({
