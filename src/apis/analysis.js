@@ -55,3 +55,9 @@ export const ajaxPostAssetsIndex = (data) => fetch({ url: '/api/reportassets/typ
 
 /* 资产分析数据 */
 export const ajaxPostAssetsData = (data) => fetch({ url: '/api/reportassets/dataList', method: 'post', data})
+
+/* 利润分析指标 */
+export const ajaxPostProfitIndex = (data) => fetch({ url: '/api/reportprofit/typeList', method: 'post', data })
+
+/* 利润分析数据 */
+export const ajaxPostProfitData = (data) => fetch({ url: '/api/reportprofit/dataList', method: 'post', data })

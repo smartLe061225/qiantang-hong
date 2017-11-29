@@ -54,14 +54,29 @@ const echartsConfig = {
     let options = {
       tooltip: {},
       legend: {
-        data: params.legendData,
+        data: params.legendData ? params.legendData : '',
         y: 'bottom'
       },
       xAxis: {
-        data: params.xAxis
+        data: params.xAxis ? params.xAxis : this.mouth
       },
       yAxis: {},
       color: echartsConfig.color,
+      series: params.seriesData
+    }
+    return options;
+  },
+  bar15ChartOptions(params){
+    // http://echarts.baidu.com/echarts2/doc/example/bar15.html
+    let options = {
+      title: { text: params.title ? params.title : '' },
+      tooltip: {},
+      calculable: true,
+      xAxis: [{
+        type: 'category', data: params.xAxis ? params.xAxis : this.mouth
+      }],
+      yAxis: [{ type: 'value' }],
+      itemStyle: { normal:{ color: function (param){ return echartsConfig.setColor(param.dataIndex) } }},
       series: params.seriesData
     }
     return options;
@@ -78,7 +93,7 @@ const echartsConfig = {
       xAxis : [
         {
           type : 'category',
-          data : this.mouth
+          data : params.legendData ? params.legendData : this.mouth,
         }
       ],
       yAxis : [{ type : 'value' }],
@@ -162,6 +177,13 @@ const echartsConfig = {
     }else{
       Message.error(rs.message)
     }
+  },
+  getCompanyName: function(rs){
+      let result = [];
+      rs.forEach(function(v) {
+        result.push(v.label)
+      })
+      return result;
   },
   getIndexList: function(rs){
     if (rs.status == 'success' ) {
