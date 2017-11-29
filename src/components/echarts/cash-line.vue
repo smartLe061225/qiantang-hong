@@ -33,15 +33,15 @@
         </div>
     </div>
     <div class="normal-box-bd">
-      <div class="profits-bar">
+      <div class="cash-bar">
         <div class="echarts"></div>
       </div>
     </div>
 
     <!-- 弹出层图表 -->
-    <Modal v-model="chartModel" title="图表展示" width="600" class="custom-modal">
-      <div class="profits-pie">
-        <div class="echarts" style="width:496px;height:300px;"></div>
+    <Modal v-model="chartModel" :title="filter.company.value +' '+ filter.index.value + '明细 ' + triggerMouth" width="880" class="custom-modal">
+      <div class="cash-pie">
+        <div class="echarts" style="width:776px;height:300px;"></div>
       </div>
       <div slot="footer" style="display: none;"></div>
     </Modal>
@@ -77,15 +77,17 @@
         resourceIndex:{
           parentclassArr: [],
           subclassArr: [],
-          subclassSonArr: []
+          inputArr: [],
+          outputArr: []
         },
-        chartModel: false
+        chartModel: false,
+        triggerMouth: ''
       }
     },
     methods: {
       setChart(){
         const self = this;
-        this.myChart = echarts.init(document.querySelector('.profits-bar .echarts'));
+        this.myChart = echarts.init(document.querySelector('.cash-bar .echarts'));
         let convertResource = tools.convertResourceData(self.resource, self.companyIds, self.filter.index.value.split(','));
         let seriesData = tools.getLine4ChartSeriesData(convertResource, self.filter.index.value.split(','))
         let option = echartsConfig.line4ChartOption({
@@ -100,7 +102,30 @@
         });
       },
       triggerChart(params){
-        console.log(params)
+        const self = this;
+        this.chartModel = true;
+
+        let currentMouth = params.name.split(',')
+        this.triggerMouth = currentMouth;
+
+        let inputValue = self.resourceIndex.inputArr;
+        let outputValue = self.resourceIndex.outputArr;
+        let inputResourceData = tools.convertResourceData(self.resource, self.companyIds, inputValue, currentMouth);
+        let outputResourceData = tools.convertResourceData(self.resource, self.companyIds, outputValue, currentMouth)
+
+        let yAxisData = tools.intervalMergeArray(inputValue, outputValue).reverse();
+
+        let outputSeriesData = tools.getbar8OutputChartSeriesData(outputResourceData, outputValue)
+        let inputSeriesData = tools.getbar8InputChartSeriesData(inputResourceData, inputValue)
+        let seriesData = tools.intervalMergeArray(inputSeriesData, outputSeriesData)
+
+        let option = echartsConfig.bar8ChartOptions({
+          yAxis: yAxisData,
+          seriesData: seriesData,
+        })
+        this.myChart2 = echarts.init(document.querySelector('.cash-pie .echarts'));
+        this.myChart2.setOption(option, true);
+
       },
       reLoadChart(){
         const self = this;
@@ -123,7 +148,8 @@
             self.resourceIndex = {
               parentclassArr : rs.data[0].parentclass.split(','),
               subclassArr : rs.data[0].subclass.split(','),
-              subclassSonArr : rs.data[0].subclassSon.join(',').split(',')
+              inputArr : rs.data[0].subclassSon[0].split('#'),
+              outputArr: rs.data[0].subclassSon[1].split('#')
             }
             if (callback && typeof callback === "function") {
               callback();
@@ -188,7 +214,7 @@
   }
 </script>
 <style lang="less">
-.profits-bar{
+.cash-bar{
   height: 500px;
   .echarts{
     width: 100%;
