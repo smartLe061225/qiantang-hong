@@ -66,7 +66,7 @@
                             </ul>
                         </div>   
                         <div class="page-bar" v-if="member_list_data.length">
-                          <Page :total="total_member_record" :page-size="page_size" @on-change="change_member_page_data"></Page>
+                          <Page :total="total_member_record" :current="current_page" :page-size="page_size" @on-change="change_member_page_data"></Page>
                         </div>                   
                     </div>
                 </Col>
@@ -214,6 +214,7 @@ export default {
       current_company_id: null,
       page_size: 10,
       page_num: 1,
+      current_page: 1,
       current_department_id: null,
       modals: {
         department: {
@@ -354,6 +355,7 @@ export default {
         .then(res => {
           this.member_list_data = res.data.data;
           this.total_member_record = res.data.totalNum;
+          this.current_page = res.data.pageNum;
         })
         .catch(error => {
           Message.error(error);
