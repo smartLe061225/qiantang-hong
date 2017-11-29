@@ -62,7 +62,7 @@
           <Input placeholder="请输入手机号码" v-model="modals.member.data.phone" style="width:200px;"></Input>
         </FormItem>
         <FormItem label="所属公司" prop="companyid">
-          <Select style="width:200px" v-model="modals.member.data.companyid">
+          <Select style="width:200px" v-model="modals.member.data.companyid" @on-change="change_company_get_department">
             <Option :value="item.id" v-for="(item, index) in company_list_data" :key="item.id">{{ item.name }}</Option>
           </Select>
         </FormItem>
@@ -165,6 +165,7 @@ export default {
   methods: {
     // 显示新建用户弹出层
     show_create_new_member_modal() {
+      this.$refs['member_form'].resetFields();
       this.modals.member.title = '新建成员';
       this.modals.member.data.departLeaderFlag = 0;
       this.modals.member.data.companyLeaderFlag = 0;
@@ -180,6 +181,7 @@ export default {
     },
     // 显示修改用户弹出层id
     show_update_member_modal(index) {
+      this.$refs['member_form'].resetFields();
       this.modals.member.title = '编辑成员';
       this.modals.member.data.id = this.member_list_data[index].id;
       this.modals.member.data.departLeaderFlag = this.member_list_data[
@@ -211,6 +213,23 @@ export default {
       this.page_num = 1;
       this.current_department_id = this.department_list_data[index].id;
       this.get_member_list_data();
+    },
+    // 改变公司获取对应部门
+    change_company_get_department(id){
+      const _this = this;
+      ajax_get_deparment_by_company_id({
+        id: id
+      })
+        .then(rs => {
+          const data = rs.data;
+          _this.modals.member.department_list_data = data;
+          if (data.length){
+            _this.modals.member.data.departid = data[0].id ? data[0].id : null;
+          }
+        })
+        .catch(error => {
+          Message.error(error);
+        });
     },
     // 获取部门和成员列表数据
     get_department_list_data(id, index) {
@@ -282,8 +301,13 @@ export default {
             .then(res => {
               this.modals.member.is_show = false;
               this.modals.member.loading = false;
-              this.$Notice.success({ title: "保存成功！" });
-              this.get_member_list_data();
+              if (res.status == 'success') {
+                this.$Notice.success({ title: "保存成功！" });
+                this.get_member_list_data();
+              } else {
+                this.$Notice.error({ title: "保存失败！" });
+                this.get_member_list_data();
+              }
             })
             .catch(error => {
               this.$Notice.error({ title: "保存失败！" });

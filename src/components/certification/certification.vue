@@ -25,7 +25,7 @@
                 <Input placeholder="请输入企业名称" v-model="certification.data.name" style="width:300px;"></Input>
             </FormItem>
             <FormItem label="企业类型" prop="type">
-                <Select style="width:100px" v-model="certification.data.type" >
+                <Select style="width:100px" v-model="certification.data.type" :disabled="type=='update'" >
                     <Option :value=2 number >集团</Option>
                     <Option :value=1 number >公司</Option>
                 </Select>
@@ -270,6 +270,8 @@ export default {
     post_enterprise() {
       this.$refs["create_cert_form"].validate(valid => {
         if (valid) {
+          this.certification.data.businesslicense = this.certification.data.businesslicense || "";
+          this.certification.data.legalperson = this.certification.data.legalperson || "";
           ajax_post_enterprise(this.certification.data).then(res => {
             if (res.status === "success") {
               // this.modals.company.create.is_show = true;

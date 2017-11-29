@@ -363,16 +363,24 @@ export default {
             name: this.modals.department.create.data.name,
             id: this.modals.department.create.data.id || undefined
           }).then(res => {
-            this.get_department_by_company_id(this.current_company_id);
+            this.modals.department.create.is_show = false;
+            this.modals.department.create.loading = false;
+            if (res.status == 'success') {
+              this.get_department_by_company_id(this.current_company_id);
             // 如果是修改，刷新部门数据
             if (this.modals.department.create.data.id) {
               this.get_department_by_change_company();
             }
-            this.modals.department.create.is_show = false;
-            this.modals.department.create.loading = false;
+            
             this.$Notice.success({
               title: "保存成功!"
             });
+            } else {
+              this.$Notice.error({
+              title: res.message
+            });
+            }
+            
           });
         } else {
           this.modals.department.create.loading = false;
