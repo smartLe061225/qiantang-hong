@@ -243,6 +243,32 @@ export const getPieChartSeriesData = (resourceArr, legendDataArr) => {
   return result;
 }
 
+/**
+ * 方法说明： 把数据处理成 echarts-柱状图 所需的数组格式
+ * @method formatBarSeriesData
+ * @param {array}   resourceArr,服务器返回数据结果
+ * @param {array}   legendDataArr, 指标，格式如：['营业收入','营业利润','净利润']
+ * @return {array}
+ */
+export const getPie2ChartSeriesData = (resourceArr, legendDataArr) => {
+  let resourceData = resourceArr[0].data[0].data
+  let result = [];
+  for (let i = 0; i < legendDataArr.length; i++) {
+    var flag = false;
+    for (let j = 0; j < resourceData.length; j++) {
+      if(resourceData[j].index_name == legendDataArr[i]){
+        result.push({name: legendDataArr[i], value: resourceData[j].total});
+        flag = true;
+        break;
+      }
+    }
+    if(!flag){
+      result.push({name: legendDataArr[i], value: '-'});
+    }
+  }
+  return result;
+}
+
 /* 方法说明：线状图表数据
  * @method getBarChartSeriesData
  * @param {object} data，源数据

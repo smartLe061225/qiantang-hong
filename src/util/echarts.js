@@ -112,6 +112,38 @@ const echartsConfig = {
     }
     return options;
   },
+  pie2ChartOptions(params){
+    // http://echarts.baidu.com/echarts2/doc/example/pie2.html
+    let options = {
+      tooltip : { trigger: 'item', formatter: "{a} <br/>{b} : {c} ({d}%)" },
+      legend: { orient : 'vertical', x : 'left', data: params.legendData },
+      calculable : true,
+      color: echartsConfig.color,
+      series : [
+        {
+          name: params.seriesName,
+          type:'pie', 
+          radius : ['50%', '70%'], 
+          itemStyle : {
+            normal : { 
+              label : { show : false }, 
+              labelLine : { show : false } 
+            },
+            emphasis : { 
+              label : { 
+                show : true, 
+                position : 'center', 
+                textStyle : { fontSize : '30', fontWeight : 'bold' } 
+              } 
+            } 
+          },
+          data: params.seriesData
+        }
+      ]
+    };
+
+    return options;
+  },
   pie3ChartOptions(params){
     // url: http://echarts.baidu.com/echarts2/doc/example/pie3.html
     let options = {

@@ -37,6 +37,14 @@
         <div class="echarts"></div>
       </div>
     </div>
+
+    <!-- 弹出层图表 -->
+    <Modal v-model="chartModel" title="图表展示" width="600" class="custom-modal">
+      <div class="profits-pie">
+        <div class="echarts" style="width:496px;height:300px;"></div>
+      </div>
+      <div slot="footer" style="display: none;"></div>
+    </Modal>
   </div>
 </template>
 
@@ -70,7 +78,8 @@
           parentclassArr: [],
           subclassArr: [],
           subclassSonArr: []
-        }
+        },
+        chartModel: false
       }
     },
     methods: {
@@ -87,12 +96,28 @@
           this.myChart.setOption(option, true);
         }
         echartsConfig.resize(self.myChart)
-        self.myChart.on('click', function (params) {
-          console.log(params)
-          // self.triggerChart(params)
-        });
+        if (self.resourceIndex.parentclassArr == '费用') {
+          self.myChart.on('click', function (params) {
+            self.triggerChart(params)
+          });
+        }        
       },
       triggerChart(params){
+        const self = this;
+        this.chartModel = true;
+
+        let subclassArr = self.resourceIndex.subclassArr
+    
+        let seriesDataResource = tools.convertResourceData(self.resource, self.companyIds, subclassArr, params.name.split(','));
+        let seriesData = tools.getPie2ChartSeriesData(seriesDataResource, subclassArr)
+
+        let option = echartsConfig.pie2ChartOptions({
+          legendData: subclassArr,
+          seriesName: self.filter.index.value,
+          seriesData: seriesData,
+        })
+        this.myChart2 = echarts.init(document.querySelector('.profits-pie .echarts'));
+        this.myChart2.setOption(option, true);
       },
       reLoadChart(){
         const self = this;
