@@ -60,7 +60,8 @@
                                     <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt="毛梦琪">
                                     <strong class="name">{{member.name}}</strong>
                                     <!-- <span class="dep">市场部</span>   -->
-                                    <span class="is-leader" v-if="member.ifDepartLeader">负责人</span>
+                                    <span class="is-leader" v-if="member.ifDepartLeader">部门负责人</span>
+                                    <span class="is-company-leader" v-if="member.ifCompanyLeader">公司负责人</span>
                                     </div>
                                 </li>
                             </ul>
@@ -86,7 +87,8 @@
                                     <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt="毛梦琪">
                                     <strong class="name">{{member.name}}</strong>
                                     <!-- <span class="dep">市场部</span>   -->
-                                    <span class="is-leader" v-if="member.ifDepartLeader">负责人</span>
+                                    <span class="is-leader" v-if="member.ifDepartLeader">部门负责人</span>
+                                    <span class="is-company-leader" v-if="member.ifCompanyLeader">公司负责人</span>
                                     </div>
                                 </li>
                             </ul>
@@ -647,6 +649,12 @@ export default {
         .is-leader {
           top: -10px;
           margin-right: 10px;
+          color: #999;
+          position: relative;
+        }
+        .is-company-leader{
+          top: -10px;
+          left: 0;
           color: #999;
           position: relative;
         }

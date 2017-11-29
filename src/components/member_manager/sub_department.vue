@@ -14,11 +14,11 @@
     <ul class="clearfix">
       <li class="member-list-item" v-for="(member, index) in member_list_data" :key="member.id">
         <div class="member-mod">
-          <div class="is-department-leader" v-if="member.ifDepartLeader">负责人</div>
+          <div class="is-company-leader" v-if="member.ifCompanyLeader">公司负责人</div>
           <dl class="member-item clearfix">
             <dt class="member-item-hd">
               <div class="face-box">
-                <img :src="member.imgUrl" alt="">
+                <img :src="member.imgUrl || default_avator" alt="">
                 <div class="account-suspend" v-if="member.status==0">已离职</div>
               </div>
             </dt>
@@ -36,6 +36,7 @@
             <span>|</span>
             <a @click="show_update_member_modal(index)" href="javascript:;">编辑</a>
           </div>
+          <div class="is-department-leader" v-if="member.ifDepartLeader">部门负责人</div>
         </div>
       </li>
     </ul>
@@ -157,6 +158,7 @@ export default {
       page_num: 1,
       current_size: 1,
       page_size: 9,
+      default_avator: default_avator()[0],
       total_record: null,
       keywords: "",
       no_member: false,
@@ -612,16 +614,29 @@ export default {
       .is-department-leader {
         display: block;
         height: 20px;
-        width: 60px;
+        width: 80px;
         text-align: center;
         color: #fff;
         background-color: #26a247;
+        font-size: 12px;
         line-height: 20px;
         position: absolute;
         right: 0;
         top: 0;
       }
-
+      .is-company-leader {
+        display: block;
+        height: 20px;
+        width: 80px;
+        text-align: center;
+        color: #fff;
+        background-color: #f5bb3a;
+        font-size: 12px;
+        line-height: 20px;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
       &:hover {
         border-color: #c7d0f7;
         .opt-layer {
