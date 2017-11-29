@@ -64,7 +64,10 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>                      
+                        </div>   
+                        <div class="page-bar" v-if="member_list_data.length">
+                          <Page :total="total_member_record" :page-size="page_size" @on-change="change_member_page_data"></Page>
+                        </div>                   
                     </div>
                 </Col>
             </Row>
@@ -204,6 +207,7 @@ export default {
       company_list_data: [],
       department_list_data: [],
       member_list_data: [],
+      total_member_record: 0,
       province_data: [],
       city_data: [],
       region_data: [],
@@ -349,6 +353,7 @@ export default {
       })
         .then(res => {
           this.member_list_data = res.data.data;
+          this.total_member_record = res.data.totalNum;
         })
         .catch(error => {
           Message.error(error);
@@ -500,6 +505,11 @@ export default {
         .catch(error => {
           Message.error(error);
         });
+    },
+    // 成员换页
+    change_member_page_data(page){
+      this.page_num = page;
+      this.get_member_by_department_id();
     },
     // 显示管理部门
     show_update_department_modal(index) {
