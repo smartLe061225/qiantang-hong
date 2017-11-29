@@ -67,3 +67,6 @@ export const ajaxPostCashIndex = (data) => fetch({ url: '/api/reportcashflow/typ
 
 /* 现金分析数据 */
 export const ajaxPostCashData = (data) => fetch({ url: '/api/reportcashflow/dataList', method: 'post', data })
+
+/* 预警分析数据 */
+export const ajaxPostWarningData = (data) => fetch({ url: '/api/reportrecord/warningdata', method: 'post', data })

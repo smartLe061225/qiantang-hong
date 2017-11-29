@@ -106,13 +106,13 @@ const echartsConfig = {
         trigger: 'axis'
       },
       legend: {
-        data:[],
-        y: 'bottom'
+        data: params.legendData? params.legendData: [],
+        // y: 'bottom'
       },
       xAxis : [
         {
           type : 'category',
-          data : params.legendData ? params.legendData : this.mouth,
+          data : params.xAxis ? params.xAxis : this.mouth,
         }
       ],
       yAxis : [{ type : 'value' }],

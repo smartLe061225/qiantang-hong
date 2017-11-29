@@ -348,17 +348,14 @@ export const getLine4ChartSeriesData = (resource, indexArr) => {
 }
 
 /**
- * 方法说明： 把数据处理成 echarts-柱状图 所需的数组格式
- * @method formatBarSeriesData
+ * 方法说明： 现金分析 弹层 现金流出小计
+ * @method getbar8OutputChartSeriesData
  * @param {array}   resourceArr,服务器返回数据结果
  * @param {array}   legendDataArr, 指标，格式如：['营业收入','营业利润','净利润']
  * @return {array}
  */
 export const getbar8OutputChartSeriesData = (resourceArr, indexArr) => {
   let resourceData = resourceArr[0].data[0].data
-  console.log('--')
-  console.log(resourceData)
-  console.log('--end--')
   let result = [];
   for (let i = 0; i < indexArr.length; i++) {
     var flag = false;
@@ -376,6 +373,13 @@ export const getbar8OutputChartSeriesData = (resourceArr, indexArr) => {
   return result;
 }
 
+/**
+ * 方法说明： 现金分析 弹层 现金流入小计
+ * @method getbar8InputChartSeriesData
+ * @param {array}   resourceArr,服务器返回数据结果
+ * @param {array}   legendDataArr, 指标，格式如：['营业收入','营业利润','净利润']
+ * @return {array}
+ */
 export const getbar8InputChartSeriesData = (resourceArr, indexArr) => {
   let resourceData = resourceArr[0].data[0].data
   let result = [];
@@ -391,6 +395,24 @@ export const getbar8InputChartSeriesData = (resourceArr, indexArr) => {
     if(!flag){
       result.push({value: resourceData[j].total, itemStyle:{normal: {label : {position: 'left'}}}});
     }
+  }
+  return result;
+}
+
+/**
+ * 方法说明： 预警分析
+ * @method getWarningSeriesData
+ * @param {array}   resourceData,服务器返回数据结果
+ * @param {array}   legendDataArr, 指标，格式如：['营业收入','营业利润','净利润']
+ * @return {array}
+ */
+export const getWarningSeriesData = (resourceData, legendDataArr) => {
+  let result = [];
+  for (var i = 0; i < legendDataArr.length; i++) {
+    for (var j = 0; j < resourceData.length; j++) {
+      result.push({name:legendDataArr[i], type:'line', data: resourceData[j].series_data})
+      break;
+    }    
   }
   return result;
 }
