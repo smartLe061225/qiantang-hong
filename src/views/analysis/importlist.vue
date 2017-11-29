@@ -105,7 +105,7 @@
                     h('button', {
                       class: 'items import',
                       on: { 
-                        click: () => { this.import(params.index) } 
+                        click: () => { this.import(params.row.id) } 
                       }
                     }, [
                       h('Icon', { props: { type: 'ios-loop-strong' } }),
@@ -129,7 +129,7 @@
       }
     },
     methods:{
-      validateBeforeSubmit() {
+      validateBeforeSubmit(recordId) {
         const self = this;
         this.$validator.validateAll().then((result) => {
           if (result) {
@@ -142,7 +142,7 @@
                 if (rs.status=='success') {
                   self.$Message.success('操作成功！')
                 }else{
-                  self.$Message.success('操作失败！')
+                  self.$Message.error(rs.message)
                 }
                 self.importModel = false;
                })
