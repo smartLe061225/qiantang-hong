@@ -1,17 +1,14 @@
 <template>
   <div>
-    <assets-bar></assets-bar>
-    <assets-pie></assets-pie>
+    <assets-line></assets-line>
   </div>
 </template>
 <script>
-  import assetsBar from 'components/echarts/assets-bar'
-  import assetsPie from 'components/echarts/assets-pie'
+  import assetsLine from 'components/echarts/assets-line'
 
   export default {
     components: {
-      assetsBar,
-      assetsPie
+      assetsLine
     }
   }
 </script>

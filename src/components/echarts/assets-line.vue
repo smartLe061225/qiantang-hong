@@ -7,16 +7,16 @@
         </div>
       <div class="normal-box-title">
         <div class="decorate-square"></div>
-        <h2>利润分析</h2>
+        <h2>资产分析</h2>
         </div>
     </div>
     <div class="normal-box-bd">
         <div class="chart-filter">
           <Form :label-width="100">
             <FormItem label="选择公司：">
-            <RadioGroup v-model="filter.company.value" @on-change="reLoadChart">
-                <Radio :label="item" v-for="item in filter.company.list" :key="item"></Radio>
-            </RadioGroup>
+            <CheckboxGroup v-model="filter.company.value" @on-change="reLoadChart">
+                <Checkbox :key="item.value" :label="item.value" v-for="item in filter.company.list">{{item.label}}</Checkbox>
+            </CheckboxGroup>
             </FormItem>
             <FormItem label="选择指标：">
               <RadioGroup v-model="filter.index.value" @on-change="reLoadChart">
@@ -33,10 +33,22 @@
         </div>
     </div>
     <div class="normal-box-bd">
-      <div class="profits-bar">
+      <div class="assets-line">
         <div class="echarts"></div>
       </div>
     </div>
+
+
+
+
+    <!-- 弹出层图表 -->
+    <Modal v-model="chartModel" title="图表展示" width="780" class="custom-modal">
+      <div class="assets-pie">
+        <div class="echarts" style="width:676px;height:320px;"></div>
+      </div>
+      <div slot="footer" style="display: none;"></div>
+    </Modal>
+
   </div>
 </template>
 
@@ -45,14 +57,14 @@
   import echartsConfig from 'src/util/echarts'
   import * as tools from 'src/util/tools'
   import { ajax_get_company_selectbox } from "src/apis/company";
-  import { ajaxPostProfitIndex, ajaxPostProfitData } from "src/apis/analysis";
+  import { ajaxPostAssetsIndex,ajaxPostAssetsData } from "src/apis/analysis";
 
   export default {
     data () {
       return {
         filter: {
           company: {
-            value: '',
+            value: [],
             list: []
           },
           index: {
@@ -64,23 +76,22 @@
             list: []
           }
         },
-        companyResourceData: [],
         resource: [],
         resourceIndex:{
           parentclassArr: [],
           subclassArr: [],
           subclassSonArr: []
-        }
+        },
+        chartModel: false
       }
     },
     methods: {
       setChart(){
         const self = this;
-        this.myChart = echarts.init(document.querySelector('.profits-bar .echarts'));
-        let convertResource = tools.convertResourceData(self.resource, self.companyIds, self.filter.index.value.split(','));
-        let seriesData = tools.getBarChartSeriesData(convertResource, self.filter.index.value.split(','))
-
-        let option = echartsConfig.bar15ChartOptions({
+        this.myChart = echarts.init(document.querySelector('.assets-line .echarts'));
+        let convertResource = tools.convertResourceData(self.resource, self.filter.company.value, self.filter.index.value.split(','));
+        let seriesData = tools.getLineChartSeriesData(convertResource, self.companyNames)
+        let option = echartsConfig.lineChartOption({
           seriesData: seriesData
         })
         if (option && typeof option === "object") {
@@ -88,11 +99,30 @@
         }
         echartsConfig.resize(self.myChart)
         self.myChart.on('click', function (params) {
-          console.log(params)
-          // self.triggerChart(params)
+          self.triggerChart(params)
         });
       },
       triggerChart(params){
+        const self = this;
+        this.chartModel = true;
+
+        let subclassArr = self.resourceIndex.subclassArr
+        let subclassSonArr = self.resourceIndex.subclassSonArr
+        let companyID = tools.getCompanyID(params.seriesName.split(','), self.filter.company.list)
+        let seriesDataResource = tools.convertResourceData(self.resource, companyID, subclassArr, params.name.split(','));
+        let seriesSubDataResource = tools.convertResourceData(self.resource, companyID, subclassSonArr, params.name.split(','));
+        let a = tools.getPieChartSeriesData(seriesDataResource, subclassArr)
+        let b = tools.getPieChartSeriesData(seriesSubDataResource, subclassSonArr)
+
+        let option = echartsConfig.pie3ChartOptions({
+          legendData: self.legendData
+          ,seriesData: a
+          ,seriesSubData: b
+        })
+        this.myChart2 = echarts.init(document.querySelector('.assets-pie .echarts'));
+
+        this.myChart2.setOption(option, true);
+
       },
       reLoadChart(){
         const self = this;
@@ -103,12 +133,12 @@
         let data = {
           data:{
             indexNames: self.filter.index.value,
-            companyIds: self.companyIds.join(','),
+            companyIds: this.filter.company.value.join(','),
             type: self.dateType
           }
         }
         this.$Loading.start();
-        ajaxPostProfitData(data).then(rs => {
+        ajaxPostAssetsData(data).then(rs => {
           if (rs.status == 'success') {
             self.$Loading.finish();
             self.resource = rs.data[0].data;
@@ -142,24 +172,23 @@
         }
       },
       companyIds: function(){
-        const self = this;
-        return tools.getCompanyID(self.filter.company.value.split(','), self.companyResourceData)
+        return this.filter.company.value.join(',')
       },
       companyNames: function(){
         const self = this;
-        return tools.getCompanyName(self.companyIds, self.companyResourceData)
+        return tools.getCompanyName(self.companyIds, self.filter.company.list)
+      },
+      legendData: function(){
+        return this.resourceIndex.subclassArr.concat(this.resourceIndex.subclassSonArr)
       }
     },
     created: function(){
       const self = this;
-      Promise.all([ajax_get_company_selectbox(), ajaxPostProfitIndex(), self.getTimeType()]).then(rs => {
-        let companyData = echartsConfig.getCompanyList(rs[0]) // 包含键值公司数据
-        let companyName = echartsConfig.getCompanyName(companyData); // 二次处理，仅获取公司名
-
+      Promise.all([ajax_get_company_selectbox(), ajaxPostAssetsIndex(), self.getTimeType()]).then(rs => {
+        let companyData = echartsConfig.getCompanyList(rs[0])
         if (companyData.length) {
-          this.companyResourceData = companyData;
-          self.filter.company.list = companyName;
-          self.filter.company.value = companyName[0];
+          self.filter.company.list = companyData;
+          self.filter.company.value = [companyData[0].value];
         }
 
         let indexData = echartsConfig.getIndexList(rs[1])
@@ -174,13 +203,11 @@
       }).then(rs => {
         self.getResourceData(self.setChart)
       })
-    },
-    mounted() {
     }
   }
 </script>
 <style lang="less">
-.profits-bar{
+.assets-line{
   height: 500px;
   .echarts{
     width: 100%;
