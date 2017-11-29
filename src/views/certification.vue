@@ -46,7 +46,7 @@
     }
   };
 </script>
-<style lang="less" scoped>
+<style lang="less">
   .g-rz-header {
     padding: 20px 0;
     background: #353f5a url(/static/img/loginBg.47e75eb.jpg) center top no-repeat;

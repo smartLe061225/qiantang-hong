@@ -54,6 +54,14 @@ const routes = [
         component: dashboard,
         meta: {
           title: '控制台'
+        },
+      },
+      {
+        path: 'init',
+        name: 'init',
+        component: init,
+        meta: {
+          title: '上传初始数据'
         }
       },
       {
@@ -122,7 +130,7 @@ const routes = [
             show_in_bread_curmb_bar: true,
           }
         }]
-      },{
+      }, {
         path: 'company',
         name: 'company',
         component: company,
@@ -139,54 +147,54 @@ const routes = [
             show_in_bread_curmb_bar: true,
           }
         }, {
-            path: 'organization',
-            name: 'organization',
-            component: organization,
-            meta: {
-              title: '组织架构',
-              show_in_bread_curmb_bar: true,
-            }
-          }, {
-            path: 'change-certification',
-            name: 'change_certification',
-            component: certification_change,
-            meta: {
-              title: '修改认证信息',
-              show_in_bread_curmb_bar: true,
-            }
-          },{
-            path: 'manager',
-            name: 'manager',
-            component: manager,
-            meta: {
-              title: '公司管理',
-              show_in_bread_curmb_bar: true,
-            }
-          }, {
-            path: 'department',
-            name: 'department',
-            component: department,
-            meta: {
-              title: '部门管理',
-              show_in_bread_curmb_bar: true,
-            }
-          }, {
-            path: 'member',
-            name: 'member',
-            component: member,
-            meta: {
-              title: '成员管理',
-              show_in_bread_curmb_bar: true,
-            }
-          }, {
-            path: 'role',
-            name: 'role',
-            component: role,
-            meta: {
-              title: '角色管理',
-              show_in_bread_curmb_bar: true,
-            }
-          }]
+          path: 'organization',
+          name: 'organization',
+          component: organization,
+          meta: {
+            title: '组织架构',
+            show_in_bread_curmb_bar: true,
+          }
+        }, {
+          path: 'change-certification',
+          name: 'change_certification',
+          component: certification_change,
+          meta: {
+            title: '修改认证信息',
+            show_in_bread_curmb_bar: true,
+          }
+        }, {
+          path: 'manager',
+          name: 'manager',
+          component: manager,
+          meta: {
+            title: '公司管理',
+            show_in_bread_curmb_bar: true,
+          }
+        }, {
+          path: 'department',
+          name: 'department',
+          component: department,
+          meta: {
+            title: '部门管理',
+            show_in_bread_curmb_bar: true,
+          }
+        }, {
+          path: 'member',
+          name: 'member',
+          component: member,
+          meta: {
+            title: '成员管理',
+            show_in_bread_curmb_bar: true,
+          }
+        }, {
+          path: 'role',
+          name: 'role',
+          component: role,
+          meta: {
+            title: '角色管理',
+            show_in_bread_curmb_bar: true,
+          }
+        }]
       }
     ]
   },
@@ -223,14 +231,14 @@ const routes = [
       title: '企业资料认证'
     }
   },
-  {
-    path: '/init',
-    name: 'init',
-    component: init,
-    meta: {
-      title: '上传初始数据'
-    }
-  },
+  // {
+  //   path: '/init',
+  //   name: 'init',
+  //   component: init,
+  //   meta: {
+  //     title: '上传初始数据'
+  //   }
+  // },
   {
     path: "/*",
     name: "error",

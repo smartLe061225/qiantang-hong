@@ -68,14 +68,6 @@ export function remove_enterpri_id() {
     return VueCookie.delete('enterpri_id')
 }
 
-export function get_has_enterprise() {
-    if (VueCookie.get('has_enterprise') == 'true'){
-        return true
-    } else {
-        return false
-    }
-}
-
 export function get_enterprise_create_img() {
     return VueCookie.get('enterprise_creater_img');
 }
@@ -86,6 +78,14 @@ export function set_enterprise_create_img(enterprise_creater_img) {
 
 export function remove_enterprise_create_img() {
     return VueCookie.delete('enterprise_creater_img')
+}
+
+export function get_has_enterprise() {
+    if (VueCookie.get('has_enterprise') == 'true') {
+        return true
+    } else {
+        return false
+    }
 }
 
 export function set_has_enterprise(has_enterprise) {
@@ -132,6 +132,21 @@ export function remove_enterprise_creater_img() {
     return VueCookie.delete('enterprise_creater_img')
 }
 
+export function get_has_uploaded() {
+    if (VueCookie.get('has_enterprise') == 'true') {
+        return true
+    } else {
+        return false
+    }
+}
+
+export function set_has_uploaded(has_enterprise) {
+    return VueCookie.set('has_enterprise', has_enterprise)
+}
+
+export function remove_has_uploaded() {
+    return VueCookie.delete('has_enterprise')
+} 
 
 
 export function remove_all_cookie() {

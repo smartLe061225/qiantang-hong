@@ -1,5 +1,6 @@
 <template>
 <div class="general-view">
+    <div class="x-bg" :class="iconClassName"></div>
     <div class="general-view-count">
         <strong :class="className" v-cloak :id="idName">{{ startVal }}</strong><span :class="className" class="unit">{{ unit }}</span>
         <span v-if="percent" class="percent text-color-green">{{percent}}%</span>
@@ -7,7 +8,6 @@
     <div class="general-view-name">{{introText}}</div>
 </div>
 </template>
-
 <script>
 import CountUp from 'countup';
 function transformValue (val) {
@@ -42,6 +42,7 @@ export default {
     props: {
         idName: String,
         className: String,
+        iconClassName: String,
         startVal: {
             type: Number,
             default: 0

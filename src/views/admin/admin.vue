@@ -6,7 +6,7 @@
 		<div class="main-header-con">
 			<div class="main-header">
 				<div class="current-company">
-					<a class="logo"><img src="../../assets/images/logo-admin.png" alt=""></a>
+					<a class="logo" href="javascript:;" @click="go_to_home"><img src="../../assets/images/logo-admin.png" alt=""></a>
 					<h1>{{enterprise_name}}</h1><span v-if="enterprise_type==2">集团总部</span>
 					</div>
 				<div class="header-avator-con">
@@ -75,6 +75,10 @@ export default {
           path: "/login"
         });
       }
+    },
+    // 点击去首页
+    go_to_home(){
+      
     }
   },
   watch: {

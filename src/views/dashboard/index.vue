@@ -2,21 +2,21 @@
   <div class="m-25">
     <Row :gutter="28" class="mb-24">
       <Col span="6">
-      <general-count :id-name="general_view_opt.total_profits_id" class-name="text-color-orange" :decimals=2 :end-val="general_view_data.total_profits"
-        :percent="general_view_data.profits_percent" intro-text="企业总利润"></general-count>
+      <general-count :id-name="general_view_opt.total_profits_id" icon-class-name="bg-i-1" class-name="text-color-orange" :decimals=2 :end-val="general_view_data.total_profits"
+         intro-text="企业总利润"></general-count>
       </Col>
       <Col span="6">
-      <general-count :id-name="general_view_opt.total_cash_id" class-name="text-color-red" :decimals=2 :end-val="general_view_data.total_cash"
-        :percent="general_view_data.profits_percent" intro-text="企业总现金"></general-count>
+      <general-count :id-name="general_view_opt.total_cash_id" icon-class-name="bg-i-2" class-name="text-color-red" :decimals=2 :end-val="general_view_data.total_cash"
+         intro-text="企业总现金"></general-count>
 
       </Col>
       <Col span="6">
-      <general-count :id-name="general_view_opt.total_assets_id" class-name="text-color-blue" :decimals=2 :end-val="general_view_data.total_assets"
-        :percent="general_view_data.assets_percent" intro-text="企业总资产"></general-count>
+      <general-count :id-name="general_view_opt.total_assets_id" icon-class-name="bg-i-3" class-name="text-color-blue" :decimals=2 :end-val="general_view_data.total_assets"
+         intro-text="企业总资产"></general-count>
 
       </Col>
       <Col span="6">
-      <general-count :id-name="general_view_opt.total_warning_budget_id" class-name="text-color-cyan" :decimals=2 :end-val="general_view_data.total_warning_budget"
+      <general-count :id-name="general_view_opt.total_warning_budget_id" icon-class-name="bg-i-4" class-name="text-color-cyan" :decimals=2 :end-val="general_view_data.total_warning_budget"
         intro-text="企业预算预警"></general-count>
       </Col>
     </Row>
@@ -274,6 +274,7 @@
   .general-view {
     background: #fff;
     padding: 35px 25px 30px 25px;
+    position: relative;
     &-count {
       strong {
         font-size: 32px;
@@ -292,8 +293,27 @@
       font-size: 14px;
       color: #999;
     }
+    .x-bg {
+      position: absolute;
+      display: block;
+      width: 80px;
+      height: 80px;
+      top: 0;
+      right: 0;
+    }
   }
-
+  .bg-i-1 {
+    background: url(../../assets/images/icon-d-1.png) no-repeat;
+  }
+  .bg-i-2 {
+    background: url(../../assets/images/icon-d-2.png) no-repeat;
+  }
+  .bg-i-3 {
+    background: url(../../assets/images/icon-d-3.png) no-repeat;
+  }
+  .bg-i-4 {
+    background: url(../../assets/images/icon-d-4.png) no-repeat;
+  }
   .mb-24 {
     margin-bottom: 24px;
   }
