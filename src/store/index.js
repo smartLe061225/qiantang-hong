@@ -22,7 +22,17 @@ import {
     get_enterpri_id,
     set_has_enterprise,
     get_has_enterprise,
-    remove_all_cookie
+    remove_all_cookie,
+    remove_has_enterprise,
+    get_enterprise_logo,
+    set_enterprise_logo,
+    remove_enterprise_logo,
+    get_user_img,
+    set_user_img,
+    remove_user_img,
+    get_enterprise_creater_img,
+    set_enterprise_creater_img,
+    remove_enterprise_creater_img
 } from '../util/user';
 import { Login } from '../apis/user'
 import { Message } from 'iview'
@@ -48,7 +58,10 @@ const store = new Vuex.Store({
         user: get_user_info(),
         enterprise_creater_name: get_enterprise_creater_name(),
         enterpri_id: get_enterpri_id(),
-        has_enterprise: get_has_enterprise()
+        has_enterprise: get_has_enterprise(),
+        enterprise_logo: get_enterprise_logo(),
+        user_img: get_user_img(),
+        enterprise_creater_img: get_enterprise_creater_img(),
     },
     getters: {
         token: state => {
@@ -74,6 +87,15 @@ const store = new Vuex.Store({
         },
         has_enterprise: state => {
             return state.has_enterprise
+        },
+        enterprise_logo: state => {
+            return state.enterprise_logo
+        },
+        user_img: state => {
+            return state.user_img
+        },
+        enterprise_creater_img: state => {
+            return state.enterprise_creater_img
         }
     },
     mutations: {
@@ -103,6 +125,15 @@ const store = new Vuex.Store({
         },
         SET_HAS_ENTERPRISE: (state, has_enterprise) => {
             state.has_enterprise = has_enterprise;
+        },
+        SET_ENTERPRISE_LOGO: (state, enterprise_logo) => {
+            state.enterprise_logo = enterprise_logo;
+        },
+        SET_USER_IMG: (state, user_img) => {
+            state.user_img = user_img;
+        },
+        SET_ENTERPRISE_CREATER_IMG: (state, enterprise_creater_img) => {
+            state.enterprise_creater_img = enterprise_creater_img;
         },
     },
     actions: {
@@ -184,6 +215,15 @@ const store = new Vuex.Store({
 
                         commit('SET_HAS_ENTERPRISE', data.hasEnterprise);
                         set_has_enterprise(data.hasEnterprise);
+
+                        commit('SET_ENTERPRISE_LOGO', data.enterpriseLogo);
+                        set_enterprise_logo(data.enterpriseLogo);
+
+                        commit('SET_USER_IMG', data.userImg);
+                        set_user_img(data.userImg);
+
+                        commit('SET_ENTERPRISE_CREATER_IMG', data.enterpriseCreaterImg);
+                        set_enterprise_creater_img(data.enterpriseCreaterImg);
 
                         resolve(data);
                     }

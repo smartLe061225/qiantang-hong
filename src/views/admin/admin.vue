@@ -46,6 +46,10 @@
 <script>
 import sidebarMenu from "@/components/sidebar_menu";
 import store from "@/store/";
+import {
+  default_avator,
+  default_images,
+} from '../../util/user'
 
 export default {
   components: {
@@ -53,7 +57,7 @@ export default {
   },
   data() {
     return {
-      avatorPath: "https://p1.pstatp.com/thumb/249800157ac04c1b79ab",
+      avatorPath: store.getters.user_img || default_avator()[0],
       enterprise_type: store.getters.enterprise_type,
       enterprise_name: store.getters.enterprise_name,
       user: store.getters.user

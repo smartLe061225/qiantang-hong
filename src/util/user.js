@@ -76,6 +76,18 @@ export function get_has_enterprise() {
     }
 }
 
+export function get_enterprise_create_img() {
+    return VueCookie.get('enterprise_creater_img');
+}
+
+export function set_enterprise_create_img(enterprise_creater_img) {
+    return VueCookie.set('enterprise_creater_img', enterprise_creater_img)
+}
+
+export function remove_enterprise_create_img() {
+    return VueCookie.delete('enterprise_creater_img')
+}
+
 export function set_has_enterprise(has_enterprise) {
     return VueCookie.set('has_enterprise', has_enterprise)
 }
@@ -83,6 +95,44 @@ export function set_has_enterprise(has_enterprise) {
 export function remove_has_enterprise() {
     return VueCookie.delete('has_enterprise')
 } 
+
+export function get_enterprise_logo() {
+    return VueCookie.get('enterprise_logo');
+}
+
+export function set_enterprise_logo(enterprise_logo) {
+    return VueCookie.set('enterprise_logo', enterprise_logo)
+}
+
+export function remove_enterprise_logo() {
+    return VueCookie.delete('enterprise_logo')
+}
+
+export function get_user_img() {
+    return VueCookie.get('user_img');
+}
+
+export function set_user_img(user_img) {
+    return VueCookie.set('user_img', user_img)
+}
+
+export function remove_user_img() {
+    return VueCookie.delete('user_img')
+}
+
+export function get_enterprise_creater_img() {
+    return VueCookie.get('enterprise_creater_img');
+}
+
+export function set_enterprise_creater_img(enterprise_creater_img) {
+    return VueCookie.set('enterprise_creater_img', enterprise_creater_img)
+}
+
+export function remove_enterprise_creater_img() {
+    return VueCookie.delete('enterprise_creater_img')
+}
+
+
 
 export function remove_all_cookie() {
     VueCookie.delete('enterpri_id');
@@ -107,4 +157,11 @@ export function default_avator() {
         '/static/avator/mrtx8.png',
         '/static/avator/mrtx9.png',
     ]
+}
+
+// 默认公司logo
+export function default_images() {
+    return {
+        enterprise_logo: '/static/enterprise_logo.png'
+    }
 }

@@ -3,7 +3,7 @@
     <div class="organization-mod">
         <div class="organization-hd clearfix">
             <div class="organization-logo">
-                <img src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt="">
+                <img :src="enterprise_logo" alt="">
             </div>
             <div class="organization-name-opt">
                 <div class="organization-name clearfix">
@@ -25,7 +25,7 @@
                         </Dropdown>
                         <Button type="ghost" @click="goto_cert">修改资料</Button>
                     </div>
-                    <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" :alt="create_name">
+                    <img class="avator" :src="creater_avator" :alt="create_name">
                     <strong class="name">{{create_name}}</strong>
                     <!-- <span class="is-leader">负责人</span> -->
                     <span class="is-certification">资料已认证</span>
@@ -40,7 +40,7 @@
                         <ul class="sub-company-list">
                             <li v-for="(company, index) in company_list_data" :key="company.id" :class="{cur: company.id == current_company_id}">
                                 <a href="javascript:;" @click="change_company(index)">
-                                    <img src="https://img1.doubanio.com/icon/u2629298-7.jpg" :alt="company.name">
+                                    <img :src="company.imgUrl || default_company" :alt="company.name">
                                     <strong>{{company.name}}</strong>
                                 </a>
                             </li>
@@ -142,9 +142,18 @@
 
     <!--添加公司-->
     <Modal v-model="modals.company.create.is_show" :loading="modals.company.create.loading" :mask-closable="false" :title="modals.company.create.title" @on-ok="post_create_company">
-      <Form ref="create_company_form" :model="modals.company.create.data" :rules="modals.company.create.rules" :label-width="120">
+      --{{modals.company.create.data.imgUrl}}<Form ref="create_company_form" :model="modals.company.create.data" :rules="modals.company.create.rules" :label-width="120">
         <FormItem label="公司名称" prop="name">
           <Input placeholder="请输入公司名称" v-model="modals.company.create.data.name" style="width:200px;"></Input>
+        </FormItem>
+        <FormItem label="公司logo" prop="logo">
+          <img :src="modals.company.create.data.imgUrl" class="form-face-img" alt="公司logo">
+          <Upload action="/api/user/upload/" :format="['jpg','jpeg','png']"
+                    :max-size="2048"
+                    :on-format-error="handle_format_error"
+                    :on-exceeded-size="handle_max_size" :show-upload-list="false" :on-success="handle_logo_success" style="display: inline-block;">
+                    <Button type="ghost" size="small" icon="ios-cloud-upload-outline">上传logo</Button>
+          </Upload>
         </FormItem>
         <FormItem label="所在地区" prop="area">
           <Select style="width:100px" v-model="modals.company.create.data.province" @on-change="change_province">
@@ -198,7 +207,8 @@ import {
   get_enterprise_creater_name,
   get_enterpri_id,
   get_has_enterprise,
-  default_avator
+  default_avator,
+  default_images
 } from "../../util/user";
 import { ajax_get_member_list } from "../../apis/member";
 import { Message } from "iview";
@@ -210,12 +220,17 @@ export default {
       page_title: store.getters.enterprise_name,
       create_name: store.getters.enterprise_creater_name,
       enterprise_type: store.getters.enterprise_type,
+      enterprise_logo:
+        store.getters.enterprise_logo || default_images.enterprise_logo()[0],
       company_list_data: [],
       department_list_data: [],
       member_list_data: [],
       total_member_record: 0,
       province_data: [],
+      creater_avator:
+        store.getters.enterprise_creater_img || default_avator()[0],
       default_avator: default_avator()[0],
+      default_company: default_images().enterprise_logo,
       city_data: [],
       region_data: [],
       current_company_id: null,
@@ -270,6 +285,7 @@ export default {
               area: null,
               address: "",
               name: "",
+              imgUrl: "",
               enterpriseId: get_enterpri_id()
             },
             rules: {
@@ -281,6 +297,33 @@ export default {
     };
   },
   methods: {
+    handle_format_error(file) {
+      this.$Notice.warning({
+        title: "上传格式错误",
+        desc: "您上传的 " + file.name + " 文件格式错误，只能上传jpg，jpeg，png."
+      });
+    },
+    handle_max_size(file) {
+      this.$Notice.warning({
+        title: "上传文件太大",
+        desc: "您将上传的  " + file.name + " 文件大小超过2M，不能上传！"
+      });
+    },
+    handleBeforeUpload() {
+      const check = this.uploadList.length < 5;
+      if (!check) {
+        this.$Notice.warning({
+          title: "Up to five pictures can be uploaded."
+        });
+      }
+      return check;
+    },
+    handle_logo_success(res, file) {
+      if (res.status === "success") {
+        this.modals.company.create.data.imgUrl = res.data.result;
+        console.log("xxxx", this.modals.company.create.data.imgUrl);
+      }
+    },
     // 组织管理
     handle_manager_organization(name) {
       if (name === "manager_company") {
@@ -304,10 +347,10 @@ export default {
       }
     },
     // 跳转到修改认证信息
-    goto_cert(){
+    goto_cert() {
       this.$router.push({
-        name: 'change_certification'
-      })
+        name: "change_certification"
+      });
     },
     // 公司列表
     get_company_select_box_data() {
@@ -379,22 +422,21 @@ export default {
           }).then(res => {
             this.modals.department.create.is_show = false;
             this.modals.department.create.loading = false;
-            if (res.status == 'success') {
+            if (res.status == "success") {
               this.get_department_by_company_id(this.current_company_id);
-            // 如果是修改，刷新部门数据
-            if (this.modals.department.create.data.id) {
-              this.get_department_by_change_company();
-            }
-            
-            this.$Notice.success({
-              title: "保存成功!"
-            });
+              // 如果是修改，刷新部门数据
+              if (this.modals.department.create.data.id) {
+                this.get_department_by_change_company();
+              }
+
+              this.$Notice.success({
+                title: "保存成功!"
+              });
             } else {
               this.$Notice.error({
-              title: res.message
-            });
+                title: res.message
+              });
             }
-            
           });
         } else {
           this.modals.department.create.loading = false;
@@ -445,7 +487,7 @@ export default {
         if (valid) {
           ajax_post_company(this.modals.company.create.data).then(res => {
             this.modals.company.create.loading = false;
-            if (res.status == 'success'){
+            if (res.status == "success") {
               this.get_company_select_box_data();
               this.modals.company.create.is_show = false;
               this.$Notice.success({
@@ -516,7 +558,7 @@ export default {
         });
     },
     // 成员换页
-    change_member_page_data(page){
+    change_member_page_data(page) {
       this.page_num = page;
       this.get_member_by_department_id();
     },
@@ -554,10 +596,16 @@ export default {
             id: _id
           }).then(res => {
             this.$Modal.remove();
-            this.$Notice.success({
-              title: "删除成功"
-            });
-            this.get_company_select_box_data();
+            if (res.status == "success") {
+              this.$Notice.success({
+                title: "删除成功"
+              });
+              this.get_company_select_box_data();
+            } else {
+              this.$Notice.error({
+                title: res.message
+              });
+            }
           });
         }
       });
@@ -582,11 +630,17 @@ export default {
             id: _id
           }).then(res => {
             this.$Modal.remove();
-            this.$Notice.success({
-              title: "删除成功"
-            });
-            this.get_department_by_company_id(this.current_company_id);
-            this.get_department_by_change_company();
+            if (res.status == "success") {
+              this.$Notice.success({
+                title: "删除成功"
+              });
+              this.get_department_by_company_id(this.current_company_id);
+              this.get_department_by_change_company();
+            } else {
+              this.$Notice.error({
+                title: res.message
+              });
+            }
           });
         }
       });
@@ -654,7 +708,7 @@ export default {
           color: #999;
           position: relative;
         }
-        .is-company-leader{
+        .is-company-leader {
           top: -10px;
           left: 0;
           color: #999;

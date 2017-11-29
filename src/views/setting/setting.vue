@@ -11,7 +11,7 @@
         <ul class="user-info-list">
             <li>
                 <div class="face-box">
-                    <img src="../../assets/images/avator/mrtx0.png" alt="">
+                    <!-- <img src="../../assets/images/avator/mrtx0.png" alt=""> -->
                 </div>
             </li>
             <li>
