@@ -21,7 +21,8 @@ import {
     set_enterpri_id,
     get_enterpri_id,
     set_has_enterprise,
-    get_has_enterprise
+    get_has_enterprise,
+    remove_all_cookie
 } from '../util/user';
 import { Login } from '../apis/user'
 import { Message } from 'iview'
@@ -111,6 +112,7 @@ const store = new Vuex.Store({
           }, userInfo) {
             commit('SET_TOKEN', '');
             remove_token();
+            remove_all_cookie();
             return new Promise((resolve, reject) => {
                 Login(userInfo).then(response => {
                     const data = response;
@@ -131,6 +133,7 @@ const store = new Vuex.Store({
             return new Promise((resolve, reject) => {
                 commit('SET_TOKEN', '');
                 remove_token();
+                remove_all_cookie();
                 resolve();
             });
         },

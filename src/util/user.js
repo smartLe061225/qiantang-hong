@@ -83,3 +83,12 @@ export function set_has_enterprise(has_enterprise) {
 export function remove_has_enterprise() {
     return VueCookie.delete('has_enterprise')
 } 
+
+export function remove_all_cookie() {
+    VueCookie.delete('enterpri_id');
+    VueCookie.delete('enterprise_name');
+    VueCookie.delete('enterprise_type');
+    VueCookie.delete('has_enterprise');
+    VueCookie.delete('token');
+    VueCookie.delete('user_info');
+}

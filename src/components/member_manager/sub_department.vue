@@ -12,7 +12,6 @@
     </div>
     <div class="member-list">
     <ul class="clearfix">
-      {{member_list_data}}
       <li class="member-list-item" v-for="(member, index) in member_list_data" :key="member.id">
         <div class="member-mod">
           <div class="is-department-leader" v-if="member.ifDepartLeader">负责人</div>
