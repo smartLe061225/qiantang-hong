@@ -18,7 +18,7 @@
           <dl class="member-item clearfix">
             <dt class="member-item-hd">
               <div class="face-box">
-                <!-- <img src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt=""> -->
+                <img :src="member.imgUrl" alt="">
                 <div class="account-suspend" v-if="member.status==0">已离职</div>
               </div>
             </dt>
@@ -40,9 +40,9 @@
       </li>
     </ul>
     </div>
-    <div v-if="member_list_data.length==0">
+    <div v-if="no_member">
       <Alert show-icon>
-        暂未添加成员
+        暂无成员
     </Alert>
     </div>
     <div class="page-bar" v-if="member_list_data.length">
@@ -54,6 +54,10 @@
       <Form ref="member_form" :model="modals.member.data" :rules="modals.member.rules" :label-width="120">
         <FormItem label="姓名" prop="name">
           <Input placeholder="请输入姓名" v-model="modals.member.data.name" style="width:200px;"></Input>
+        </FormItem>
+        <FormItem label="头像" prop="imgUrl">
+          <img :src="modals.member.data.imgUrl" class="form-face-img" alt="头像">
+          <Button @click="show_change_avator" class="btn-change-avator" type="ghost" size="small">更换头像</Button>
         </FormItem>
         <FormItem label="邮箱" prop="email">
           <Input placeholder="请输入邮箱" v-model="modals.member.data.email" style="width:200px;"></Input>
@@ -104,6 +108,23 @@
       </Form>
     </Modal>
 
+    <!--选择头像-->
+    <Modal v-model="modals.avator.is_show" :mask-closable="false" :loading="modals.avator.loading" :title="modals.avator.title" @on-ok="set_avator_to_form">
+      <ul class="c-avator-list clearfix">
+        <li v-for="(a, index) in modals.avator.avator_list" @click="select_avator(index)" class="avt-item" :key="a" :class="{cur: a==modals.avator.data.imgUrl}">
+          <img class="avt" :src="a" alt="">
+        </li>
+        <li class="avt-item-btn">
+          <Upload action="/api/user/upload/" :format="['jpg','jpeg','png']"
+              :max-size="2048"
+              :on-format-error="handle_format_error"
+              :on-exceeded-size="handle_max_size" :show-upload-list="false" :on-success="handle_avator_success" style="display: inline-block;">
+              <div class="upload-avator-btn"><Icon type="ios-cloud-upload" size="large"></Icon></div>
+     </Upload>
+        </li>
+      </ul>
+    </Modal>
+
 
   </div>
 </template>
@@ -116,6 +137,7 @@ import {
 } from "../../apis/member";
 import { ajax_get_company_selectbox } from "../../apis/company";
 import { ajax_get_deparment_by_company_id } from "../../apis/department";
+import {default_avator} from '../../util/user'
 import store from "../../store/";
 
 export default {
@@ -137,19 +159,33 @@ export default {
       page_size: 9,
       total_record: null,
       keywords: "",
+      no_member: false,
       modals: {
+        avator: {
+          is_show: false,
+          loading: true,
+          title: '选择头像',
+          data: {
+            imgUrl: default_avator()[0],
+            custom_avator: null,
+          },
+          avator_list: default_avator()
+        },
         member: {
           is_show: false,
           loading: true,
           rules: {
             name: [{ required: true, message: "姓名不能为空", trigger: "blur" }],
-            email: [{type:'email', message: "电子邮箱格式不准确", trigger: "blur" }]
+            email: [{type:'email', message: "电子邮箱格式不准确", trigger: "blur" }],
+            companyid: [{required: true, type:'number', message: "公司不能为空", trigger: "change" }],
+            departid: [{ required: true, type:'number', message: "部门不能为空", trigger: "change" }]
           },
           title: "新增成员",
           company_list_data: [],
           department_list_data: [],
           data: {
             companyid: null,
+            imgUrl: '/static/avator/mrtx0.png',
             departLeaderFlag: 0,
             companyLeaderFlag: 0,
             departid: null,
@@ -164,6 +200,45 @@ export default {
   },
 
   methods: {
+    handle_format_error(file) {
+      this.$Notice.warning({
+        title: "上传格式错误",
+        desc: "您上传的 " + file.name + " 文件格式错误，只能上传jpg，jpeg，png."
+      });
+    },
+    handle_max_size(file) {
+      this.$Notice.warning({
+        title: "上传文件太大",
+        desc: "您将上传的  " + file.name + " 文件大小超过2M，不能上传！"
+      });
+    },
+    handleBeforeUpload() {
+      const check = this.uploadList.length < 5;
+      if (!check) {
+        this.$Notice.warning({
+          title: "Up to five pictures can be uploaded."
+        });
+      }
+      return check;
+    },
+    handle_avator_success(res, file) {
+      if (res.status === "success") {
+        this.modals.avator.data.custom_avator = res.data.result;
+        if(this.modals.avator.avator_list.length == default_avator().length){
+          this.modals.avator.avator_list.push(res.data.result);
+        } else {
+          this.modals.avator.avator_list[10] = res.data.result;
+        }
+        
+      }
+    },
+    // 设置头像值到头像
+    set_avator_to_form(){
+      console.log('hel')
+      this.modals.member.data.imgUrl = this.modals.avator.data.imgUrl;
+      this.modals.avator.is_show = false;
+      this.modals.avator.loading = true;
+    },
     // 显示新建用户弹出层
     show_create_new_member_modal() {
       this.$refs['member_form'].resetFields();
@@ -203,6 +278,14 @@ export default {
       this.get_department_select_list_data(
         this.member_list_data[index].companyid
       );
+    },
+    // 显示修改头像框
+    show_change_avator(){
+      this.modals.avator.is_show = true;
+    },
+    // 选中头像
+    select_avator(index){
+      this.modals.avator.data.imgUrl = this.modals.avator.avator_list[index];
     },
     // 根据关键词搜索
     do_search() {
@@ -245,12 +328,20 @@ export default {
         .then(rs => {
           const data = rs.data;
           _this.department_list_data = data;
-          _this.current_department_id = data[index].id;
-          // _this.current_department_name = data[index].name;
-          // 更新成员数据
-          this.get_member_list_data();
+          
+          // 部门不为空信息为空
+          if (_this.department_list_data.length){
+            _this.current_department_id = data[index].id;
+            // 更新成员数据
+            this.get_member_list_data();
+          } else {
+            _this.current_department_id = null;
+            this.member_list_data = [];
+
+          }
         })
         .catch(error => {
+          console.log('error', error)
           Message.error(error);
         });
     },
@@ -268,7 +359,8 @@ export default {
         .then(rs => {
           const data = rs.data;
           _this.modals.member.department_list_data = data;
-          _this.modals.member.departid =
+          // 普通
+          _this.modals.member.departid = 
             had_val != false ? data[0].id : had_val;
         })
         .catch(error => {
@@ -292,6 +384,7 @@ export default {
           _this.member_list_data = data.data;
           _this.total_record = data.totalNum;
           _this.current_size = data.pageNum;
+          _this.no_member = _this.member_list_data.length ? false : true;
         })
         .catch(error => {
           Message.error(error);
@@ -370,6 +463,28 @@ export default {
 .member-department-bar {
   padding: 20px 0;
 }
+.c-avator-list {
+  .avt-item {
+    float: left;
+    width: 64px;
+    height: 64px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    .avt {
+      width: 64px;
+      height: 64px;
+      border-radius: 32px;
+      border: 3px solid #fff; 
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    &.cur {
+      .avt {
+        border-color: #2d8cf0;
+      }
+    }
+  }
+}
 .department-list {
   a {
     margin-right: 10px;
@@ -382,6 +497,29 @@ export default {
 .search-input-box {
   .ivu-icon-search {
     cursor: pointer;
+  }
+}
+.btn-change-avator {
+  margin-left: 15px;
+  position: relative;
+  top: -10px;
+}
+.form-face-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
+.upload-avator-btn {
+  height: 64px;
+  width: 64px;
+  border-radius: 32px; 
+  border: 1px dashed #ccc;
+  text-align: center;
+  line-height: 64px;
+  cursor: pointer;
+  &:hover {
+    border-color: #2d8cf0;
+    background: #f5f5f5;
   }
 }
 .member-list {

@@ -3,7 +3,7 @@
         <Menu :active-name="active_name" :open-names="open_names" width="180px" :theme="sidebar_theme" @on-select="changeMenu">
             <Submenu name="analysis">
                 <template slot="title">
-                    <Icon type="stats-bars"></Icon>
+                    <Icon type="ios-pie"></Icon>
                     我的宏管理
                 </template>
                 <MenuItem name="profits" key="profits">利润分析</MenuItem>
@@ -14,7 +14,7 @@
 
             <Submenu name="company">
                 <template slot="title">
-                    <Icon type="stats-bars"></Icon>
+                    <Icon type="ios-people"></Icon>
                     企业管理
                 </template>
                 <MenuItem name="information" key="information">企业资料</MenuItem>

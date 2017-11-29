@@ -90,7 +90,10 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>                      
+                        </div>   
+                        <div class="page-bar" v-if="member_list_data.length">
+                          <Page :total="total_member_record" :current="current_page" :page-size="page_size" @on-change="change_member_page_data"></Page>
+                        </div>                     
                     </div>
 
                    

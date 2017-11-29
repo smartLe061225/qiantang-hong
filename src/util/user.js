@@ -92,3 +92,19 @@ export function remove_all_cookie() {
     VueCookie.delete('token');
     VueCookie.delete('user_info');
 }
+
+// 默认头像
+export function default_avator() {
+    return [
+        '/static/avator/mrtx0.png',
+        '/static/avator/mrtx1.png',
+        '/static/avator/mrtx2.png',
+        '/static/avator/mrtx3.png',
+        '/static/avator/mrtx4.png',
+        '/static/avator/mrtx5.png',
+        '/static/avator/mrtx6.png',
+        '/static/avator/mrtx7.png',
+        '/static/avator/mrtx8.png',
+        '/static/avator/mrtx9.png',
+    ]
+}
