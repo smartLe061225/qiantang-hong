@@ -30,7 +30,7 @@
                     <Option :value=1 number >公司</Option>
                 </Select>
             </FormItem>
-            <FormItem label="子公司名称" prop="branch" v-if="certification.data.type == 2">
+            <FormItem label="子公司名称" prop="branch" v-if="certification.data.type == 2" :disabled="type=='update'">
                 <Input placeholder="请输入子公司名称" v-model="certification.data.branch" style="width:300px;"></Input>
             </FormItem>
             <FormItem label="所在地区" prop="area">
