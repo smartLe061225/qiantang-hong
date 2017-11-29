@@ -27,8 +27,8 @@
                 <a href="javascript:;">{{member.name}}</a>
               </h3>
 
-              <div class="sub-content" v-if="member.phone.length"><Icon type="iphone" size=22></Icon> {{member.phone}}</div>
-              <div class="sub-content" v-if="member.email.length"><Icon type="ios-email-outline" size=18></Icon> {{member.email}}</div>
+              <div class="sub-content"><Icon type="iphone" size=22></Icon><span v-if="!member.phone.length">暂无</span> {{member.phone}}</div>
+              <div class="sub-content"><Icon type="ios-email-outline" size=18></Icon><span v-if="!member.email.length">暂无</span> {{member.email}}</div>
             </dd>
           </dl>
           <div class="opt-layer">
@@ -582,6 +582,12 @@ export default {
             color: #999;
             height: 28px;
             line-height: 28px;
+            .ivu-icon {
+              position: relative;
+              top: 3px;
+              width: 20px;
+              text-align: center;
+            }
           }
         }
       }

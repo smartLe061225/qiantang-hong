@@ -40,7 +40,7 @@
                         <ul class="sub-company-list">
                             <li v-for="(company, index) in company_list_data" :key="company.id" :class="{cur: company.id == current_company_id}">
                                 <a href="javascript:;" @click="change_company(index)">
-                                    <img :src="company.imgUrl || default_company" :alt="company.name">
+                                    <img :src="company.companyImg || default_company" :alt="company.name">
                                     <strong>{{company.name}}</strong>
                                 </a>
                             </li>
@@ -142,12 +142,12 @@
 
     <!--添加公司-->
     <Modal v-model="modals.company.create.is_show" :loading="modals.company.create.loading" :mask-closable="false" :title="modals.company.create.title" @on-ok="post_create_company">
-      --{{modals.company.create.data.imgUrl}}<Form ref="create_company_form" :model="modals.company.create.data" :rules="modals.company.create.rules" :label-width="120">
+      <Form ref="create_company_form" :model="modals.company.create.data" :rules="modals.company.create.rules" :label-width="120">
         <FormItem label="公司名称" prop="name">
           <Input placeholder="请输入公司名称" v-model="modals.company.create.data.name" style="width:200px;"></Input>
         </FormItem>
         <FormItem label="公司logo" prop="logo">
-          <img :src="modals.company.create.data.imgUrl" class="form-face-img" alt="公司logo">
+          <img :src="modals.company.create.data.companyImg" class="form-face-img" alt="公司logo">
           <Upload action="/api/user/upload/" :format="['jpg','jpeg','png']"
                     :max-size="2048"
                     :on-format-error="handle_format_error"
@@ -285,7 +285,7 @@ export default {
               area: null,
               address: "",
               name: "",
-              imgUrl: "",
+              companyImg: "",
               enterpriseId: get_enterpri_id()
             },
             rules: {
@@ -320,7 +320,7 @@ export default {
     },
     handle_logo_success(res, file) {
       if (res.status === "success") {
-        this.modals.company.create.data.imgUrl = res.data.result;
+        this.modals.company.create.data.companyImg = res.data.result;
         console.log("xxxx", this.modals.company.create.data.imgUrl);
       }
     },

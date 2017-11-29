@@ -9,6 +9,8 @@ const forget = r => require.ensure([], () => r(require('../views/forget/forget')
 
 const certification = r => require.ensure([], () => r(require('../views/certification')), 'certification')
 
+const init = r => require.ensure([], () => r(require('../views/init')), 'init')
+
 const dashboard = r => require.ensure([], () => r(require('../views/dashboard/')), 'dashboard')
 
 const setting_index = r => require.ensure([], () => r(require('../views/setting/')), 'setting_index')
@@ -219,6 +221,14 @@ const routes = [
     component: certification,
     meta: {
       title: '企业资料认证'
+    }
+  },
+  {
+    path: '/init',
+    name: 'init',
+    component: init,
+    meta: {
+      title: '上传初始数据'
     }
   },
   {
