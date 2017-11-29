@@ -346,3 +346,51 @@ export const getLine4ChartSeriesData = (resource, indexArr) => {
     }
     return result;
 }
+
+/**
+ * 方法说明： 把数据处理成 echarts-柱状图 所需的数组格式
+ * @method formatBarSeriesData
+ * @param {array}   resourceArr,服务器返回数据结果
+ * @param {array}   legendDataArr, 指标，格式如：['营业收入','营业利润','净利润']
+ * @return {array}
+ */
+export const getbar8OutputChartSeriesData = (resourceArr, indexArr) => {
+  let resourceData = resourceArr[0].data[0].data
+  console.log('--')
+  console.log(resourceData)
+  console.log('--end--')
+  let result = [];
+  for (let i = 0; i < indexArr.length; i++) {
+    var flag = false;
+    for (let j = 0; j < resourceData.length; j++) {
+      if(resourceData[j].index_name == indexArr[i]){
+        result.push({value: (resourceData[j].total * -1), itemStyle:{normal: {label : {position: 'right'}}}});
+        flag = true;
+        break;
+      }
+    }
+    if(!flag){
+      result.push({value: (resourceData[j].total * -1), itemStyle:{normal: {label : {position: 'right'}}}});
+    }
+  }
+  return result;
+}
+
+export const getbar8InputChartSeriesData = (resourceArr, indexArr) => {
+  let resourceData = resourceArr[0].data[0].data
+  let result = [];
+  for (let i = 0; i < indexArr.length; i++) {
+    var flag = false;
+    for (let j = 0; j < resourceData.length; j++) {
+      if(resourceData[j].index_name == indexArr[i]){
+        result.push({value: resourceData[j].total, itemStyle:{normal: {label : {position: 'left'}}}});
+        flag = true;
+        break;
+      }
+    }
+    if(!flag){
+      result.push({value: resourceData[j].total, itemStyle:{normal: {label : {position: 'left'}}}});
+    }
+  }
+  return result;
+}

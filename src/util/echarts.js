@@ -66,6 +66,25 @@ const echartsConfig = {
     }
     return options;
   },
+  bar8ChartOptions(params){
+    // http://echarts.baidu.com/echarts2/doc/example/bar15.html
+    let options = {
+      tooltip : { trigger: 'axis', formatter: "{b}：<br/> {c}", axisPointer : { type : 'shadow' } },
+      xAxis : [{ type : 'value',position: 'bottom',splitLine: {lineStyle:{type:'dashed'}} }],
+      yAxis : [{type: 'category',axisLine: {show: false},axisLabel: {show: false},axisTick: {show: false},splitLine: {show: false}, data : params.yAxis}],
+      series : [
+        {
+          type:'bar',
+          itemStyle : { normal: {
+              color: 'orange',
+              borderRadius: 5, label : {show: true, position: 'left',formatter: '{b}'}
+          }},
+          data: params.seriesData
+        }
+      ]
+    };
+    return options;
+  },
   bar15ChartOptions(params){
     // http://echarts.baidu.com/echarts2/doc/example/bar15.html
     let options = {
