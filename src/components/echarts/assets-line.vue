@@ -24,11 +24,11 @@
               </RadioGroup>
             </FormItem>
 
-            <FormItem label="选择时间：">
+            <!-- <FormItem label="选择时间：">
               <RadioGroup v-model="filter.time.value" type="button" @on-change="reLoadChart">
                   <Radio v-for="item in filter.time.list" :key="item" :label="item"></Radio>
               </RadioGroup>
-            </FormItem>
+            </FormItem> -->
           </Form>
         </div>
     </div>
@@ -37,6 +37,17 @@
         <div class="echarts"></div>
       </div>
     </div>
+
+
+
+
+    <!-- 弹出层图表 -->
+    <Modal v-model="chartModel" title="图表展示" width="780" class="custom-modal">
+      <div class="assets-pie">
+        <div class="echarts" style="width:676px;height:320px;"></div>
+      </div>
+      <div slot="footer" style="display: none;"></div>
+    </Modal>
 
   </div>
 </template>
@@ -65,7 +76,13 @@
             list: []
           }
         },
-        resource: []
+        resource: [],
+        resourceIndex:{
+          parentclassArr: [],
+          subclassArr: [],
+          subclassSonArr: []
+        },
+        chartModel: false
       }
     },
     methods: {
@@ -82,8 +99,30 @@
         }
         echartsConfig.resize(self.myChart)
         self.myChart.on('click', function (params) {
-          console.log(params);
+          self.triggerChart(params)
         });
+      },
+      triggerChart(params){
+        const self = this;
+        this.chartModel = true;
+
+        let subclassArr = self.resourceIndex.subclassArr
+        let subclassSonArr = self.resourceIndex.subclassSonArr
+        let companyID = tools.getCompanyID(params.seriesName.split(','), self.filter.company.list)
+        let seriesDataResource = tools.convertResourceData(self.resource, companyID, subclassArr, params.name.split(','));
+        let seriesSubDataResource = tools.convertResourceData(self.resource, companyID, subclassSonArr, params.name.split(','));
+        let a = tools.getPieChartSeriesData(seriesDataResource, subclassArr)
+        let b = tools.getPieChartSeriesData(seriesSubDataResource, subclassSonArr)
+
+        let option = echartsConfig.pie3ChartOptions({
+          legendData: self.legendData
+          ,seriesData: a
+          ,seriesSubData: b
+        })
+        this.myChart2 = echarts.init(document.querySelector('.assets-pie .echarts'));
+
+        this.myChart2.setOption(option, true);
+
       },
       reLoadChart(){
         const self = this;
@@ -103,6 +142,11 @@
           if (rs.status == 'success') {
             self.$Loading.finish();
             self.resource = rs.data[0].data;
+            self.resourceIndex = {
+              parentclassArr : rs.data[0].parentclass.split(','),
+              subclassArr : rs.data[0].subclass.split(','),
+              subclassSonArr : rs.data[0].subclassSon.join(',').split(',')
+            }
             if (callback && typeof callback === "function") {
               callback();
             }
@@ -133,6 +177,9 @@
       companyNames: function(){
         const self = this;
         return tools.getCompanyName(self.companyIds, self.filter.company.list)
+      },
+      legendData: function(){
+        return this.resourceIndex.subclassArr.concat(this.resourceIndex.subclassSonArr)
       }
     },
     created: function(){
@@ -167,6 +214,23 @@
     height: 100%;
   }
 }
+.custom-modal{
+  .ivu-modal-body{
+    padding: 52px;
+  }
+  .ivu-select,.ivu-date-picker{
+    margin-bottom: 15px;
+  }
+  .ivu-modal-content{
+    border-radius: 0;
+  }
+  .ivu-modal-header-inner{
+    font-weight: normal;
+    font-size: 14px;
+    color: #aeaeaf;
+  }  
+}
+
   .chart-filter{
     .ivu-form{
       .ivu-form-item{
