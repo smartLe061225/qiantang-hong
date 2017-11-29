@@ -12,6 +12,7 @@
     </div>
     <div class="member-list">
     <ul class="clearfix">
+      {{member_list_data}}
       <li class="member-list-item" v-for="(member, index) in member_list_data" :key="member.id">
         <div class="member-mod">
           <div class="is-department-leader" v-if="member.ifDepartLeader">负责人</div>
@@ -68,10 +69,10 @@
         </FormItem>
         <FormItem label="是否公司负责人" prop="companyLeaderFlag">
           <RadioGroup v-model="modals.member.data.companyLeaderFlag">
-            <Radio label="1">
+            <Radio label=1>
               <span>是</span>
             </Radio>
-            <Radio label="0">
+            <Radio label=0>
               <span>否</span>
             </Radio>
           </RadioGroup>
@@ -83,20 +84,20 @@
         </FormItem>
         <FormItem label="是否部门负责人" prop="departLeaderFlag">
           <RadioGroup v-model="modals.member.data.departLeaderFlag">
-            <Radio label="1">
+            <Radio label=1>
               <span>是</span>
             </Radio>
-            <Radio label="0">
+            <Radio label=0>
               <span>否</span>
             </Radio>
           </RadioGroup>
         </FormItem>
         <FormItem label="状态" prop="status">
           <RadioGroup v-model="modals.member.data.status">
-            <Radio label="1">
+            <Radio label=1>
               <span>在职</span>
             </Radio>
-            <Radio label="0">
+            <Radio label=0>
               <span>离职</span>
             </Radio>
           </RadioGroup>
@@ -193,7 +194,7 @@ export default {
       this.modals.member.data.email = this.member_list_data[index].email;
       this.modals.member.data.name = this.member_list_data[index].name;
       this.modals.member.data.phone = this.member_list_data[index].phone;
-      this.modals.member.data.status = 1;
+      this.modals.member.data.status = this.member_list_data[index].status;
       this.modals.member.data.companyid = this.member_list_data[
         index
       ].companyid;
