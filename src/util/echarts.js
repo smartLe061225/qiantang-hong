@@ -102,6 +102,17 @@ const echartsConfig = {
     }
     return options;
   },
+  line4ChartOption(params){
+    // http://echarts.baidu.com/echarts2/doc/example/line4.html
+    let options = {
+      tooltip : { trigger: 'axis' },
+      calculable : true,
+      xAxis : [ { type : 'category', boundaryGap : false, data : params.xAxis? params.xAxis : this.mouth } ],
+      yAxis : [ { type : 'value' } ],
+      series : params.seriesData
+    };
+    return options;
+  },
   pie1ChartOptions(params){
     // url: http://echarts.baidu.com/echarts2/doc/example/pie1.html
     let options = {

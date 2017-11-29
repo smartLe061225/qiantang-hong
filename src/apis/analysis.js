@@ -61,3 +61,9 @@ export const ajaxPostProfitIndex = (data) => fetch({ url: '/api/reportprofit/typ
 
 /* 利润分析数据 */
 export const ajaxPostProfitData = (data) => fetch({ url: '/api/reportprofit/dataList', method: 'post', data })
+
+/* 现金分析指标 */
+export const ajaxPostCashIndex = (data) => fetch({ url: '/api/reportcashflow/typeList', method: 'post', data })
+
+/* 现金分析数据 */
+export const ajaxPostCashData = (data) => fetch({ url: '/api/reportcashflow/dataList', method: 'post', data })

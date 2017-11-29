@@ -1,17 +1,14 @@
 <template>
   <div>
-    <cash-bar></cash-bar>
-    <cash-pie></cash-pie>
+    <cash-line></cash-line>
   </div>
 </template>
 <script>
-  import cashBar from 'components/echarts/cash-bar'
-  import cashPie from 'components/echarts/cash-pie'
+  import cashLine from 'components/echarts/cash-line'
 
   export default {
     components: {
-      cashBar,
-      cashPie
+      cashLine
     }
   }
 </script>

@@ -293,3 +293,28 @@ export const getBarChartSeriesData = (resource, indexArr) => {
     }
     return result;
 }
+
+/* 方法说明：线状图表数据
+ * @method getLine4ChartSeriesData
+ * @param {object} data，源数据
+ * @param {array} companyNameArr，麻烦您稍待传一下name的值 ['武汉中润','钱塘大数据交易中心']
+ * @return {object} 返回线型图表所需数据
+ */
+export const getLine4ChartSeriesData = (resource, indexArr) => {
+    let result = [];
+    if (indexArr && indexArr instanceof Array) {
+      for (let i = 0; i < resource.length; i++) {
+          let dataArr = []
+          let rs = resource[i].data;
+          for (let j = 0; j < rs.length; j++) {
+              if(rs[j].data[0]){
+                  dataArr.push(rs[j].data[0].total)
+              }else{
+                  dataArr.push('')
+              }
+          }
+          result.push({name: indexArr[i], type: 'line', itemStyle: {normal: {areaStyle: {type: 'default'}}}, data: dataArr})
+      }
+    }
+    return result;
+}
