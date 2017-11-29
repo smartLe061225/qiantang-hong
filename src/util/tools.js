@@ -127,7 +127,7 @@ export const createTime = (year) => {
 }
 
 /**
- * 方法说明：数组间隔合并
+ * 方法说明：数组间隔合并，并过滤空数组
  * @method intervalMergeArray
  * @param {array} Arr1 , 如：[1,3,5,7,9]
  * @param {array} Arr2 , 如：[2,4,6,8,10]
@@ -141,7 +141,7 @@ export const intervalMergeArray = (Arr1, Arr2) => {
     for (let i = 0; i < Arr2.length; i++) {
         result[2*i+1] = Arr2[i]
     }
-    return result;
+    return result.filter(t => t !== undefined && t !== null);
 }
 
 /**
@@ -153,8 +153,6 @@ export const intervalMergeArray = (Arr1, Arr2) => {
 export const removeEmptyArray = (array) => {
     return array.filter(t => t !== undefined && t !== null); // ES6
 }
-
-
 
 /* 方法说明：从数据源从，按照传入公司ID的顺序获取对应数据
  * @method getCompanyData
