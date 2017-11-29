@@ -57,7 +57,7 @@
                             <ul class="clearfix">
                                 <li v-for="member in member_list_data" :key="member.id">
                                     <div class="ml-box">
-                                    <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt="毛梦琪">
+                                    <img class="avator" :src="member.imgUrl || default_avator" :alt="member.name">
                                     <strong class="name">{{member.name}}</strong>
                                     <!-- <span class="dep">市场部</span>   -->
                                     <span class="is-leader" v-if="member.ifDepartLeader">部门负责人</span>
@@ -84,7 +84,7 @@
                             <ul class="clearfix">
                                 <li v-for="member in member_list_data" :key="member.id">
                                     <div class="ml-box">
-                                    <img class="avator" src="https://img1.doubanio.com/icon/u2629298-7.jpg" alt="毛梦琪">
+                                    <img class="avator"  :src="member.imgUrl || default_avator" :alt="member.name">
                                     <strong class="name">{{member.name}}</strong>
                                     <!-- <span class="dep">市场部</span>   -->
                                     <span class="is-leader" v-if="member.ifDepartLeader">部门负责人</span>
@@ -197,7 +197,8 @@ import {
 import {
   get_enterprise_creater_name,
   get_enterpri_id,
-  get_has_enterprise
+  get_has_enterprise,
+  default_avator
 } from "../../util/user";
 import { ajax_get_member_list } from "../../apis/member";
 import { Message } from "iview";
@@ -214,6 +215,7 @@ export default {
       member_list_data: [],
       total_member_record: 0,
       province_data: [],
+      default_avator: default_avator()[0],
       city_data: [],
       region_data: [],
       current_company_id: null,
