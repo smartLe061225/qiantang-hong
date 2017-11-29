@@ -46,7 +46,7 @@
     </Alert>
     </div>
     <div class="page-bar" v-if="member_list_data.length">
-      <Page :total="total_record" :page-size="page_size" @on-change="change_page_data"></Page>
+      <Page :total="total_record" :page-size="page_size" :current="current_size" @on-change="change_page_data"></Page>
     </div>
 
     <!--新增成员-->
@@ -132,7 +132,8 @@ export default {
       department_select_list_data: [],
       current_department_id: null,
       member_list_data: [],
-      page_num: this.page,
+      page_num: 1,
+      current_size: 1,
       page_size: 9,
       total_record: null,
       keywords: "",
@@ -205,11 +206,13 @@ export default {
     },
     // 根据关键词搜索
     do_search() {
+      this.current_size = 1;
       this.page_num = 1;
       this.get_member_list_data();
     },
     // 改变部门
     change_department(index){
+      this.current_size = 1;
       this.page_num = 1;
       this.current_department_id = this.department_list_data[index].id;
       this.get_member_list_data();
@@ -234,6 +237,8 @@ export default {
     // 获取部门和成员列表数据
     get_department_list_data(id, index) {
       const _this = this;
+      this.page_num = 1;
+      this.current_size = 1;
       ajax_get_deparment_by_company_id({
         id: id
       })
@@ -286,6 +291,7 @@ export default {
           const data = rs.data;
           _this.member_list_data = data.data;
           _this.total_record = data.totalNum;
+          _this.current_size = data.pageNum;
         })
         .catch(error => {
           Message.error(error);
@@ -348,6 +354,8 @@ export default {
     }
   },
   created() {
+    this.page_num = 1;
+    this.current_size = 1;
     if (this.c_id == null) return;
     this.get_department_list_data(this.c_id, 0);
   },
