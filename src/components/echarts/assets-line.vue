@@ -94,6 +94,7 @@
         let option = echartsConfig.lineChartOption({
           seriesData: seriesData
         })
+        echartsConfig.formatyAxis(option.yAxis);
         if (option && typeof option === "object") {
           this.myChart.setOption(option, true);
         }
