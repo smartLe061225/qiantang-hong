@@ -3,21 +3,21 @@
     <Row :gutter="28" class="mb-24">
       <Col span="6">
       <general-count :id-name="general_view_opt.total_profits_id" icon-class-name="bg-i-1" class-name="text-color-orange" :decimals=2 :end-val="general_view_data.total_profits"
-         intro-text="企业总利润"></general-count>
+         intro-text="营业收入"></general-count>
       </Col>
       <Col span="6">
       <general-count :id-name="general_view_opt.total_cash_id" icon-class-name="bg-i-2" class-name="text-color-red" :decimals=2 :end-val="general_view_data.total_cash"
-         intro-text="企业总现金"></general-count>
+         intro-text="费用"></general-count>
 
       </Col>
       <Col span="6">
       <general-count :id-name="general_view_opt.total_assets_id" icon-class-name="bg-i-3" class-name="text-color-blue" :decimals=2 :end-val="general_view_data.total_assets"
-         intro-text="企业总资产"></general-count>
+         intro-text="利润总额"></general-count>
 
       </Col>
       <Col span="6">
       <general-count :id-name="general_view_opt.total_warning_budget_id" icon-class-name="bg-i-4" class-name="text-color-cyan" :decimals=2 :end-val="general_view_data.total_warning_budget"
-        intro-text="企业预算预警"></general-count>
+        intro-text="现金流"></general-count>
       </Col>
     </Row>
     <Row :gutter="28" class="mb-24">
