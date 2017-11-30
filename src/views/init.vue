@@ -3,7 +3,7 @@
         <div class="init-body">
             <div class="wrap-950">
                 <div class="init-hd clearfix">
-                    <h1>宏管理系统使用引导</h1>
+                    <h1>企知系统使用引导</h1>
                 </div>
                 <ul class="init-list clearfix">
                     <li class="item">

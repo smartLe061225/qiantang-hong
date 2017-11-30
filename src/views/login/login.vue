@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="Login common-content clearfix">
-    <h1 class="logo">企业数据宏管理平台</h1>
+    <h1 class="logo">企业数据企知平台</h1>
     <div class="content">
       <h2 class="common-title">登录/Login</h2>
       <div class="form">

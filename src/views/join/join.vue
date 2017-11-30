@@ -26,7 +26,7 @@
           <button class="sms-button" disabled type="button" v-show="computedTime">已发送({{computedTime}}s)</button>
           <div v-show="errors.has('code')" class="tooltip-verify">{{ errors.first('code') }}</div>
         </div>
-        <div class="text"><label  @click.prevent="checkAgree"><i class="ivu-icon" :class="{'ivu-icon-android-checkbox-outline-blank': !isAgree, 'ivu-icon-android-checkbox check': isAgree }"></i>同意《<router-link to="/">企业宏管理系统用户协议</router-link>》和《<router-link to="/">隐私声明</router-link>》</label></div>
+        <div class="text"><label  @click.prevent="checkAgree"><i class="ivu-icon" :class="{'ivu-icon-android-checkbox-outline-blank': !isAgree, 'ivu-icon-android-checkbox check': isAgree }"></i>同意《<router-link to="/">企业企知系统用户协议</router-link>》和《<router-link to="/">隐私声明</router-link>》</label></div>
         <button class="submit-button" type="button" :disabled="(isAgree && value.username && value.password && value.cpassword && value.phone && value.code && !errors.has('username') && !errors.has('password') && !errors.has('cpassword') && !errors.has('phone') && !errors.has('code')) ? false : true" @click.prevent="checkJoin">注册</button>
         <div class="text">已有账号 <router-link to="/login">马上登录</router-link></div>
       </div>
