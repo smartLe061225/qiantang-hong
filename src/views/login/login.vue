@@ -6,11 +6,11 @@
       <h2 class="common-title">登录/Login</h2>
       <div class="form">
         <div class="form-items">
-          <input class="input-text" type="text" v-model.trim="account" :placeholder="placeholder.account" v-validate="'required|string'" name="account">
+          <input class="input-text" type="text" @keyup.enter="checkLogin" v-model.trim="account" :placeholder="placeholder.account" v-validate="'required|string'" name="account">
           <div v-show="errors.has('account')" class="tooltip-verify">{{ errors.first('account') }}</div>
         </div>
         <div class="form-items">
-          <input class="input-text" type="password" v-model.trim="password" :placeholder="placeholder.password" v-validate="'required|string'" name="password">
+          <input class="input-text" type="password" @keyup.enter="checkLogin" v-model.trim="password" :placeholder="placeholder.password" v-validate="'required|string'" name="password">
           <div v-show="errors.has('password')" class="tooltip-verify">{{ errors.first('password') }}</div>
         </div>
         <div class="link clearfix">
