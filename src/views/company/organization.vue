@@ -309,10 +309,10 @@ export default {
       return store.getters.enterprise_type
     },
     enterprise_logo: function () {
-      return store.getters.enterprise_logo || default_images.enterprise_logo()[0]
+      return store.getters.enterprise_logo || default_images().enterprise_logo
     },
     creater_avator: function () {
-      store.getters.enterprise_creater_img || default_avator()[0]
+      return store.getters.enterprise_creater_img || default_avator()[0]
     },
   },
   methods: {

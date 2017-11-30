@@ -63,7 +63,11 @@
             .then( () => {
               self.$store.dispatch('store_get_baseinfo').then( res => {
                 if(res.hasEnterprise){
-                  self.$router.push('/dashboard');
+                  if (res.checkUploadFile) {
+                    self.$router.push('/dashboard');
+                  } else {
+                    self.$router.push('/init');
+                  }
                 } else {
                   self.$router.push('/rz');
                 }

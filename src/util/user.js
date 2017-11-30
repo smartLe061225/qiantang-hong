@@ -49,7 +49,7 @@ export function get_enterprise_creater_name() {
 }
 
 export function set_enterprise_creater_name(enterprise_creater_name) {
-    return VueCookie.set('enterpri_id', enterprise_creater_name)
+    return VueCookie.set('enterprise_creater_name', enterprise_creater_name)
 }
 
 export function remove_enterprise_creater_name() {
@@ -133,19 +133,19 @@ export function remove_enterprise_creater_img() {
 }
 
 export function get_has_uploaded() {
-    if (VueCookie.get('has_enterprise') == 'true') {
+    if (VueCookie.get('check_upload_file') == 'true') {
         return true
     } else {
         return false
     }
 }
 
-export function set_has_uploaded(has_enterprise) {
-    return VueCookie.set('has_enterprise', has_enterprise)
+export function set_has_uploaded(checkUploadFile) {
+    return VueCookie.set('check_upload_file', checkUploadFile)
 }
 
 export function remove_has_uploaded() {
-    return VueCookie.delete('has_enterprise')
+    return VueCookie.delete('check_upload_file')
 } 
 
 
@@ -156,6 +156,7 @@ export function remove_all_cookie() {
     VueCookie.delete('has_enterprise');
     VueCookie.delete('token');
     VueCookie.delete('user_info');
+    VueCookie.delete('check_upload_file');
 }
 
 // 默认头像

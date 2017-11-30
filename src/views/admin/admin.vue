@@ -92,7 +92,7 @@ export default {
     },
     // 点击去首页
     go_to_home(){
-      
+      this.$router.push('/dashboard')
     }
   },
   watch: {
@@ -299,7 +299,7 @@ export default {
   background: #f1f3f7;
   color: #aaa;
   font-size: 12px;
-  margin: 0 25px;
+  margin: 0 25px 25px;
 }
 .bread-crumb-bar {
   position: fixed;

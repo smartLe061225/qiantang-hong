@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { get_token } from '../util/auth'
+import { 
+  get_has_enterprise,
+  get_has_uploaded
+ } from '../util/user'
 
 const admin = r => require.ensure([], () => r(require('../views/admin/admin')), 'admin')
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
@@ -260,12 +264,27 @@ const router = new Router({
 const white_list = ['/login', '/join', '/forget']
 
 router.beforeEach((to, from, next) => {
-
-  document.title = to.meta.title ? to.meta.title : '宏管理'
-
   if (get_token()) {
     if (to.path === '/login') {
-      next({ path: '/dashboard' });
+      if (get_has_enterprise()) {
+        if (get_has_uploaded()){
+          next({ path: '/dashboard' });
+        } else {
+          next({ path: '/init' });
+        }
+      } else {
+        next({ path: '/rz' });
+      }
+    } else if (to.path === '/dashboard'){
+      if (get_has_enterprise()) {
+        if (get_has_uploaded()) {
+          next();
+        } else {
+          next({ path: '/init' });
+        }
+      } else {
+        next({ path: '/rz' });
+      }
     } else {
       next();
     }
@@ -276,6 +295,9 @@ router.beforeEach((to, from, next) => {
       next('/login'); // 否则全部重定向到登录页
     }
   }
+
+  document.title = to.meta.title ? to.meta.title : '宏管理'
+  document.body.scrollTop = 0;
 
   // next()
 

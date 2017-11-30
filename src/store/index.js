@@ -22,8 +22,8 @@ import {
     get_enterpri_id,
     set_has_enterprise,
     get_has_enterprise,
-    remove_all_cookie,
     remove_has_enterprise,
+    remove_all_cookie,
     get_enterprise_logo,
     set_enterprise_logo,
     remove_enterprise_logo,
@@ -32,7 +32,10 @@ import {
     remove_user_img,
     get_enterprise_creater_img,
     set_enterprise_creater_img,
-    remove_enterprise_creater_img
+    remove_enterprise_creater_img,
+    get_has_uploaded,
+    set_has_uploaded,
+    remove_has_uploaded
 } from '../util/user';
 import { Login } from '../apis/user'
 import { Message } from 'iview'
@@ -62,6 +65,7 @@ const store = new Vuex.Store({
         enterprise_logo: get_enterprise_logo(),
         user_img: get_user_img(),
         enterprise_creater_img: get_enterprise_creater_img(),
+        check_upload_file: get_has_uploaded()
     },
     getters: {
         token: state => {
@@ -96,6 +100,9 @@ const store = new Vuex.Store({
         },
         enterprise_creater_img: state => {
             return state.enterprise_creater_img
+        },
+        check_upload_file: state => {
+            return state.check_upload_file
         }
     },
     mutations: {
@@ -135,6 +142,9 @@ const store = new Vuex.Store({
         SET_ENTERPRISE_CREATER_IMG: (state, enterprise_creater_img) => {
             state.enterprise_creater_img = enterprise_creater_img;
         },
+        SET_CHECK_UPLOAD_FILE: (state, check_upload_file) => {
+            state.check_upload_file = check_upload_file;
+        },
     },
     actions: {
         // 登录
@@ -173,6 +183,7 @@ const store = new Vuex.Store({
                 commit('SET_ENTERPRISE_LOGO', '');
                 commit('SET_USER_IMG', '');
                 commit('SET_ENTERPRISE_CREATER_IMG', '');
+                commit('SET_CHECK_UPLOAD_FILE', false);
                 remove_token();
                 remove_all_cookie();
                 resolve();
@@ -234,6 +245,9 @@ const store = new Vuex.Store({
 
                         commit('SET_ENTERPRISE_CREATER_IMG', data.enterpriseCreaterImg);
                         set_enterprise_creater_img(data.enterpriseCreaterImg);
+
+                        commit('SET_CHECK_UPLOAD_FILE', data.checkUploadFile);
+                        set_has_uploaded(data.checkUploadFile);
 
                         resolve(data);
                     }
