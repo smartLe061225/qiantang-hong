@@ -49,6 +49,7 @@
 <script>
   import echartsConfig from 'src/util/echarts'
   import * as tools from 'src/util/tools'
+  import { ajax_get_company_selectbox } from "src/apis/company";
   import { ajaxPostAnalysisReportRecord,ajaxPostAnalysisDelete,ajaxPostAnalysisUpload } from "src/apis/analysis";
 
   export default {
@@ -68,12 +69,12 @@
           file: null
         },
         company: {
-          id: 1,
+          id: '',
           list: []
         },
         type: {
-          id: null,
-          list: [{value: 1, label: '利润分析'},{value: 2, label: '资产分析'}, {value: 3, label: '现金分析'}]
+          id: '',
+          list: []
         },
         columns: [
             {
@@ -225,17 +226,32 @@
           }
           self.results = resultData;
         })
+      },
+      getRecordType(){
+        return [{value: 1, label: '利润分析'},{value: 2, label: '资产分析'}, {value: 3, label: '现金分析'}]
       }
     },
     created(){
-      this.company.list = echartsConfig.getCompanyData()
-      this.type.id = Number(this.$route.params.id);
+      const self = this;
+      Promise.all([ajax_get_company_selectbox(),self.getRecordType()]).then(rs => {
+        let companyData = echartsConfig.getCompanyList(rs[0])
+        if (companyData.length) {
+          self.company.list = companyData;
+          self.company.id = companyData[0].value;
+        }
+        if (rs[1].length) {
+          self.type.list = rs[1]
+          self.type.id = Number(this.$route.params.id);
+        }
+      }).then(rs => {
+        this.getRecordData(self.type.id);
+      })
     },
     watch:{
       $route(to){
-        var reg=/list\/\d+/;
+        const reg=/list\/\d+/;
         if(reg.test(to.path)){
-          let typeId = this.type.id = Number(this.$route.params.id) || 1;
+          let typeId = this.type.id = Number(this.$route.params.id);
           this.getRecordData(typeId);
         }
       }
@@ -267,10 +283,6 @@
             break;
         }
       }
-    },
-    mounted(){
-      let typeId = this.type.id = Number(this.$route.params.id);
-      this.getRecordData(typeId);      
     }
   }
 </script>
