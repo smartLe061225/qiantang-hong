@@ -2,8 +2,8 @@
   <div class="normal-box-mod">
     <div class="normal-box-hd clearfix">
         <div class="normal-box-opt">
-            <a href="javascript:;" class="mr-10">标准利润表</a>
-            <router-link to="/analysis/list/3">重新导入</router-link>
+          <a class="mr-10" href="/api/reportcashflow/downloadTemplate" download>标准现金表</a>
+          <router-link to="/analysis/list/3">重新导入</router-link>
         </div>
       <div class="normal-box-title">
         <div class="decorate-square"></div>

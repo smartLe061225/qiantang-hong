@@ -2,7 +2,7 @@
   <div class="normal-box-mod">
     <div class="normal-box-hd clearfix">
         <div class="normal-box-opt">
-            <a href="javascript:;" class="mr-10">标准利润表</a>
+            <a class="mr-10" href="/api/reportassets/downloadTemplate" download>标准资产负债表</a>
             <router-link to="/analysis/list/2">重新导入</router-link>
         </div>
       <div class="normal-box-title">
