@@ -51,12 +51,12 @@
       <div class="normal-block-mod">
         <div class="mormal-block-hd ivu-row">
           <div class="mbm-opt">
-            <a class="ghost-blue" href="javascript:;">管理</a>
+            <router-link class="ghost-blue" to="/company/organization">管理</router-link>
           </div>
           <h2 class="mbm-title">组织架构</h2>
         </div>
         <div class="mormal-block-bd">
-          <member :data="member_data"></member>
+          <company :data="organizational_data"></company>
         </div>
       </div>
       </Col>
@@ -97,9 +97,9 @@
   import uploadLog from "@/components/upload_log";
   import qtPush from "@/components/qt_push";
   import apiData from "@/components/api_data";
-  import member from "@/components/member";
+  import company from "components/company";
   import Bar from "components/echarts/dashboard-bar";
-  import Pie from "components/echarts/dashboard-pie";
+  import { ajaxGetOrganizationalData } from "src/apis/company"
 
   export default {
     name: "dashboard",
@@ -108,9 +108,8 @@
       uploadLog,
       qtPush,
       apiData,
-      member,
-      Bar,
-      Pie
+      company,
+      Bar
     },
     data() {
       return {
@@ -205,56 +204,23 @@
             id: 1253
           }],
           // 成员管理
-          member_data: [{
-            id: 1011,
-            name: "畅捷通",
-            department: "华贸集团",
-            duty: "CEO",
-            avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
-            children: [{
-              name: "分公司",
-              count: 20
-            }, {
-                name: "管理员",
-                count: 20
-              }, {
-                name: "库管",
-                count: 11
-              }]
-          }, {
-              id: 1011,
-              name: "畅捷通",
-              department: "华贸集团",
-              duty: "CEO",
-              avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
-              children: [{
-                name: "分公司",
-                count: 20
-              }, {
-                name: "管理员",
-                count: 20
-              }, {
-                name: "库管",
-                count: 11
-              }]
-            }, {
-              id: 1011,
-              name: "畅捷通",
-              department: "华贸集团",
-              duty: "CEO",
-              avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
-              children: [{
-                name: "分公司",
-                count: 20
-              }, {
-                name: "管理员",
-                count: 20
-              }, {
-                name: "库管",
-                count: 11
-              }]
-            }]
+          organizational_data: [{},{},{}]
       };
+    },
+    methods: {
+      getOrganizationalData(){
+        const self = this;
+        ajaxGetOrganizationalData().then(rs => {
+          if (rs.status == 'success') {
+            self.organizational_data = rs.data
+          }else{
+            self.$Message.error(rs.message)
+          }
+        })
+      }
+    },
+    created: function(){
+      this.getOrganizationalData()
     }
   };
 </script>
