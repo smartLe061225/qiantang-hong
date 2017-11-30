@@ -39,7 +39,7 @@
     </div>
 
     <!-- 弹出层图表 -->
-    <Modal v-model="chartModel" title="图表展示" width="600" class="custom-modal">
+    <Modal v-model="chartModel" :title="filter.company.value +' '+ filter.index.value + '明细 ' + triggerMouth" width="600" class="custom-modal">
       <div class="profits-pie">
         <div class="echarts" style="width:496px;height:300px;"></div>
       </div>
@@ -79,7 +79,8 @@
           subclassArr: [],
           subclassSonArr: []
         },
-        chartModel: false
+        chartModel: false,
+        triggerMouth: ''
       }
     },
     methods: {
@@ -92,19 +93,23 @@
         let option = echartsConfig.bar15ChartOptions({
           seriesData: seriesData
         })
+        echartsConfig.formatyAxis(option.yAxis);
         if (option && typeof option === "object") {
           this.myChart.setOption(option, true);
         }
         echartsConfig.resize(self.myChart)
-        if (self.resourceIndex.parentclassArr == '费用') {
-          self.myChart.on('click', function (params) {
+        
+        self.myChart.on('click', function (params) {
+          if (self.resourceIndex.parentclassArr.join(',') === '费用') {
             self.triggerChart(params)
-          });
-        }        
+          } 
+        });
+               
       },
       triggerChart(params){
         const self = this;
         this.chartModel = true;
+        this.triggerMouth = params.name.split(',')
 
         let subclassArr = self.resourceIndex.subclassArr
     
@@ -116,6 +121,7 @@
           seriesName: self.filter.index.value,
           seriesData: seriesData,
         })
+
         this.myChart2 = echarts.init(document.querySelector('.profits-pie .echarts'));
         this.myChart2.setOption(option, true);
       },

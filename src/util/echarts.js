@@ -1,6 +1,7 @@
 import { Message } from 'iview';
 import { ajaxPostAnalysisPublicData } from "src/apis/analysis";
 import { ajax_get_company_selectbox } from "src/apis/company";
+import chart_option_event from "src/util/chart_option_event";
 
 const echartsConfig = {
   color: ['#00c35c','#0e7ccf','#ffd900','#b7a3df','#e55e7e','#ffc0c0','#ff9a23','#f1c2e6','#f8c66e','#26a9e6','#8be0db','#ff6b08'],
@@ -64,7 +65,11 @@ const echartsConfig = {
       xAxis: {
         data: params.xAxis ? params.xAxis : this.mouth
       },
-      yAxis: {},
+      yAxis : [
+        {
+            type : 'value'
+        }
+      ],
       color: echartsConfig.color,
       series: params.seriesData
     }
@@ -265,6 +270,17 @@ const echartsConfig = {
       }
     }else{
       Message.error(rs.message)
+    }
+  },
+  formatyAxis: function(yAxis){
+    if(yAxis && yAxis.length > 0){
+      for(var i = 0;i < yAxis.length;i++){
+        yAxis[i].axisLabel = {
+          formatter:function(value){
+            return chart_option_event.scaleValueConvert(value);
+          }
+        };
+      }
     }
   }
 }

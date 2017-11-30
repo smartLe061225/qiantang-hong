@@ -3,7 +3,7 @@
     <div class="normal-box-hd clearfix">
         <div class="normal-box-opt">
             <a href="javascript:;" class="mr-10">标准利润表</a>
-            <router-link to="/analysis/list/1">重新导入</router-link>
+            <router-link to="/analysis/list/2">重新导入</router-link>
         </div>
       <div class="normal-box-title">
         <div class="decorate-square"></div>
@@ -42,7 +42,7 @@
 
 
     <!-- 弹出层图表 -->
-    <Modal v-model="chartModel" title="图表展示" width="780" class="custom-modal">
+    <Modal v-model="chartModel"  :title="triggerCompany +' '+ filter.index.value + '明细 ' + triggerMouth" width="780" class="custom-modal">
       <div class="assets-pie">
         <div class="echarts" style="width:676px;height:320px;"></div>
       </div>
@@ -82,7 +82,9 @@
           subclassArr: [],
           subclassSonArr: []
         },
-        chartModel: false
+        chartModel: false,
+        triggerMouth: '',
+        triggerCompany: ''
       }
     },
     methods: {
@@ -94,6 +96,7 @@
         let option = echartsConfig.lineChartOption({
           seriesData: seriesData
         })
+        echartsConfig.formatyAxis(option.yAxis);
         if (option && typeof option === "object") {
           this.myChart.setOption(option, true);
         }
@@ -105,6 +108,8 @@
       triggerChart(params){
         const self = this;
         this.chartModel = true;
+        this.triggerMouth = params.name.split(',');
+        this.triggerCompany = params.seriesName;
 
         let subclassArr = self.resourceIndex.subclassArr
         let subclassSonArr = self.resourceIndex.subclassSonArr
