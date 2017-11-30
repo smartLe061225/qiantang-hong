@@ -82,6 +82,7 @@ const routes = [
           component: setting,
           meta: {
             title: '个人设置',
+            how_in_bread_curmb_bar: true,
           }
         }]
       },
@@ -296,7 +297,7 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  document.title = to.meta.title ? to.meta.title : '宏管理'
+  document.title = to.meta.title ? to.meta.title : '企知'
   document.body.scrollTop = 0;
 
   // next()

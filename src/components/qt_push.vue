@@ -54,8 +54,7 @@ export default {
         width: 100%;
         height: 250px;
         img {
-            width: 100%;
-            height: 100%;
+            min-height: 250px;
         }
     }
     .qt-push-info {

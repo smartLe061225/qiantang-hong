@@ -67,17 +67,7 @@ export default {
             password: [{ required: true, message: "请输入密码", trigger: "blur" }],
             repassword: [
               { required: true, message: "请输入确认密码", trigger: "blur" },
-              {validator(rule, value, callback, source, options) {
-                console.log('rule', rule)
-                console.log('value', value)
-                console.log('callback', callback)
-                console.log('source', source)
-                console.log('options', options)
-                var errors = [];
-                // test if email address already exists in a database
-                // and add a validation error to the errors array if it does
-                callback(errors);
-              }}
+              { validator: this.check_password, trigger: "blur" }
             ]
           },
           data: {
@@ -89,6 +79,17 @@ export default {
     };
   },
   methods: {
+    // 判断密码是否相同
+    check_password(rule, value, callback, source, options){
+      console.log('ru', rule);
+      console.log('value', value);
+      console.log('callback', options);
+      if (value != this.modals.data.password){
+        return callback(new Error('两次输入密码不相同'))
+      } else {
+        callback()
+      }
+    },
     // 修改信息
     show_change_info_modal() {},
     // 重置验证

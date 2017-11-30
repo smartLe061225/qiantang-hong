@@ -131,21 +131,21 @@
           // 钱塘推送
           qt_push_data:[{
             title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
-            img: "http://p3.pstatp.com/large/39a200023931d8829cf9",
+            img: "/static/dashboard-img/mrt_1.png",
             pv: "900",
             timepass: "18小时",
             avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
             id: 1203
           }, {
               title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
-              img: "http://p3.pstatp.com/large/39a1000252adba97b994",
+              img: "/static/dashboard-img/mrt_2.png",
               pv: "900",
               timepass: "18小时",
               avator_path: "http://p3.pstatp.com/large/39a00003f2267df41266",
               id: 1203
             }, {
               title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
-              img: "http://p9.pstatp.com/large/37f30003fa72f6d28b77",
+              img: "/static/dashboard-img/mrt_3.png",
               pv: "900",
               timepass: "18小时",
               avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
