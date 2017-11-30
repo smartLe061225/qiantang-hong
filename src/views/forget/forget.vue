@@ -2,6 +2,7 @@
   <div>
     <h1 class="logo-title"><img src="~assets/images/joinLogo.png" alt=""></h1>
     <div class="Join common-content">
+    <div v-if="!isOK">
       <h2 class="common-title">找回密码 / Retrieve password</h2>
 
       <div class="form" v-show="!isNext">
@@ -33,7 +34,7 @@
       <button class="submit-button" type="button" :disabled="(value.phone && value.code && value.password && value.cpassword && !errors.has('phone') && !errors.has('code') && !errors.has('password') && !errors.has('cpassword')) ? false : true" @click.prevent="checkForget" v-show="isNext">确定</button>
       <div class="text"><button class="default-button" type="button" @click.prevent="Prev" v-show="isNext">上一步</button></div>
       <div class="text">已有账号 <router-link to="/login">返回登录</router-link></div>
-
+    </div>
       <div v-if="isOK" class="result-success" style="text-align:center;">
         <i class="ivu-icon ivu-icon-ios-checkmark-outline"></i>
         <p class="text">密码修改成功！</p>
@@ -85,7 +86,9 @@
             }, 1000)
 
             let data = {
-              phone: self.value.phone
+              data: {
+                phone: self.value.phone
+              }              
             }
             forgetSMS(data).then(res => {
               if (res.status == 'error') {
@@ -115,9 +118,11 @@
         this.$validator.validateAll().then((result) => {
           if (result) {
             let data = {
-              phone: self.value.phone,
-              code: self.value.code,
-              password: self.value.password
+              data:{
+                phone: self.value.phone,
+                code: self.value.code,
+                password: self.value.password
+              }              
             }
             Forget(data).then(res => {
               if (res.status == 'success') {

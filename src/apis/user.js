@@ -18,10 +18,10 @@ export const Join = (data) => fetch({ url: '/api/register/submit', method: 'post
 export const joinSMS = (data) => fetch({ url: '/api/register/code', method: 'post', data: {data: data} })
 
 /** 发送 找回密码 验证码 **/
-export const forgetSMS = (data) => fetch({ url: '/api/register/code', method: 'post', data })
+export const forgetSMS = (data) => fetch({ url: '/api/user/forget/code', method: 'post', data })
 
 /** 找回密码 **/
-export const Forget = (data) => fetch({ url: '/api/register/forget', method: 'post', data })
+export const Forget = (data) => fetch({ url: '/api/user/forget/submit', method: 'post', data })
 
 /**
  * 获取登录信息
