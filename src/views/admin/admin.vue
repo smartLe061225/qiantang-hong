@@ -97,7 +97,7 @@ export default {
   },
   watch: {
     $route(to) {
-      store.commit("SET_CURRENT_PATH", to.matched);
+      // store.commit("SET_CURRENT_PATH", to.matched);
     }
   },
   created() {

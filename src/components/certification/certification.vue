@@ -90,6 +90,7 @@
       </FormItem>
       <FormItem label="">
         <Button type="primary" size="large" :loading="posting" @click="post_enterprise">保存资料</Button>
+        <Button type="ghost" size="large" @click="logout">退出</Button>
       </FormItem>
     </Form>
 
@@ -209,6 +210,12 @@
             });
             break;
         }
+      },
+      logout(){
+        this.$store.dispatch("store_logout");
+        this.$router.push({
+          path: "/login"
+        });
       },
       // 改变省份
       change_province(p) {

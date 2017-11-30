@@ -236,7 +236,6 @@ export default {
     },
     // 设置头像值到头像
     set_avator_to_form(){
-      console.log('hel')
       this.modals.member.data.imgUrl = this.modals.avator.data.imgUrl;
       this.modals.avator.is_show = false;
       this.modals.avator.loading = true;
@@ -278,6 +277,7 @@ export default {
       this.modals.member.data.name = this.member_list_data[index].name;
       this.modals.member.data.phone = this.member_list_data[index].phone;
       this.modals.member.data.status = this.member_list_data[index].status;
+      this.modals.member.data.imgUrl = this.member_list_data[index].imgUrl || this.default_avator;
       this.modals.member.data.companyid = this.member_list_data[
         index
       ].companyid;
@@ -290,6 +290,8 @@ export default {
     // 显示修改头像框
     show_change_avator(){
       this.modals.avator.is_show = true;
+      this.modals.avator.data.avator_list = default_avator();
+      this.modals.avator.data.imgUrl = this.modals.member.data.imgUrl;
     },
     // 选中头像
     select_avator(index){
