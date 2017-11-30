@@ -3,7 +3,7 @@
         <ul>
             <li class="clearfix" v-for="log in uploadLogData" :key="log.id">
                 <Row>
-                    <Col span="14">
+                    <Col span="18">
                     <div class="upload-log-file">
                         <img src="../assets/logo-excle.png" alt="excle">
                         <h3 class="text-overflow">
@@ -12,14 +12,14 @@
                         <div>上传于：{{log.upload_time}}</div>
                     </div>
                     </Col>
-                    <Col span="10">
-                    <div class="upload-log-user">
+                    <Col span="6">
+                    <!-- <div class="upload-log-user">
                         <img class="face-box" :src="log.avator_path" alt="">
                         <div class="department">
                             <a href="javascript:;">{{log.user_name}}</a>
                             <p>{{log.company_name}} {{log.department}}</p>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="upload-log-opt">
                         <!-- <a href="javascript:;">
                             <p>查看</p>
@@ -27,12 +27,28 @@
                                 <Icon type="eye" size="18" color="#23BA00"></Icon>
                             </p>
                         </a> -->
-                        <a href="javascript:;">
+
+                        <a v-if="log.type==1" :href="'/api/reportprofit/downExcel?reportTime='+ log.reportTime +'&recordid='+log.id" download>
+                          <p>下载</p>
+                            <p>
+                                <Icon type="android-download" size="18" color="#6799FF"></Icon>
+                            </p>
+                        </a>
+                        <a v-else-if="log.type==2" :href="'/api/reportassets/downExcel?reportTime='+ log.reportTime +'&recordid='+log.id" download>
                             <p>下载</p>
                             <p>
                                 <Icon type="android-download" size="18" color="#6799FF"></Icon>
                             </p>
                         </a>
+                        <a v-else-if="log.type==3" :href="'/api/reportcashflow/downExcel?reportTime='+ log.reportTime +'&recordid='+log.id" download>
+                            <p>下载</p>
+                            <p>
+                                <Icon type="android-download" size="18" color="#6799FF"></Icon>
+                            </p>
+                        </a>
+                            
+
+
                         <!-- <a href="javascript:;">
                             <p>删除</p>
                             <p>
