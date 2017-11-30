@@ -21,24 +21,24 @@
                         </div>
                     </div>
                     <div class="upload-log-opt">
-                        <a href="javascript:;">
+                        <!-- <a href="javascript:;">
                             <p>查看</p>
                             <p>
                                 <Icon type="eye" size="18" color="#23BA00"></Icon>
                             </p>
-                        </a>
+                        </a> -->
                         <a href="javascript:;">
                             <p>下载</p>
                             <p>
                                 <Icon type="android-download" size="18" color="#6799FF"></Icon>
                             </p>
                         </a>
-                        <a href="javascript:;">
+                        <!-- <a href="javascript:;">
                             <p>删除</p>
                             <p>
                                 <Icon type="close-circled" size="18" color="#FF576F"></Icon>
                             </p>
-                        </a>
+                        </a> -->
                     </div>
                     </Col>
                 </Row>
@@ -114,6 +114,7 @@ export default {
       text-align: center;
       font-size: 14px;
       display: none;
+      margin-right: -14px;
       a {
         padding: 0 5%;
         margin-top: 25px;

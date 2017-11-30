@@ -21,28 +21,17 @@
       </Col>
     </Row>
     <Row :gutter="28" class="mb-24">
-      <Col span="12">
+      <Col>
       <div class="normal-block-mod">
         <div class="mormal-block-hd ivu-row">
           <div class="mbm-opt">
             <a class="ghost-green" href="javascript:;">详情</a>
           </div>
-          <h2 class="mbm-title">集团资产变化曲线</h2>
+          <h2 class="mbm-title">多个公司收支变化趋势</h2>
         </div>
         <div class="mormal-block-bd"><bar></bar></div>
       </div>
-      </Col>
-      <Col span="12">
-      <div class="normal-block-mod">
-        <div class="mormal-block-hd ivu-row">
-          <div class="mbm-opt">
-            <a class="ghost-blue" href="javascript:;">详情</a>
-          </div>
-          <h2 class="mbm-title">流动资产来源构成</h2>
-        </div>
-        <div class="mormal-block-bd"><pie></pie></div>
-      </div>
-      </Col>
+      </Col>      
     </Row>
     <Row :gutter="28" class="mb-24">
       <Col span="12">
@@ -64,7 +53,7 @@
           <div class="mbm-opt">
             <a class="ghost-blue" href="javascript:;">管理</a>
           </div>
-          <h2 class="mbm-title">成员管理</h2>
+          <h2 class="mbm-title">组织架构</h2>
         </div>
         <div class="mormal-block-bd">
           <member :data="member_data"></member>
