@@ -232,9 +232,11 @@ const echartsConfig = {
     if (rs.status == 'success') {
       let data = rs.data;
       let result = [];
-      data.forEach(function(v) {
-        result.push({'value':v.id, 'label':v.name})
-      })
+      if (data && data instanceof Array) {
+        data.forEach(function(v) {
+          result.push({'value':v.id, 'label':v.name})
+        })
+      }
       return result;
     }else{
       Message.error(rs.message)

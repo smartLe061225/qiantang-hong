@@ -15,7 +15,7 @@
               </RadioGroup>
             </FormItem>
             <FormItem label="选择年份：">
-              <DatePicker v-model="filter.year" type="year" placeholder="年份" style="width: 80px"></DatePicker>
+              <DatePicker v-model="filter.year" type="year" placeholder="年份" style="width: 80px" @on-change="reLoadChart($event)"></DatePicker>
             </FormItem>
           </Form>
         </div>
@@ -25,7 +25,6 @@
         <div class="echarts"></div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -44,7 +43,7 @@
             value: '',
             list: []
           },
-          year: new Date().getFullYear().toString()
+          year: ''
         },
         resource: [],
         chartTypeArr: ['企业偿还能力分析','资产负债率分析','销售利润率分析','成本利润率分析']
@@ -65,8 +64,9 @@
         }
         echartsConfig.resize(self.myChart)    
       },
-      reLoadChart(){
-        const self = this;
+      reLoadChart(v){
+        let self = this;
+        this.filter.year = v
         this.getResourceData(self.setChart)
       },
       getResourceData(callback){
@@ -74,7 +74,7 @@
         let data = {
           data:{
             companyId: self.companyIds.join(','),
-            year: self.filter.year
+            year: new Date(self.filter.year).getFullYear().toString()
           }
         }
         this.$Loading.start();
@@ -113,6 +113,7 @@
           self.filter.company.list = companyName;
           self.filter.company.value = companyName[0];
         }
+        self.filter.year = new Date().getFullYear().toString()
 
       }).then(rs => {
         self.getResourceData(self.setChart)
