@@ -53,6 +53,10 @@ const echartsConfig = {
   barChartOptions(params){
     let options = {
       tooltip: {},
+      title: { 
+        text: params.title ? params.title : '',
+        x: 'center'
+      },
       legend: {
         data: params.legendData ? params.legendData : '',
         y: 'bottom'

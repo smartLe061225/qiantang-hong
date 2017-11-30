@@ -6,8 +6,9 @@
 <script>
   import echarts from 'echarts'
   import echartsConfig from 'src/util/echarts'
+  import * as tools from 'src/util/tools'
   import { ajax_get_company_selectbox } from "src/apis/company";
-  import { ajaxPostAnalysisReportprofit } from "src/apis/analysis";
+  import { ajaxGetBalanceData } from "src/apis/analysis";
 
 
   export default {
@@ -15,7 +16,7 @@
       return {
         name: 'dashboard-bar',
         myChart: {},
-        xAxis: ['营业收入','营业成本','利润总额','净利润'],
+        xAxis: ['营业收入','费用','利润总额','现金流'],
         seriesData: []
       }
     },
@@ -28,64 +29,35 @@
       },
       showChart() {
         const self = this;
-        ajax_get_company_selectbox().then(rs => {
+        ajaxGetBalanceData().then(rs => {
           if (rs.status == 'success') {
-            let data = {
-              "data": {
-                companyIds: rs.data[0].id,
-                type: 1,
-                indexNames: self.xAxis.join(',')
-              }            
-            }
-            ajaxPostAnalysisReportprofit(data).then(result=>{
-              if (result.status == 'success') {
-                const resultData = result.data[0].data;
-                if (resultData.length>0) {
-                  resultData.forEach(function(v){
-                    self.seriesData.push(v.total)
-                  })
-                  self.setChartOption()
-                }
-              }
-            })
+            self.setChartOption(tools.getBalanceSeriesData(rs.data.series_data, self.xAxis, 'bar'))
+          }else{
+            self.$Message.error(rs.message)
           }
         })
       },
-      setChartOption(){
+      setChartOption(seriesData){
         let self = this;
         self.myChart.hideLoading()
-        self.myChart.setOption({
-          title: { 
-            text: '集团资产变化曲线',
-            x: 'center'
-          },
-          tooltip: {},
-          xAxis: {
-              data: self.xAxis
-          },
-          yAxis: {},
-          itemStyle: {
-            normal:{
-              color: function (params){
-                return echartsConfig.setColor(params.dataIndex)
-              }
-            }
-          },
-          series: [{
-              type: 'bar',
-              data: self.seriesData
-          }]
-        });
+
+        let option = echartsConfig.barChartOptions({
+          title: '多个公司收支变化趋势',
+          legendData: self.xAxis,
+          seriesData: seriesData
+        })
+
+        self.myChart.setOption(option);
       }
     },
-    mounted() {      
+    mounted() {
       this.init()
     }
   }
 </script>
 <style lang="less" scoped>
   .dashboard-bar{
-    height: 300px;
+    height: 450px;
     width: 100%;
     .echarts{
       width: 100%;

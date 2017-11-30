@@ -70,3 +70,6 @@ export const ajaxPostCashData = (data) => fetch({ url: '/api/reportcashflow/data
 
 /* 预警分析数据 */
 export const ajaxPostWarningData = (data) => fetch({ url: '/api/reportrecord/warningdata', method: 'post', data })
+
+/* 首页 多个公司收支之和变化趋势 */
+export const ajaxGetBalanceData = (params) => fetch({ url: '/api/reportrecord/balancechange', method: 'get', params })

@@ -406,11 +406,29 @@ export const getbar8InputChartSeriesData = (resourceArr, indexArr) => {
  * @param {array}   legendDataArr, 指标，格式如：['营业收入','营业利润','净利润']
  * @return {array}
  */
-export const getWarningSeriesData = (resourceData, legendDataArr) => {
+export const getWarningSeriesData = (resourceData, legendDataArr, echartType) => {
   let result = [];
   for (var i = 0; i < legendDataArr.length; i++) {
     for (var j = 0; j < resourceData.length; j++) {
-      result.push({name:legendDataArr[i], type:'line', data: resourceData[j].series_data})
+      result.push({name:legendDataArr[i], type: echartType? echartType: 'line', data: resourceData[j].series_data})
+      break;
+    }    
+  }
+  return result;
+}
+
+/**
+ * 方法说明： 首页 多个公司收支变化趋势
+ * @method getBalanceSeriesData
+ * @param {array}   resourceData,服务器返回数据结果
+ * @param {array}   legendDataArr, 指标，格式如：['营业收入','营业利润','净利润']
+ * @return {array}
+ */
+export const getBalanceSeriesData = (resourceData, legendDataArr, echartType) => {
+  let result = [];
+  for (var i = 0; i < legendDataArr.length; i++) {
+    for (var j = 0; j < resourceData.length; j++) {
+      result.push({name:legendDataArr[i], type: echartType? echartType: 'line', data: resourceData[j].data})
       break;
     }    
   }
