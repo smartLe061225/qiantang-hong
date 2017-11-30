@@ -57,11 +57,25 @@ export default {
   },
   data() {
     return {
-      avatorPath: store.getters.user_img || default_avator()[0],
-      enterprise_type: store.getters.enterprise_type,
-      enterprise_name: store.getters.enterprise_name,
-      user: store.getters.user
+      // avatorPath: store.getters.user_img || default_avator()[0],
+      // enterprise_type: store.getters.enterprise_type,
+      // enterprise_name: store.getters.enterprise_name,
+      // user: store.getters.user
     };
+  },
+  computed: {
+    enterprise_type: function () {
+      return store.getters.enterprise_type
+    },
+    enterprise_name: function () {
+      return store.getters.enterprise_name
+    },
+    avatorPath: function () {
+      return store.getters.user_img || default_avator()[0]
+    },
+    user: function () {
+      return store.getters.user
+    }
   },
   methods: {
     handleClickUserDropdown(name) {
