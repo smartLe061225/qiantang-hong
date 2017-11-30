@@ -3,7 +3,7 @@
     <div class="x-bg" :class="iconClassName"></div>
     <div class="general-view-count">
         <strong :class="className" v-cloak :id="idName">{{ startVal }}</strong><span :class="className" class="unit">{{ unit }}</span>
-        <span v-if="percent" class="percent text-color-green">{{percent}}%</span>
+        <!-- <span v-if="percent" class="percent text-color-green">{{percent}}%</span> -->
     </div>
     <div class="general-view-name">{{introText}}</div>
 </div>
@@ -108,7 +108,7 @@ export default {
             let res = transformValue(val);
             let endVal = res.val;
             this.unit = res.unit;
-            this.demo.update(endVal);
+            // this.demo.update(endVal);
         }
     }
 };
