@@ -42,7 +42,7 @@
 
 
     <!-- 弹出层图表 -->
-    <Modal v-model="chartModel" title="图表展示" width="780" class="custom-modal">
+    <Modal v-model="chartModel"  :title="triggerCompany +' '+ filter.index.value + '明细 ' + triggerMouth" width="780" class="custom-modal">
       <div class="assets-pie">
         <div class="echarts" style="width:676px;height:320px;"></div>
       </div>
@@ -82,7 +82,9 @@
           subclassArr: [],
           subclassSonArr: []
         },
-        chartModel: false
+        chartModel: false,
+        triggerMouth: '',
+        triggerCompany: ''
       }
     },
     methods: {
@@ -106,6 +108,8 @@
       triggerChart(params){
         const self = this;
         this.chartModel = true;
+        this.triggerMouth = params.name.split(',');
+        this.triggerCompany = params.seriesName;
 
         let subclassArr = self.resourceIndex.subclassArr
         let subclassSonArr = self.resourceIndex.subclassSonArr
