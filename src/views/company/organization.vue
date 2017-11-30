@@ -109,10 +109,10 @@
     <Modal class-name="no-footer-modal" v-model="modals.company.manager.is_show" :mask-closable="false" :title="modals.company.manager.title">
       <ul class="modal_company_list">
         <li v-for="(company, index) in company_list_data" :key="company.id" class="clearfix">
-          {{company.name}}
+          <span class="c-n">{{company.name}}</span>
           <span class="fr">
             <Button type="ghost" size="small" @click="show_update_company_modal(index)" class="mr-5">编辑</Button>
-            <Button type="ghost" size="small" @click="confirm_del_company(index)">删除</Button>
+            <Button type="ghost" v-if="company_list_data.length > 1" size="small" @click="confirm_del_company(index)">删除</Button>
           </span>
         </li>        
       </ul>
@@ -129,7 +129,7 @@
       </div>
       <ul class="modal_company_list">
         <li v-for="(department, index) in modals.department.manager.department_list_data" :key="department.id" class="clearfix">
-          {{department.name}}
+          <span class="c-n">{{department.name}}</span>
           <span class="fr">
             <Button type="ghost" size="small" @click="show_update_department_modal(index)" class="mr-5">编辑</Button>
             <Button type="ghost" size="small" @click="confirm_del_department(index)">删除</Button>
@@ -922,6 +922,10 @@ export default {
   background: #fcfcfc;
   border-top: 1px solid #e9e9e9;
   li {
+    .c-n {
+      position: relative;
+      top:3px;
+    }
     padding: 6px;
     border-bottom: 1px solid #e9e9e9;
     &:hover {
