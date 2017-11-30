@@ -144,7 +144,7 @@
     <Modal v-model="modals.company.create.is_show" :loading="modals.company.create.loading" :mask-closable="false" :title="modals.company.create.title" @on-ok="post_create_company">
       <Form ref="create_company_form" :model="modals.company.create.data" :rules="modals.company.create.rules" :label-width="120">
         <FormItem label="公司名称" prop="name">
-          <Input placeholder="请输入公司名称" v-model="modals.company.create.data.name" style="width:200px;"></Input>
+          <Input placeholder="请输入公司名称" :disabled="enterprise_type == 1" v-model="modals.company.create.data.name" style="width:200px;"></Input>
         </FormItem>
         <FormItem label="公司logo" prop="logo">
           <div class="company-logo-box">
