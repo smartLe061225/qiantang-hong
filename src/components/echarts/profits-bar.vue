@@ -92,15 +92,18 @@
         let option = echartsConfig.bar15ChartOptions({
           seriesData: seriesData
         })
+        echartsConfig.formatyAxis(option.yAxis);
         if (option && typeof option === "object") {
           this.myChart.setOption(option, true);
         }
         echartsConfig.resize(self.myChart)
-        if (self.resourceIndex.parentclassArr == '费用') {
-          self.myChart.on('click', function (params) {
+        
+        self.myChart.on('click', function (params) {
+          if (self.resourceIndex.parentclassArr.join(',') === '费用') {
             self.triggerChart(params)
-          });
-        }        
+          } 
+        });
+               
       },
       triggerChart(params){
         const self = this;
@@ -116,6 +119,7 @@
           seriesName: self.filter.index.value,
           seriesData: seriesData,
         })
+
         this.myChart2 = echarts.init(document.querySelector('.profits-pie .echarts'));
         this.myChart2.setOption(option, true);
       },
