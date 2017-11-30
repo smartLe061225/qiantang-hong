@@ -9,7 +9,7 @@
       </div>
       <div class="normal-box-bd">
         <ul class="rz-info-list">
-          <li class="mb-20" v-if="company_data.toolcode">
+          <li class="mb-20" v-if="company_data.logo">
             <div class="logo-box">
               <img :src="company_data.logo" alt="logo">
             </div>

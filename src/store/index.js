@@ -163,6 +163,16 @@ const store = new Vuex.Store({
         store_logout({ commit }) {
             return new Promise((resolve, reject) => {
                 commit('SET_TOKEN', '');
+                commit('SET_COMPANY_LIST_DATA', '');
+                commit('SET_ENTERPRISE_NAME', '');
+                commit('SET_ENTERPRISE_TYPE', '');
+                commit('SET_USER', '');
+                commit('SET_ENTERPRISE_CREATER_NAME', '');
+                commit('SET_ENTERPRI_ID', '');
+                commit('SET_HAS_ENTERPRISE', '');
+                commit('SET_ENTERPRISE_LOGO', '');
+                commit('SET_USER_IMG', '');
+                commit('SET_ENTERPRISE_CREATER_IMG', '');
                 remove_token();
                 remove_all_cookie();
                 resolve();

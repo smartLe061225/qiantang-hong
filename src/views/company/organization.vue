@@ -219,18 +219,18 @@ import store from "../../store";
 export default {
   data() {
     return {
-      page_title: store.getters.enterprise_name,
-      create_name: store.getters.enterprise_creater_name,
-      enterprise_type: store.getters.enterprise_type,
-      enterprise_logo:
-        store.getters.enterprise_logo || default_images.enterprise_logo()[0],
+      // page_title: store.getters.enterprise_name,
+      // create_name: store.getters.enterprise_creater_name,
+      // enterprise_type: store.getters.enterprise_type,
+      // enterprise_logo:
+      //   store.getters.enterprise_logo || default_images.enterprise_logo()[0],
       company_list_data: [],
       department_list_data: [],
       member_list_data: [],
       total_member_record: 0,
       province_data: [],
-      creater_avator:
-        store.getters.enterprise_creater_img || default_avator()[0],
+      // creater_avator:
+      //   store.getters.enterprise_creater_img || default_avator()[0],
       default_avator: default_avator()[0],
       default_company: default_images().enterprise_logo,
       city_data: [],
@@ -297,6 +297,23 @@ export default {
         }
       }
     };
+  },
+  computed: {
+    page_title: function () {
+      return store.getters.enterprise_name
+    },
+    create_name: function () {
+      return store.getters.enterprise_creater_name
+    },
+    enterprise_type: function () {
+      return store.getters.enterprise_type
+    },
+    enterprise_logo: function () {
+      return store.getters.enterprise_logo || default_images.enterprise_logo()[0]
+    },
+    creater_avator: function () {
+      store.getters.enterprise_creater_img || default_avator()[0]
+    },
   },
   methods: {
     handle_format_error(file) {

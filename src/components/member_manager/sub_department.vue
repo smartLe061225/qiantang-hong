@@ -243,6 +243,12 @@ export default {
     },
     // 显示新建用户弹出层
     show_create_new_member_modal() {
+      if (!this.current_department_id){
+        this.$Notice.warning({
+            title: '未建立部门，无法创建成员',
+        });
+        return false;
+      }
       this.$refs['member_form'].resetFields();
       this.modals.member.title = '新建成员';
       this.modals.member.data.departLeaderFlag = 0;
