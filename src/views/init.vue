@@ -11,7 +11,7 @@
                         <div class="n"><span>1</span></div>
                         <div class="b">下载标准数据模板</div>
                         <div class="s">现在请马上下载数据模板</div>      
-                        <div class="btn"><a href="javascript:;">下载</a></div>
+                        <div class="btn"><a target="_blank" href="/api/reportrecord/downloadTemplate">下载</a></div>
                     </li>
                     <div class="arrow-box"></div>
                     <li class="item">
@@ -27,7 +27,7 @@
                         <div class="n"><span>3</span></div>
                         <div class="b">生成可视化分析</div>
                         <div class="s">系统将自动分析并给出图表</div>      
-                        <div class="btn"><a href="javascript:;">生成完成</a></div>      
+                        <div class="btn"><a href="javascript:;" @click="reload_page">生成完成</a></div>      
                     </li>
                 </ul>
             </div>
@@ -39,6 +39,11 @@
         name: "init",
         data() {
             return {};
+        },
+        methods:{
+            reload_page(){
+                
+            }
         }
     };
 </script>

@@ -10,6 +10,7 @@
                 <MenuItem name="assets" key="assets">资产分析</MenuItem>
                 <MenuItem name="cash" key="cash">现金分析</MenuItem>
                 <MenuItem name="warning" key="warning">预警分析</MenuItem>
+                <MenuItem name="list" key="list">数据管理</MenuItem>
             </Submenu>
 
             <Submenu name="company">
