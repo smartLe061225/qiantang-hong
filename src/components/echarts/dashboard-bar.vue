@@ -10,7 +10,6 @@
   import { ajax_get_company_selectbox } from "src/apis/company";
   import { ajaxGetBalanceData } from "src/apis/analysis";
 
-
   export default {
     data() {
       return {
@@ -47,9 +46,11 @@
           seriesData: seriesData
         })
 
+        echartsConfig.formatyAxis(option.yAxis);
         self.myChart.setOption(option);
       }
     },
+
     mounted() {
       this.init()
     }
