@@ -363,6 +363,7 @@ export default {
         this.modals.department.create.title = "创建部门";
         this.modals.department.create.is_show = true;
         this.modals.department.create.data = {};
+        this.modals.department.create.data.companyid = this.current_company_id;
       }
     },
     // 跳转到修改认证信息
