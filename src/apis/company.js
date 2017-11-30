@@ -124,3 +124,6 @@ export function ajax_get_enterprise_info() {
 
 /* 首页 组织架构 */
 export const ajaxGetOrganizationalData = (params) => fetch({ url: '/api/user/organizational', method: 'get', params })
+
+/* 首页 指标卡 */
+export const ajaxGetIndexCardData = (params) => fetch({ url: '/api/reportrecord/indexcardcata', method: 'get', params })

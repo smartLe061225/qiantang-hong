@@ -1,7 +1,7 @@
 <template>
   <div>
       <Row>
-          <Col span="8" v-for="item in data">
+          <Col span="8" v-for="item in data" :key="item.id">
             <div class="member-mod">
                 <div class="member-hd">
                     <div class="member-opt">

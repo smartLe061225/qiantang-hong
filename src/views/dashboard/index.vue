@@ -99,7 +99,7 @@
   import apiData from "@/components/api_data";
   import company from "components/company";
   import Bar from "components/echarts/dashboard-bar";
-  import { ajaxGetOrganizationalData } from "src/apis/company"
+  import { ajaxGetOrganizationalData,ajaxGetIndexCardData } from "src/apis/company"
 
   export default {
     name: "dashboard",
@@ -114,13 +114,10 @@
     data() {
       return {
         general_view_data: {
-          total_profits: 498112919.3,
-          profits_percent: 23,
-          total_cash: 98343,
-          cash_percent: 21,
-          total_assets: 523411,
-          assets_percent: 3,
-          total_warning_budget: 8879
+          total_profits: 0,
+          total_cash: 0,
+          total_assets: 0,
+          total_warning_budget: 0
         },
         general_view_opt: {
           total_profits_id: "total_profits_id",
@@ -204,10 +201,25 @@
             id: 1253
           }],
           // 成员管理
-          organizational_data: [{},{},{}]
+          organizational_data: []
       };
     },
     methods: {
+      getIndexCardData(){
+        const self = this;
+        ajaxGetIndexCardData().then(rs => {
+          if (rs.status == 'success') {
+            let data = rs.data;
+            self.general_view_data.total_profits = data.total1
+            self.general_view_data.total_cash = data.total2
+            self.general_view_data.total_assets = data.total3
+            self.general_view_data.total_warning_budget = data.total4
+          }else{
+            self.$Message.error(rs.message)
+          }
+        })
+
+      },
       getOrganizationalData(){
         const self = this;
         ajaxGetOrganizationalData().then(rs => {
@@ -221,6 +233,7 @@
     },
     created: function(){
       this.getOrganizationalData()
+      this.getIndexCardData()
     }
   };
 </script>
