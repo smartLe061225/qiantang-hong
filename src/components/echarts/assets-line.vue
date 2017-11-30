@@ -3,7 +3,7 @@
     <div class="normal-box-hd clearfix">
         <div class="normal-box-opt">
             <a href="javascript:;" class="mr-10">标准利润表</a>
-            <router-link to="/analysis/list/1">重新导入</router-link>
+            <router-link to="/analysis/list/2">重新导入</router-link>
         </div>
       <div class="normal-box-title">
         <div class="decorate-square"></div>

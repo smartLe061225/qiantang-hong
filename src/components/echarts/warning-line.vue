@@ -3,7 +3,7 @@
     <div class="normal-box-hd clearfix">
       <div class="normal-box-title">
         <div class="decorate-square"></div>
-        <h2>利润分析</h2>
+        <h2>预警分析</h2>
         </div>
     </div>
     <div class="normal-box-bd">
@@ -14,9 +14,9 @@
                   <Radio :label="item" v-for="item in filter.company.list" :key="item"></Radio>
               </RadioGroup>
             </FormItem>
-            <FormItem label="选择年份：">
-              <DatePicker v-model="filter.year" type="year" placeholder="年份" style="width: 80px" @on-change="reLoadChart($event)"></DatePicker>
-            </FormItem>
+            <!-- <FormItem label="选择年份：">
+              <DatePicker v-model="filter.year" type="year" placeholder="年份" style="width: 80px" @on-change="reLoadChart2($event)"></DatePicker>
+            </FormItem> -->
           </Form>
         </div>
     </div>
@@ -65,7 +65,11 @@
         }
         echartsConfig.resize(self.myChart)    
       },
-      reLoadChart(v){
+      reLoadChart(){
+        let self = this;
+        this.getResourceData(self.setChart)
+      },
+      reLoadChart2(v){
         let self = this;
         this.filter.year = v
         this.getResourceData(self.setChart)
