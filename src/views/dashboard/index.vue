@@ -38,7 +38,7 @@
       <div class="normal-block-mod">
         <div class="mormal-block-hd ivu-row">
           <div class="mbm-opt">
-            <a class="ghost-green" href="javascript:;">更多</a>
+            <router-link class="ghost-blue" to="/analysis/list/1">更多</router-link>
           </div>
           <h2 class="mbm-title">报表上传记录</h2>
         </div>
@@ -100,6 +100,7 @@
   import company from "components/company";
   import Bar from "components/echarts/dashboard-bar";
   import { ajaxGetOrganizationalData,ajaxGetIndexCardData } from "src/apis/company"
+  import { ajaxPostAnalysisReportRecord } from "src/apis/analysis"
 
   export default {
     name: "dashboard",
@@ -126,31 +127,7 @@
           total_warning_budget_id: "total_warning_budget_id"
         },
         // 上传历史
-        upload_log_data: [{
-          file_name: "Q3季度2017年Q3季度财报.xls",
-          upload_time: "2017/11/20 15:30",
-          user_name: "福根儿",
-          company_name: "华茂建设分公司",
-          department: "财务部",
-          avator_path: "https://img3.doubanio.com/icon/u120719501-15.jpg",
-          id: 1201
-        }, {
-            file_name: "17年Q3季度财20报.xls",
-            upload_time: "2017/11/20 15:30",
-            user_name: "大黄牛",
-            company_name: "华茂建设分公司",
-            department: "财务部",
-            avator_path: "https://img1.doubanio.com/icon/u3825598-137.jpg",
-            id: 1202
-          }, {
-            file_name: "2017年Q3季度017年Q3季度财报.xls",
-            upload_time: "2017/11/20 15:30",
-            user_name: "胡弃暗",
-            company_name: "华茂建设分公司",
-            department: "财务部",
-            avator_path: "https://img1.doubanio.com/icon/u2629298-7.jpg",
-            id: 1203
-          }],
+        upload_log_data: [],
           // 钱塘推送
           qt_push_data:[{
             title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
@@ -205,6 +182,26 @@
       };
     },
     methods: {
+      getRecordData(){
+        const self = this;
+        let data = {
+          "pageNum":1,
+          "pageSize":3,
+          "data":{}
+        }
+        ajaxPostAnalysisReportRecord(data).then(rs => {
+          if (rs.status == 'success') {
+            let result = rs.data.data
+            let results = []
+            for (var i = 0; i < result.length; i++) {
+              results.push({ file_name: result[i].fileName, upload_time: result[i].createTime, id: result[i].id, type: result[i].type, reportTime: result[i].reportTime })
+            }
+            self.upload_log_data = results
+          }else{
+            self.$Message.error(rs.message)
+          }
+        })
+      },
       getIndexCardData(){
         const self = this;
         ajaxGetIndexCardData().then(rs => {
@@ -234,6 +231,7 @@
     created: function(){
       this.getOrganizationalData()
       this.getIndexCardData()
+      this.getRecordData()
     }
   };
 </script>
