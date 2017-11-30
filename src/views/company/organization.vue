@@ -147,7 +147,9 @@
           <Input placeholder="请输入公司名称" v-model="modals.company.create.data.name" style="width:200px;"></Input>
         </FormItem>
         <FormItem label="公司logo" prop="logo">
-          <img :src="modals.company.create.data.companyImg" class="form-face-img" alt="公司logo">
+          <div class="company-logo-box">
+          <img :src="modals.company.create.data.companyImg || default_company" alt="公司logo">
+          </div>
           <Upload action="/api/user/upload/" :format="['jpg','jpeg','png']"
                     :max-size="2048"
                     :on-format-error="handle_format_error"
@@ -321,7 +323,6 @@ export default {
     handle_logo_success(res, file) {
       if (res.status === "success") {
         this.modals.company.create.data.companyImg = res.data.result;
-        console.log("xxxx", this.modals.company.create.data.imgUrl);
       }
     },
     // 组织管理
@@ -333,6 +334,7 @@ export default {
         this.modals.company.create.title = "创建公司";
         this.modals.company.create.is_show = true;
         this.modals.company.create.data = {};
+        this.modals.company.create.data.enterpriseId = get_enterpri_id();
         this.modals.company.create.data.enterpriseId = get_enterpri_id();
         this.get_area_data("province");
       } else if (name === "manager_department") {
@@ -537,6 +539,7 @@ export default {
         index
       ].address;
       this.modals.company.create.data.enterpriseId = get_enterpri_id();
+      this.modals.company.create.data.companyImg = this.company_list_data[index].companyImg || this.default_company;
       this.modals.company.create.data.id = this.company_list_data[index].id;
       this.get_area_data("province");
       this.get_area_data("city", parseInt(this.company_list_data[index].city));
@@ -662,6 +665,17 @@ export default {
 .bg-organization {
   background: url(../../assets/images/bg-organization.jpg) top right no-repeat;
 }
+.company-logo-box {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  width: 120px;
+  height: 120px;
+  img {
+    max-width: 120px;
+    max-height: 120px;
+  }
+}
 .organization-mod {
   .organization-hd {
     .organization-logo {
@@ -673,6 +687,8 @@ export default {
       display: table-cell;
       vertical-align: middle;
       img {
+        max-width: 260px;
+        max-height: 170px;
       }
     }
     .organization-name-opt {
