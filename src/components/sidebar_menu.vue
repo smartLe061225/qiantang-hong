@@ -40,9 +40,17 @@
         },
         methods: {
             changeMenu(active) {
-                this.$router.push({
+                if(active == 'list'){
+this.$router.push({
+                    name: active,
+                    params: {id: 1}
+                });
+                } else {
+                    this.$router.push({
                     name: active
                 });
+                }
+                
             },
         },
         created() {

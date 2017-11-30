@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { get_token } from '../util/auth'
-import { 
+import {
   get_has_enterprise,
   get_has_uploaded
- } from '../util/user'
+} from '../util/user'
 
 const admin = r => require.ensure([], () => r(require('../views/admin/admin')), 'admin')
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
@@ -267,7 +267,7 @@ router.beforeEach((to, from, next) => {
   if (get_token()) {
     if (to.path === '/login') {
       if (get_has_enterprise()) {
-        if (get_has_uploaded()){
+        if (get_has_uploaded()) {
           next({ path: '/dashboard' });
         } else {
           next({ path: '/init' });
@@ -275,7 +275,7 @@ router.beforeEach((to, from, next) => {
       } else {
         next({ path: '/rz' });
       }
-    } else if (to.path === '/dashboard'){
+    } else if (to.path === '/dashboard') {
       if (get_has_enterprise()) {
         if (get_has_uploaded()) {
           next();
