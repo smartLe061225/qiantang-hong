@@ -542,11 +542,11 @@ export default {
       this.modals.company.create.data.companyImg = this.company_list_data[index].companyImg || this.default_company;
       this.modals.company.create.data.id = this.company_list_data[index].id;
       this.get_area_data("province");
-      this.get_area_data("city", parseInt(this.company_list_data[index].city));
-      this.get_area_data(
-        "region",
-        parseInt(this.company_list_data[index].region)
-      );
+      // this.get_area_data("city", parseInt(this.company_list_data[index].province));
+      // this.get_area_data(
+      //   "region",
+      //   parseInt(this.company_list_data[index].city)
+      // );
     },
     // 修改部门弹层，切换公司
     get_department_by_change_company() {
