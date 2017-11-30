@@ -26,6 +26,8 @@ export default {
         ].concat(matched);
       }
 
+      
+
       if (first && (first.path == '/analysis/list/:id' )) {
         let url = window.location.href;
         let id = Number(url.substring(url.lastIndexOf('/')+1,url.length))

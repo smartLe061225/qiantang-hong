@@ -4,7 +4,7 @@
             <Submenu name="analysis">
                 <template slot="title">
                     <Icon type="ios-pie"></Icon>
-                    我的宏管理
+                    我的企知
                 </template>
                 <MenuItem name="profits" key="profits">利润分析</MenuItem>
                 <MenuItem name="assets" key="assets">资产分析</MenuItem>
