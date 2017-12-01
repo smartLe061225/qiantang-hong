@@ -7,66 +7,7 @@
     <link rel="stylesheet" href="css/jquery.fullPage.css">
     <link rel="stylesheet" href="css/Normalize.css">
     <link rel="stylesheet" href="css/Home.css">
-    <style>
-        #menu { margin: 0;
-            padding: 0;
-            position: fixed;
-            top:40%;
-            right: 10px;
-            list-style-type: none;
-            z-index: 70;
-        }
-
-        #menu li {
-            margin:  10px;
-            font-size: 14px;
-            width: 20px;
-            height: 20px;
-            text-align: center;
-        }
-
-        #menu a {
-            margin:0 auto;
-            display: inline-block;
-            text-decoration: none;
-            width: 10px;
-            height: 10px;
-            background-color: #e5e5e5;
-            border-radius: 50%;
-        }
-
-        #menu .active a ,#menu li:hover a{
-            background-color: #45b3b4;
-            width: 20px;
-            height: 20px;
-        }
-        @media screen and (min-width: 1024px){
-            html{font-size: 18px;!important;}
-        } /*>=1024的设备*/
-
-        @media screen and (min-width: 1100px) {
-            html{font-size: 20px}
-        } /*>=1100的设备*/
-        @media screen and (min-width: 1280px) {
-            html{font-size: 22px;!important;}
-        } /*>=1280的设备*/
-
-        @media screen and (min-width: 1366px) {
-
-            html{font-size: 24px;!important;}
-        }
-
-        @media screen and (min-width: 1440px) {
-            html{font-size: 25px !important;}
-        }
-
-        @media screen and (min-width: 1680px) {
-            html{font-size: 28px;!important;}
-        }
-        @media screen and (min-width: 1920px) {
-            html{font-size: 33px;!important;}
-        }
-    </style>
+    
 </head>
 <body>
 <ul id="menu">
@@ -92,8 +33,14 @@
                 <li class='lf'><a href="#page7">加入我们</a></li>
             </ul>
             <div class="userinfo rt floating">
-                <a href='/index.html#/login' class='active'>登录</a>
-                <a href='/index.html#/join'>注册</a>
+                <div class="login-status J-has-login">
+                <a href="/index.html#/dashboard" class="link-text">进入平台</a>
+                <a href="javascript:;" class="link-text J-logout">退出</a>
+                </div>
+                <div class="login-status J-not-login">
+                <a href='/index.html#/login' class='btn active'>登录</a>
+                <a href='/index.html#/join' class="btn">注册</a>
+                </div>
             </div>
         </div>
         <div class='brand'>
@@ -312,15 +259,6 @@
         </div>
         <div class="footer">
             <div class="wx">
-                <div class="footer_top floating">
-                    <div class="phone lf">400-870-1230</div>
-                    <div class="number lf">4008701230</div>
-                    <div class="mail lf">
-                        <span></span>
-                        support@tendcloud.com
-                    </div>
-                    <div class="worktime rt">工作时间：09:30~18:00</div>
-                </div>
                 <div class="footer_bottom">
                     浙ICP备09083569号-4 Copyright 2016 Hangzhou Qiantang Big Data Trading Center Co., Ltd. Allrights Reserved.
 
@@ -333,11 +271,36 @@
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/jquery.easing.min.js"></script>
 <script src="js/jquery.fullPage.min.js"></script>
+<script src="js/jquery.cookie.min.js"></script>
 <script>
   $(function(){
     $('#fullpage').fullpage({
       menu: '#menu',
       anchors: ['page1', 'page2', 'page3', 'page4','page5','page6','page7',],
+    });
+    // 判断是否登录
+    if($.cookie('token')){
+        $('.J-has-login').show();
+        $('.J-not-login').hide();
+    } else {
+        $('.J-has-login').hide();
+        $('.J-not-login').show();
+    };
+
+    $('.J-logout').on('click', function () {
+        $.removeCookie('token');
+        $.removeCookie('check_upload_file');
+        $.removeCookie('enterpri_id');
+        $.removeCookie('enterprise_creater_img');
+        $.removeCookie('enterprise_creater_name');
+        $.removeCookie('enterprise_logo');
+        $.removeCookie('enterprise_name');
+        $.removeCookie('enterprise_type');
+        $.removeCookie('has_enterprise');
+        $.removeCookie('user_img');
+        $.removeCookie('user_info');
+        $('.J-has-login').hide();
+        $('.J-not-login').show();
     });
   });
 </script>

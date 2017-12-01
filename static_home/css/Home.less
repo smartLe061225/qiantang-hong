@@ -1,10 +1,16 @@
 
 
 .section1{
+  position: relative;
+  overflow: hidden;
   .header1{
-    height: 10%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left:-600px;
+    height: 69px;
     width: 1200px;
-    margin: 0 auto;
+    z-index: 9;
     .title{
       margin-top:10px;
       width: 278px;
@@ -36,12 +42,11 @@
       }
     }
     .userinfo{
-      margin-right:5%;
       text-align: center;
-      a{
+      .btn{
         line-height:36px;
         display: inline-block;
-        margin:20px 28px 0;
+        margin:20px 0 28px 15px;
         width: 100px;
         height: 36px;
         border-radius: 3px;
@@ -53,13 +58,21 @@
         color: #fff;
         background-color: #007bff;
       }
+      .link-text{
+        position: relative;
+        margin-left: 20px;
+        top: 20px;
+      }
     }
   }
   .brand{
-    height: 90%;
+    height: 100%;
+    width: 100%;
+    margin-top:69px;
+    position: absolute;
+    top: 0;
     background: url('../images/banner.png') 50% 50% no-repeat;
     background-size: cover;
-    position: relative;
   }
 }
 .header{
@@ -1696,3 +1709,43 @@
   }
 
 }
+#menu {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top:40%;
+  right: 10px;
+  list-style-type: none;
+  z-index: 70;
+  li{
+    margin:  10px;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    &:hover{
+      a{
+        background-color: #45b3b4;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  a{
+    margin:0 auto;
+    display: inline-block;
+    text-decoration: none;
+    width: 10px;
+    height: 10px;
+    background-color: #e5e5e5;
+    border-radius: 50%;
+  }
+  .active{
+    a{
+      background-color: #45b3b4;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
