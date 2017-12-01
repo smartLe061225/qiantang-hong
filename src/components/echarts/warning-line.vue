@@ -53,7 +53,7 @@
       setChart(){
         const self = this;
         let seriesData = tools.getWarningSeriesData(self.resource, self.chartTypeArr)
-        let option = echartsConfig.lineChartOption({
+        let option = echartsConfig.lineChartOptionPercent({
           legendData: self.chartTypeArr,
           seriesData: seriesData
         })

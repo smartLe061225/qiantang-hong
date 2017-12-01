@@ -115,8 +115,7 @@ const echartsConfig = {
         trigger: 'axis'
       },
       legend: {
-        data: params.legendData? params.legendData: [],
-        // y: 'bottom'
+        data: params.legendData? params.legendData: []
       },
       xAxis : [
         {
@@ -127,6 +126,46 @@ const echartsConfig = {
       yAxis : [{ type : 'value' }],
       color: echartsConfig.color,
       series : params.seriesData
+    }
+    return options;
+  },
+  lineChartOptionPercent(params){
+    let options = {
+      tooltip : {
+        trigger: 'axis',
+        backgroundColor: '#fff',
+        extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3)'
+      },
+      legend: {
+        data: params.legendData? params.legendData: []
+      },
+      xAxis : [
+        {
+          type : 'category',
+          data : params.xAxis ? params.xAxis : this.mouth,
+        }
+      ],
+      yAxis : {
+        type : 'value',
+        axisLabel: { formatter: '{value}%' } 
+      },
+      color: echartsConfig.color,
+      series : params.seriesData
+    }
+    options.tooltip.formatter = function (param, ticket, callback) {
+      var html = [];
+      console.log(param)
+      if(param){
+        var font = [];
+        for(var i = 0 ;i <param.length;i++){
+          var _value = param[i].value + '%';
+          var _name = param[i].seriesName;
+          var _font = '<font color="'+param[i].color+'">'+_name+'：'+_value+'</font>';
+          font.push(_font);
+        }
+        html.push(font.join("<br/>"));
+      }
+      return html.join("");
     }
     return options;
   },
@@ -273,6 +312,17 @@ const echartsConfig = {
     }
   },
   formatyAxis: function(yAxis){
+    if(yAxis && yAxis.length > 0){
+      for(var i = 0;i < yAxis.length;i++){
+        yAxis[i].axisLabel = {
+          formatter:function(value){
+            return chart_option_event.scaleValueConvert(value);
+          }
+        };
+      }
+    }
+  },
+  formatyAxisPercent: function(yAxis){
     if(yAxis && yAxis.length > 0){
       for(var i = 0;i < yAxis.length;i++){
         yAxis[i].axisLabel = {

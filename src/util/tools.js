@@ -408,7 +408,6 @@ export const getbar8InputChartSeriesData = (resourceArr, indexArr) => {
  */
 export const getWarningSeriesData = (resourceData, legendDataArr, echartType) => {
   let result = [];
-  console.log(resourceData)
     for (var i = 0; i < resourceData.length; i++) {
       result.push({name:legendDataArr[i], type: echartType? echartType: 'line', data: resourceData[i].series_data})
     }    
