@@ -10,9 +10,11 @@
 </template>
 <script>
 import CountUp from 'countup';
-function transformValue (val) {
+function transformValue (value) {
     let endVal = 0;
     let unit = '';
+    let flag = value < 0 ? true : false;
+    let val = Math.abs(value)
     if (val < 10000) {
         endVal = val;
         unit = '元';
@@ -27,7 +29,7 @@ function transformValue (val) {
         unit = '万亿元';
     }
     return {
-        val: endVal,
+        val: flag ? (endVal*-1) : endVal,
         unit: unit
     };
 }
