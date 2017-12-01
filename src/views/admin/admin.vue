@@ -357,4 +357,194 @@ export default {
   height: 0;
   visibility: hidden;
 }
+.member-department-bar {
+  padding: 20px 0;
+}
+.c-avator-list {
+  .avt-item {
+    float: left;
+    width: 64px;
+    height: 64px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    .avt {
+      width: 64px;
+      height: 64px;
+      border-radius: 32px;
+      border: 3px solid #fff; 
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    &.cur {
+      .avt {
+        border-color: #2d8cf0;
+      }
+    }
+  }
+}
+.department-list {
+  a {
+    margin-right: 10px;
+    color: #666;
+    &.cur {
+      color: #2d8cf0;
+    }
+  }
+}
+.search-input-box {
+  .ivu-icon-search {
+    cursor: pointer;
+  }
+}
+.btn-change-avator {
+  margin-left: 15px;
+  position: relative;
+  top: -10px;
+}
+.form-face-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
+.upload-avator-btn {
+  height: 64px;
+  width: 64px;
+  border-radius: 32px; 
+  border: 1px dashed #ccc;
+  text-align: center;
+  line-height: 64px;
+  cursor: pointer;
+  &:hover {
+    border-color: #2d8cf0;
+    background: #f5f5f5;
+  }
+}
+.member-list {
+  margin-left: -3%;
+  .member-list-item {
+    float: left;
+    width: 30%;
+    margin-left: 3%;
+    margin-bottom: 20px;
+    .member-mod {
+      position: relative;
+      border: 1px solid #ececec;
+      padding: 18px;
+      height: 140px;
+      .member-item {
+        .member-item-hd {
+          float: right;
+          padding-top: 25px;
+          .face-box {
+            width: 64px;
+            height: 64px;
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+            img {
+              max-width: 64px;
+              max-height: 64px;
+            }
+            .account-suspend {
+              position: absolute;
+              width: 64px;
+              height: 64px;
+              left: 0;
+              top: 0;
+              z-index: 1;
+              line-height: 64px;
+              text-align: center;
+              color: #fff;
+              background: rgba(0, 0, 0, 0.6);
+              filter: progid:DXImageTransform.Microsoft.gradient(
+                  startColorstr=#99000000,
+                  endColorstr=#99000000
+                );
+            }
+          }
+        }
+        .member-item-bd {
+          float: left;
+          h3 {
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            a {
+              color: #000;
+            }
+          }
+          .sub-content {
+            color: #999;
+            height: 28px;
+            line-height: 28px;
+            .ivu-icon {
+              position: relative;
+              top: 3px;
+              width: 20px;
+              text-align: center;
+            }
+          }
+        }
+      }
+      .opt-layer {
+        position: absolute;
+        display: none;
+        width: 100px;
+        text-align: center;
+        height: 28px;
+        line-height: 28px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.7);
+        filter: progid:DXImageTransform.Microsoft.gradient(
+            startColorstr=#b2000000,
+            endColorstr=#b2000000
+          );
+        left: 50%;
+        margin-left: -50px;
+        font-size: 14px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        bottom: 10px;
+        a {
+          color: #fff;
+          &:hover {
+            color: #57a3f3;
+          }
+        }
+      }
+      .is-department-leader {
+        display: block;
+        height: 20px;
+        width: 80px;
+        text-align: center;
+        color: #fff;
+        background-color: #26a247;
+        font-size: 12px;
+        line-height: 20px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .is-company-leader {
+        display: block;
+        height: 20px;
+        width: 80px;
+        text-align: center;
+        color: #fff;
+        background-color: #f5bb3a;
+        font-size: 12px;
+        line-height: 20px;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      &:hover {
+        border-color: #c7d0f7;
+        .opt-layer {
+          display: block;
+        }
+      }
+    }
+  }
+}
 </style>

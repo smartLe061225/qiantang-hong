@@ -17,7 +17,7 @@
                                 <Icon type="arrow-down-b"></Icon>
                             </a>
                             <DropdownMenu slot="list">
-                                <DropdownItem name="manager_company">管理公司</DropdownItem>
+                                <DropdownItem v-if="enterprise_type == 2" name="manager_company">管理公司</DropdownItem>
                                 <DropdownItem v-if="enterprise_type == 2" name="create_company">添加公司</DropdownItem>
                                 <DropdownItem name="manager_department">管理部门</DropdownItem>
                                 <DropdownItem name="create_department">添加部门</DropdownItem>

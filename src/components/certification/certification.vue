@@ -90,7 +90,7 @@
       </FormItem>
       <FormItem label="">
         <Button type="primary" size="large" :loading="posting" @click="post_enterprise">保存资料</Button>
-        <Button type="ghost" size="large" @click="logout">退出</Button>
+        <Button type="ghost" size="large" v-if="type!='update'" @click="logout">退出</Button>
       </FormItem>
     </Form>
 

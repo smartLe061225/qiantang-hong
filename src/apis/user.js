@@ -38,8 +38,19 @@ export function ajax_get_baseinfo() {
  **/
 export function ajax_get_user_front_info() {
     return fetch({
-        url: "/user/front/info",
+        url: "/api/user/front/info",
         method: 'get',
+    })
+}
+
+/**
+ * 更新用户名
+ **/
+export function ajax_update_user(data) {
+    return fetch({
+        url: "/api/user/update",
+        method: 'post',
+        data: {data: data}
     })
 }
 
@@ -51,5 +62,16 @@ export function ajax_put_user_password(data) {
         url: "/api/user/updpwd",
         method: 'post',
         data: {data: data}
+    })
+} 
+
+/**
+ * 修改用户头像
+ **/
+export function ajax_put_user_avator(data) {
+    return fetch({
+        url: "/api/user/updimg",
+        method: 'post',
+        data: { data: data }
     })
 }
