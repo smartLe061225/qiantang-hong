@@ -86,7 +86,7 @@ const echartsConfig = {
         {
           type:'bar',
           itemStyle : { normal: {
-              color: 'orange',
+              color: function (param){ return echartsConfig.setColor(param.dataIndex) },
               borderRadius: 5, label : {show: true, position: 'left',formatter: '{b}'}
           }},
           data: params.seriesData

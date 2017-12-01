@@ -39,9 +39,9 @@
     </div>
 
     <!-- 弹出层图表 -->
-    <Modal v-model="chartModel" :title="filter.company.value +' '+ filter.index.value + '明细 ' + triggerMouth" width="880" class="custom-modal">
+    <Modal v-model="chartModel" :title="filter.company.value +' '+ filter.index.value + '明细 ' + triggerMouth" width="980" class="custom-modal">
       <div class="cash-pie">
-        <div class="echarts" style="width:776px;height:300px;"></div>
+        <div class="echarts" style="width:948px;height:420px;"></div>
       </div>
       <div slot="footer" style="display: none;"></div>
     </Modal>
@@ -124,6 +124,7 @@
           yAxis: yAxisData,
           seriesData: seriesData,
         })
+        echartsConfig.formatyAxis(option.xAxis);
         this.myChart2 = echarts.init(document.querySelector('.cash-pie .echarts'));
         this.myChart2.setOption(option, true);
 
@@ -224,7 +225,7 @@
 }
 .custom-modal{
   .ivu-modal-body{
-    padding: 52px;
+     padding: 22px; 
   }
   .ivu-select,.ivu-date-picker{
     margin-bottom: 15px;

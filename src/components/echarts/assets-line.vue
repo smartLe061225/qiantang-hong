@@ -42,9 +42,9 @@
 
 
     <!-- 弹出层图表 -->
-    <Modal v-model="chartModel"  :title="triggerCompany +' '+ filter.index.value + '明细 ' + triggerMouth" width="980" class="custom-modal">
+    <Modal v-model="chartModel"  :title="triggerCompany +' '+ filter.index.value + '明细 ' + triggerMouth" width="1080" class="custom-modal">
       <div class="assets-pie">
-        <div class="echarts" style="width:876px;height:420px;"></div>
+        <div class="echarts" style="width:976px;height:420px;"></div>
       </div>
       <div slot="footer" style="display: none;"></div>
     </Modal>
@@ -221,7 +221,7 @@
 }
 .custom-modal{
   .ivu-modal-body{
-    padding: 52px;
+    padding: 52px 0 52px 52px;
   }
   .ivu-select,.ivu-date-picker{
     margin-bottom: 15px;
