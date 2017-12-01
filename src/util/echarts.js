@@ -4,7 +4,8 @@ import { ajax_get_company_selectbox } from "src/apis/company";
 import chart_option_event from "src/util/chart_option_event";
 
 const echartsConfig = {
-  color: ['#00c35c','#0e7ccf','#ffd900','#b7a3df','#e55e7e','#ffc0c0','#ff9a23','#f1c2e6','#f8c66e','#26a9e6','#8be0db','#ff6b08'],
+  // color: ['#00c35c','#0e7ccf','#ffd900','#b7a3df','#e55e7e','#ffc0c0','#ff9a23','#f1c2e6','#f8c66e','#26a9e6','#8be0db','#ff6b08'],
+  color: ["#0087f1","#3ea3f5","#00b7f1","#00cdf1","#00d3d7","#00b3cd","#00c59f","#00bb54","#009d0e","#87bb00","#a3e100","#f3db18"],
   // mouth: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
   mouth: ['2017-01','2017-02','2017-03','2017-04','2017-05','2017-06','2017-07','2017-08','2017-09','2017-10','2017-11','2017-12'],
   setColor(params){
@@ -174,6 +175,7 @@ const echartsConfig = {
     let options = {
       tooltip : { trigger: 'axis' },
       calculable : true,
+      color: echartsConfig.color,
       xAxis : [ { type : 'category', boundaryGap : false, data : params.xAxis? params.xAxis : this.mouth } ],
       yAxis : [ { type : 'value' } ],
       series : params.seriesData
