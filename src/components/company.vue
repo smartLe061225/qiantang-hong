@@ -10,7 +10,7 @@
                     </router-link>
                     </div>
                     <div class="member-face">
-                        <img :src="item.companyImg" :alt="item.name">
+                        <img :src="item.companyImg || default_company" :alt="item.name">
                         <div class="name">{{item.name}}</div>
                     </div>
                 </div>
@@ -36,11 +36,14 @@
   </div>
 </template>
 <script>
+import {
+    default_images
+} from '../util/user'
 export default {
   name: 'company',
   data(){
       return {
-        
+        default_company: default_images().enterprise_logo
       }
   },
   props: {
