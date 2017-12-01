@@ -165,7 +165,7 @@
         this.upload.file = e.target.files[0].name
       },
       download(id,time){       
-        return '/api/' + this.actionType + '/downExcel?recordid=' + id + '&reportTime=' + time;
+        return '/api/' + this.actionType + '/downExcel?recordid=' + id;
       },
       import(){
         this.showImportModel()
