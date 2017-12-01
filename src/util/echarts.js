@@ -70,7 +70,7 @@ const echartsConfig = {
             type : 'value'
         }
       ],
-      color: echartsConfig.color,
+      color: params.color ? params.color : echartsConfig.color,
       series: params.seriesData
     }
     return options;

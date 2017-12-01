@@ -43,7 +43,8 @@
         let option = echartsConfig.barChartOptions({
           title: '多个公司收支变化趋势',
           legendData: self.xAxis,
-          seriesData: seriesData
+          seriesData: seriesData,
+          color: ['#2ec7c9','#b7a3df','#5ab1ef','#ffb981','#d97a81'],
         })
 
         echartsConfig.formatyAxis(option.yAxis);
