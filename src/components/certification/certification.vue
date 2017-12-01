@@ -169,7 +169,9 @@
             ],
             contacts: [{ required: true, message: "联系人不能为空", trigger: "blur" }],
             branch: [{ required: true, message: "子公司不能为空", trigger: "blur" }],
-            phone: [{ required: true, message: "手机号码不能为空", trigger: "blur" }]
+            phone: [{ required: true, message: "手机号码不能为空", trigger: "blur" },
+            { pattern: /^1[0-9]{10}$/, message: "手机号码格式不正确", trigger: "blur" }
+            ]
             // address: [{ required: true, message: "详细地址不能为空", trigger: "blur" }]
           },
           data: {
