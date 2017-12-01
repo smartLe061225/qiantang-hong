@@ -42,7 +42,7 @@
 
 
     <!-- 弹出层图表 -->
-    <Modal v-model="chartModel"  :title="triggerCompany +' '+ filter.index.value + '明细 ' + triggerMouth" width="1080" class="custom-modal">
+    <Modal v-model="chartModel"  :title="triggerCompany +' '+ filter.index.value + '明细 ' + triggerMouth" width="1080" class="custom-modal assets-custom-modal">
       <div class="assets-pie">
         <div class="echarts" style="width:976px;height:420px;"></div>
       </div>
@@ -116,13 +116,13 @@
         let companyID = tools.getCompanyID(params.seriesName.split(','), self.filter.company.list)
         let seriesDataResource = tools.convertResourceData(self.resource, companyID, subclassArr, params.name.split(','));
         let seriesSubDataResource = tools.convertResourceData(self.resource, companyID, subclassSonArr, params.name.split(','));
-        let a = tools.getPieChartSeriesData(seriesDataResource, subclassArr)
-        let b = tools.getPieChartSeriesData(seriesSubDataResource, subclassSonArr)
+        let seriesData = tools.getPieChartSeriesData(seriesDataResource, subclassArr)
+        let seriesSubData = tools.getPieChartSeriesData(seriesSubDataResource, subclassSonArr)
 
         let option = echartsConfig.pie3ChartOptions({
           legendData: self.legendData
-          ,seriesData: a
-          ,seriesSubData: b
+          ,seriesData: seriesData
+          ,seriesSubData: seriesSubData
         })
         this.myChart2 = echarts.init(document.querySelector('.assets-pie .echarts'));
 
@@ -220,9 +220,11 @@
   }
 }
 .custom-modal{
-  .ivu-modal-body{
-    padding: 52px 0 52px 52px;
-  }
+  &.assets-custom-modal{
+    .ivu-modal-body{
+      padding: 52px 0 52px 100px;
+    }
+  }  
   .ivu-select,.ivu-date-picker{
     margin-bottom: 15px;
   }

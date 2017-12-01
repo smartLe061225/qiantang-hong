@@ -194,9 +194,19 @@ const echartsConfig = {
   },
   pie2ChartOptions(params){
     // http://echarts.baidu.com/echarts2/doc/example/pie2.html
+    let legendType = params.type ? params.type : 'vertical';
+    let legendOptions = {}
+    switch(legendType){
+      case 'vertical':
+        legendOptions = { data: params.legendData, orient: 'vertical',x: 'left' }
+        break;
+      case 'horizontal':
+        legendOptions = { data: params.legendData, orient: 'horizontal', y:'bottom'}
+        break;
+    }
     let options = {
       tooltip : { trigger: 'item', formatter: "{a} <br/>{b} : {c} ({d}%)" },
-      legend: { orient : 'vertical', x : 'left', data: params.legendData },
+      legend: legendOptions,
       calculable : true,
       color: echartsConfig.color,
       series : [

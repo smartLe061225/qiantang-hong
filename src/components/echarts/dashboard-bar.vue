@@ -44,7 +44,7 @@
           title: '多个公司收支变化趋势',
           legendData: self.xAxis,
           seriesData: seriesData,
-          color: ['#2ec7c9','#b7a3df','#5ab1ef','#ffb981','#d97a81'],
+          color: ['#7a4eff','#916cff','#5e70ff','#76afff'],
         })
 
         echartsConfig.formatyAxis(option.yAxis);

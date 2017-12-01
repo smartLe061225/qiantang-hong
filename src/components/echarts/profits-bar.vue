@@ -120,6 +120,7 @@
           legendData: subclassArr,
           seriesName: self.filter.index.value,
           seriesData: seriesData,
+          type: 'horizontal'
         })
 
         this.myChart2 = echarts.init(document.querySelector('.profits-pie .echarts'));

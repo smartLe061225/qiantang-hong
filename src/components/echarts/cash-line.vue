@@ -39,7 +39,7 @@
     </div>
 
     <!-- 弹出层图表 -->
-    <Modal v-model="chartModel" :title="filter.company.value +' '+ filter.index.value + '明细 ' + triggerMouth" width="980" class="custom-modal">
+    <Modal v-model="chartModel" :title="filter.company.value +' '+ filter.index.value + '明细 ' + triggerMouth" width="980" class="custom-modal cash-custom-modal">
       <div class="cash-pie">
         <div class="echarts" style="width:948px;height:420px;"></div>
       </div>
@@ -224,9 +224,11 @@
   }
 }
 .custom-modal{
-  .ivu-modal-body{
-     padding: 22px; 
-  }
+  &.cash-custom-modal{
+    .ivu-modal-body{
+      padding: 22px; 
+    }
+  }  
   .ivu-select,.ivu-date-picker{
     margin-bottom: 15px;
   }
