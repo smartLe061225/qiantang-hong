@@ -44,7 +44,7 @@
     <!-- 弹出层图表 -->
     <Modal v-model="chartModel"  :title="triggerCompany +' '+ filter.index.value + '明细 ' + triggerMouth" width="1080" class="custom-modal assets-custom-modal">
       <div class="assets-pie">
-        <div class="echarts" style="width:976px;height:420px;"></div>
+        <div class="echarts" style="width:1036px;height:420px;"></div>
       </div>
       <div slot="footer" style="display: none;"></div>
     </Modal>
