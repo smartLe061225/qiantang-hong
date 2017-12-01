@@ -256,10 +256,7 @@ export default {
     },
     // 判断密码是否相同
     check_password(rule, value, callback, source, options) {
-      console.log("ru", rule);
-      console.log("value", value);
-      console.log("callback", options);
-      if (value != this.modals.data.password) {
+      if (value != this.modals.update_password.data.password) {
         return callback(new Error("两次输入密码不相同"));
       } else {
         callback();
