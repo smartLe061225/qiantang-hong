@@ -135,9 +135,8 @@
   z-index: 9;
 }
 .section1 .header1 .title {
-  margin-top: 10px;
-  width: 278px;
-  height: 59px;
+  width: 283px;
+  height: 72px;
   float: left;
   background: url('../images/logo.png') 50% 50% no-repeat;
   background-size: cover;
@@ -192,7 +191,7 @@
   width: 100%;
   position: absolute;
   top: 69px;
-  background: url('../images/banner.png') 50% 50% no-repeat;
+  background: url('../images/banner.jpg') 50% 50% no-repeat;
   background-size: cover;
 }
 .header {
