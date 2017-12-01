@@ -94,28 +94,6 @@
       </FormItem>
     </Form>
 
-    <!--添加公司-->
-    <Modal v-model="modals.company.create.is_show" :mask-closable="false" :title="modals.company.create.title" @on-ok="post_create_company">
-      <Form ref="create_company_form" :model="modals.company.create.data" :rules="modals.company.create.rules" :label-width="120">
-        <FormItem label="公司名称" prop="company_name">
-          <Input placeholder="请输入公司名称" v-model="modals.company.create.data.name" style="width:200px;"></Input>
-        </FormItem>
-        <FormItem label="所在地区" prop="area">
-          <Select style="width:100px" v-model="modals.company.create.data.province" @on-change="change_province">
-            <Option :value="item.id" number v-for="(item, index) in province_data" :key="item.id">{{ item.areaName }}</Option>
-          </Select>
-          <Select style="width:100px" v-model="modals.company.create.data.city" @on-change="change_city">
-            <Option :value="item.id" number v-for="(item, index) in city_data" :key="item.id">{{ item.areaName }}</Option>
-          </Select>
-          <Select style="width:100px" v-model="modals.company.create.data.area">
-            <Option :value="item.id" number v-for="(item, index) in region_data" :key="item.id">{{ item.areaName }}</Option>
-          </Select>
-        </FormItem>
-        <FormItem label="详细地址" prop="department">
-          <Input placeholder="请输入详细地址" v-model="modals.company.create.data.address" style="width:200px;"></Input>
-        </FormItem>
-      </Form>
-    </Modal>
   </div>
 </template>
 <script>
@@ -132,23 +110,6 @@
     data() {
       return {
         posting: false,
-        modals: {
-          company: {
-            create: {
-              is_show: false,
-              title: "新建公司",
-              data: {
-                province: null,
-                city: null,
-                area: null,
-                address: "",
-                name: "",
-                enterpriseId: get_enterpri_id()
-              },
-              rules: {}
-            }
-          }
-        },
         uploadList: [],
         province_data: [],
         city_data: [],
@@ -319,9 +280,9 @@
         if (this.type == "update") {
           ajax_get_enterprise_info().then(res => {
             this.certification.data = res.data;
-            this.certification.data.province = parseInt(res.data.province);
-            this.certification.data.city = parseInt(res.data.city);
-            this.certification.data.area = parseInt(res.data.area);
+            this.certification.data.province = parseInt(res.data.province) || '';
+            this.certification.data.city = parseInt(res.data.city) || '';
+            this.certification.data.area = parseInt(res.data.area) || '';
           });
         }
       }

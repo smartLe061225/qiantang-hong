@@ -282,9 +282,9 @@ export default {
             loading: true,
             title: "新建公司",
             data: {
-              province: null,
-              city: null,
-              area: null,
+              province: "",
+              city: "",
+              area: "",
               address: "",
               name: "",
               companyImg: "",
@@ -497,9 +497,12 @@ export default {
     // 改变省份
     change_province(p) {
       this.get_area_data("city", p);
+      this.modals.company.create.data.city = "";
+      this.modals.company.create.data.area = "";
     },
     change_city(p) {
       this.get_area_data("region", p);
+      this.modals.company.create.data.area = "";
     },
     // 提交新增公司数据
     post_create_company() {
@@ -545,13 +548,13 @@ export default {
       this.modals.company.create.is_show = true;
       this.modals.company.create.data.province = parseInt(
         this.company_list_data[index].province
-      );
+      ) || '';
       this.modals.company.create.data.city = parseInt(
         this.company_list_data[index].city
-      );
+      ) || '';
       this.modals.company.create.data.area = parseInt(
         this.company_list_data[index].area
-      );
+      ) || '';
       this.modals.company.create.data.name = this.company_list_data[index].name;
       this.modals.company.create.data.address = this.company_list_data[
         index

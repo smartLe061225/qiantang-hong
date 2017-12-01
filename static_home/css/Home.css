@@ -121,6 +121,10 @@
   position: relative;
   overflow: hidden;
 }
+.section1 .tableCell {
+  position: absolute;
+  overflow: hidden;
+}
 .section1 .header1 {
   position: absolute;
   top: 0;
@@ -186,9 +190,8 @@
 .section1 .brand {
   height: 100%;
   width: 100%;
-  margin-top: 69px;
   position: absolute;
-  top: 0;
+  top: 69px;
   background: url('../images/banner.png') 50% 50% no-repeat;
   background-size: cover;
 }
