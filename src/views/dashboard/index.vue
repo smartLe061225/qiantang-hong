@@ -154,7 +154,7 @@
           // 数据服务
         api_data_data: [{
           title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
-          img: "http://p3.pstatp.com/large/39a200023931d8829cf9",
+          img: "/static/dashboard-img/news-01.png",
           download: "362",
           self_support: false,
           publisher: "末唐数据末唐数据",
@@ -162,7 +162,7 @@
           id: 1203
         }, {
             title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
-            img: "http://p3.pstatp.com/large/39a200023931d8829cf9",
+            img: "/static/dashboard-img/news-02.png",
             download: "362",
             self_support: true,
             publisher: "钱塘",
@@ -170,7 +170,7 @@
             id: 1231
           }, {
             title: "2017年Q3季度017年Q3季度财2017年Q3季度017年Q3季度财",
-            img: "http://p9.pstatp.com/large/37f30003fa72f6d28b77",
+            img: "/static/dashboard-img/news-03.png",
             download: "362",
             self_support: false,
             publisher: "末唐数据末唐数据末唐数据末唐数据末唐数据末唐数据",

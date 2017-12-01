@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="css/jquery.fullPage.css">
     <link rel="stylesheet" href="css/Normalize.css">
     <link rel="stylesheet" href="css/Home.css">
-
+    <script>
+        var _PageHeight = document.documentElement.clientHeight, _PageWidth = document.documentElement.clientWidth; var _LoadingTop = _PageHeight > 124 ? (_PageHeight - 124) / 2 : 0, _LoadingLeft = _PageWidth > 124 ? (_PageWidth - 124) / 2 : 0; var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:1;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + "px; top:" + _LoadingTop + "px; width: 48px; height: 48px; background:url(./images/loading.gif) no-repeat scroll;background-size:cover; color: #696969; font-family:'Microsoft YaHei';\"></div></div>"; document.write(_LoadingHtml); document.onreadystatechange = completeLoading; function completeLoading() { if (document.readyState == "complete") { var loadingMask = document.getElementById("loadingDiv"); loadingMask.parentNode.removeChild(loadingMask) } };
+    </script>
 </head>
 
 <body>
@@ -52,7 +54,7 @@
                     <a href="#page7">合作伙伴</a>
                 </li>
                 <li class='lf'>
-                    <a href="#page7">加入我们</a>
+                    <a href="#page7">立即加入</a>
                 </li>
             </ul>
             <div class="userinfo rt floating">
@@ -316,7 +318,7 @@
         <div class='main'>
             <h3>全新数据可视化企业管理系统体验计划</h3>
             <p>诚邀您加入体验</p>
-            <button>申请加入</button>
+            <a href="/index.html#join">立即加入</a>
         </div>
         <div class="footer">
             <div class="wx">
