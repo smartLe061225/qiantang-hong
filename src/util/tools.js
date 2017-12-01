@@ -424,10 +424,7 @@ export const getWarningSeriesData = (resourceData, legendDataArr, echartType) =>
 export const getBalanceSeriesData = (resourceData, legendDataArr, echartType) => {
   let result = [];
   for (var i = 0; i < legendDataArr.length; i++) {
-    for (var j = 0; j < resourceData.length; j++) {
-      result.push({name:legendDataArr[i], type: echartType? echartType: 'line', data: resourceData[j].data})
-      break;
-    }    
+    result.push({name:legendDataArr[i], type: echartType? echartType: 'line', data: resourceData[i].data})
   }
   return result;
 }

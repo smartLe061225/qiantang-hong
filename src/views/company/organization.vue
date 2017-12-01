@@ -815,6 +815,7 @@ export default {
               border-radius: 22px;
               vertical-align: middle;
               margin-right: 10px;
+              background: #fff;
             }
             strong {
               color: #000;

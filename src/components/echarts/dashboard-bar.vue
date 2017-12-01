@@ -41,7 +41,7 @@
         self.myChart.hideLoading()
 
         let option = echartsConfig.barChartOptions({
-          title: '多个公司收支变化趋势',
+          title: '集团收支变化趋势',
           legendData: self.xAxis,
           seriesData: seriesData,
           color: ['#7a4eff','#916cff','#5e70ff','#76afff'],

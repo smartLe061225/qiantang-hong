@@ -27,7 +27,7 @@
           <div class="mbm-opt">
             <router-link class="ghost-blue" to="/analysis/profits">详情</router-link>
           </div>
-          <h2 class="mbm-title">多个公司收支变化趋势</h2>
+          <h2 class="mbm-title">集团收支变化趋势</h2>
         </div>
         <div class="mormal-block-bd"><bar></bar></div>
       </div>

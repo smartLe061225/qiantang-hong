@@ -2,7 +2,7 @@
   <div class="normal-box-mod">
     <div class="normal-box-hd clearfix">
         <div class="normal-box-opt">
-            <a class="mr-10" to="/api/reportprofit/downloadTemplate" download>标准利润表</a>
+            <a class="mr-10" href="/api/reportprofit/downloadTemplate" download>标准利润表</a>
             <router-link to="/analysis/list/1">重新导入</router-link>
         </div>
       <div class="normal-box-title">
@@ -89,7 +89,6 @@
         this.myChart = echarts.init(document.querySelector('.profits-bar .echarts'));
         let convertResource = tools.convertResourceData(self.resource, self.companyIds, self.filter.index.value.split(','));
         let seriesData = tools.getBarChartSeriesData(convertResource, self.filter.index.value.split(','))
-
         let option = echartsConfig.bar15ChartOptions({
           seriesData: seriesData
         })
