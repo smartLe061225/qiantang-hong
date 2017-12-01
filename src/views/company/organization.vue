@@ -684,7 +684,7 @@ export default {
   margin-top: 46px;
 }
 .bg-organization {
-  background: url(../../assets/images/bg-organization.jpg) top right no-repeat;
+  background: url(../../assets/images/logo-default.png) top right no-repeat;
 }
 .company-logo-box {
   display: table-cell;
