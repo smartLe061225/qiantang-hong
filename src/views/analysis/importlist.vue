@@ -26,7 +26,7 @@
 
       <!-- 导入 -->
       <Modal v-model="importModel" title="导入文件" class="custom-modal">
-        <form action="http://192.168.31.8:8762/api/reportprofit/upload" enctype="multipart/form-data" method="post">
+        <form action="/api/reportprofit/upload" enctype="multipart/form-data" method="post">
           <Select v-model="upload.companyid" placeholder="请选择公司" v-validate="'required'" name="uploadCompany" :class="{'ivu-form-item-error': errors.has('uploadCompany') }">
             <Option v-for="item in company.list" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
@@ -59,7 +59,6 @@
         pageSize: 10,
         pageNum: 1,
         loading: true,
-        downloadHost: 'http://192.168.31.8:8762',
         importModel: false,
         image: '',
         upload: {
@@ -142,6 +141,7 @@
                ajaxPostAnalysisUpload(self.uploadType, data).then((rs) => {
                 if (rs.status=='success') {
                   self.$Message.success('操作成功！')
+                  self.getRecordData()
                 }else{
                   self.$Message.error(rs.message)
                 }
@@ -165,7 +165,7 @@
         this.upload.file = e.target.files[0].name
       },
       download(id,time){       
-        return this.downloadHost + '/api/' + this.actionType + '/downExcel?recordid=' + id + '&reportTime=' + time;
+        return '/api/' + this.actionType + '/downExcel?recordid=' + id + '&reportTime=' + time;
       },
       import(){
         this.showImportModel()

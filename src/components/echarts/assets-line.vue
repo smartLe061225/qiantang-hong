@@ -42,9 +42,9 @@
 
 
     <!-- 弹出层图表 -->
-    <Modal v-model="chartModel"  :title="triggerCompany +' '+ filter.index.value + '明细 ' + triggerMouth" width="780" class="custom-modal">
+    <Modal v-model="chartModel"  :title="triggerCompany +' '+ filter.index.value + '明细 ' + triggerMouth" width="980" class="custom-modal">
       <div class="assets-pie">
-        <div class="echarts" style="width:676px;height:320px;"></div>
+        <div class="echarts" style="width:876px;height:420px;"></div>
       </div>
       <div slot="footer" style="display: none;"></div>
     </Modal>

@@ -25,7 +25,7 @@
       <div class="normal-block-mod">
         <div class="mormal-block-hd ivu-row">
           <div class="mbm-opt">
-            <a class="ghost-green" href="javascript:;">详情</a>
+            <router-link class="ghost-blue" to="/analysis/profits">详情</router-link>
           </div>
           <h2 class="mbm-title">多个公司收支变化趋势</h2>
         </div>
