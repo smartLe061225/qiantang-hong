@@ -57,7 +57,6 @@
           legendData: self.chartTypeArr,
           seriesData: seriesData
         })
-
         this.myChart = echarts.init(document.querySelector('.warning-line .echarts'));
         echartsConfig.formatyAxis(option.yAxis);
         if (option && typeof option === "object") {

@@ -73,3 +73,6 @@ export const ajaxPostWarningData = (data) => fetch({ url: '/api/reportrecord/war
 
 /* 首页 多个公司收支之和变化趋势 */
 export const ajaxGetBalanceData = (params) => fetch({ url: '/api/reportrecord/balancechange', method: 'get', params })
+
+// 2017.12.2 新增接口
+export const ajaxPostProfitsData = (data) => fetch({url: '/api/reportprofit/visual' , method: 'post', data })

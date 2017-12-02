@@ -1,12 +1,12 @@
 <template>
-  <profits-bar></profits-bar>
+  <profits-line></profits-line>
 </template>
 <script>
-  import profitsBar from 'components/echarts/profits-bar'
+  import profitsLine from 'components/echarts/profits-line'
 
   export default {
     components: {
-      profitsBar
+      profitsLine
     }
   }
 </script>
