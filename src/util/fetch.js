@@ -50,7 +50,7 @@ service.interceptors.response.use(
             path: '/login',
           });
         case 500:
-          Message.error('内部服务器错误!')
+          // Message.error('内部服务器错误!')
       }
     }
     return Promise.reject(error.response.data);
