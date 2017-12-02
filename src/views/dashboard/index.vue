@@ -21,16 +21,15 @@
       </Col>
     </Row>
     <Row :gutter="28" class="mb-24">
-      <Col>
-      <div class="normal-block-mod">
-        <div class="mormal-block-hd ivu-row">
-          <div class="mbm-opt">
-            <router-link class="ghost-blue" to="/analysis/profits">详情</router-link>
-          </div>
-          <h2 class="mbm-title">集团收支变化趋势</h2>
+      <Col span="12">
+        <div class="normal-block-mod">
+          <div class="mormal-block-bd" style="height:500px;"><line-echarts></line-echarts></div>
         </div>
-        <div class="mormal-block-bd"><bar></bar></div>
-      </div>
+      </Col>
+      <Col span="12">
+        <div class="normal-block-mod">
+          <div class="mormal-block-bd"><bar-echarts></bar-echarts></div>
+        </div>
       </Col>      
     </Row>
     <Row :gutter="28" class="mb-24">
@@ -98,7 +97,8 @@
   import qtPush from "@/components/qt_push";
   import apiData from "@/components/api_data";
   import company from "components/company";
-  import Bar from "components/echarts/dashboard-bar";
+  import lineEcharts from "components/echarts/dashboard-line";
+  import barEcharts from "components/echarts/dashboard-bar2";
   import { ajaxGetOrganizationalData,ajaxGetIndexCardData } from "src/apis/company"
   import { ajaxPostAnalysisReportRecord } from "src/apis/analysis"
 
@@ -110,7 +110,8 @@
       qtPush,
       apiData,
       company,
-      Bar
+      lineEcharts,
+      barEcharts
     },
     data() {
       return {
