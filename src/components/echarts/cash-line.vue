@@ -118,7 +118,7 @@
 
         let outputSeriesData = tools.getbar8OutputChartSeriesData(outputResourceData, outputValue)
         let inputSeriesData = tools.getbar8InputChartSeriesData(inputResourceData, inputValue)
-        let seriesData = tools.intervalMergeArray(inputSeriesData, outputSeriesData)
+        let seriesData = tools.intervalMergeArray(inputSeriesData, outputSeriesData).reverse()
 
         let option = echartsConfig.bar8ChartOptions({
           yAxis: yAxisData,
