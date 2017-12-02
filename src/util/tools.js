@@ -428,3 +428,92 @@ export const getBalanceSeriesData = (resourceData, legendDataArr, echartType) =>
   }
   return result;
 }
+
+/**
+ * 方法说明： 获取键名
+ * @method getCheckboxLable
+ * @param {array}   data, 待处理数据，格式如： [{label: '值一',value: 1}, {label: '值二', value: 2}]
+ * @return {array} result, 返回结果如： ['值一','值二']
+ */
+export const getCheckboxLable = (data) => {
+  var result = []
+  if (data && data instanceof Array){
+    for (var i = 0; i < data.length; i++) {
+      result.push(data[i].label)
+    }
+  }
+  return result;
+}
+
+/**
+ * 方法说明： 获取键值
+ * @method getCheckboxIndex
+ * @param {array}   data, 待处理数据，格式如： [{label: '值一',value: 1}, {label: '值二', value: 2}]
+ * @return {array} result, 返回结果如： [1,2]
+ */
+export const getCheckboxValue = (data) => {
+  var result = []
+  if (data && data instanceof Array){
+    for (var i = 0; i < data.length; i++) {
+      result.push(data[i].value)
+    }
+  }
+  return result;
+}
+
+/**
+ * 方法说明： 获取当前 键名
+ * @method getCurrentLable
+ * @param {array}   value, 待传入数组，如： [1]
+ * @param {array}   data, 数据源，格式如： [{label: '值一',value: 1}, {label: '值二', value: 2}]
+ * @return {array} 返回结果，如：['值一']
+ */
+export const getCurrentLable = (value, data) => {
+  let result = [];
+  for (let i = 0; i < value.length; i++) {
+    for(let j = 0; j < data.length; j++){          
+      if(data[j].value == value[i]){
+        result.push(data[j].label);
+      }
+    }
+  }
+  return result;
+}
+
+/**
+ * 方法说明： 获取当前 键值
+ * @method getCurrentValue
+ * @param {array}   label, 待传入数组，如： ['值一']
+ * @param {array}   data, 数据源，格式如： [{label: '值一',value: 1}, {label: '值二', value: 2}]
+ * @return {array} 返回结果，如：[1]
+ */
+export const getCurrentValue = (label, data) => {
+  let result = [];
+  for (let i = 0; i < label.length; i++) {
+    for(let j = 0; j < data.length; j++){          
+      if(data[j].label == label[i]){
+        result.push(data[j].value);
+      }
+    }
+  }
+  return result;
+}
+
+/**
+ * 方法说明： 获取当前 键值
+ * @method getCurrentValue
+ * @param {array}   label, 待传入数组，如： ['值一']
+ * @param {array}   data, 数据源，格式如： [{label: '值一',value: 1}, {label: '值二', value: 2}]
+ * @return {array} 返回结果，如：[1]
+ */
+export const getLine2seriesData = (legendData, legendValue, resourceData) => {
+  let result = [];
+  for (var i = 0; i < legendData.length; i++) {
+    if (i==0) {
+      result.push({name: legendData[i], type: 'line', data: resourceData[legendValue[i]], markPoint: {data: [ {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}]} })
+    }else{
+      result.push({name: legendData[i], type: 'line', data: resourceData[legendValue[i]]})
+    }
+  }
+  return result;
+}
