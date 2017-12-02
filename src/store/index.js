@@ -159,10 +159,11 @@ const store = new Vuex.Store({
                     const data = response;
                     if (data.status == 'error') {
                         Message.error(data.message);
+                        resolve(data);
                     } else {
                         set_token(data.data);
                         commit('SET_TOKEN', data.data);
-                        resolve();
+                        resolve(data);
                     }
                 }).catch(error => {
                     reject(error);

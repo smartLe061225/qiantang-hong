@@ -27,72 +27,91 @@
 </template>
 
 <script>
-  import footerInverse from 'components/footer'
-  import { Login } from 'src/apis/user'
-  import store from '../../store/'
+import footerInverse from "components/footer";
+import { Login } from "src/apis/user";
+import store from "../../store/";
 
-  export default {
-    data(){
-      return {
-        account: '',
-        password: '',
-        isAutoLogin: false,
-        placeholder: {
-          account: '请输入帐号',
-          password: '请输入密码'
-        }
+export default {
+  data() {
+    return {
+      account: "",
+      password: "",
+      isAutoLogin: false,
+      placeholder: {
+        account: "请输入帐号",
+        password: "请输入密码"
       }
+    };
+  },
+  components: {
+    footerInverse
+  },
+  methods: {
+    autoLogin() {
+      this.isAutoLogin = this.isAutoLogin ? false : true;
     },
-    components: {
-      footerInverse
-    },
-    methods: {
-      autoLogin(){
-        this.isAutoLogin = this.isAutoLogin ? false : true;
-      },
-      checkLogin(){
-        let self = this;
-        this.$validator.validateAll().then((result) => {
-          if (result) {
-            let data = {
-              username: self.account,
-              password: self.password
+    checkLogin() {
+      let self = this;
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          let data = {
+            username: self.account,
+            password: self.password
+          };
+          this.$Spin.show({
+            render: h => {
+              return h("div", [
+                h("Icon", {
+                  class: "demo-spin-icon-load",
+                  props: {
+                    type: "load-c",
+                    size: 18
+                  }
+                }),
+                h("div", "请稍后")
+              ]);
             }
-            this.$store
-            .dispatch('store_login', data)
-            .then( () => {
-              self.$store.dispatch('store_get_baseinfo').then( res => {
-                if(res.hasEnterprise){
+          });
+          this.$store.dispatch("store_login", data).then(res => {
+            if (res.status === "success") {
+              self.$store.dispatch("store_get_baseinfo").then(res => {
+                self.$Spin.hide();
+                if (res.hasEnterprise) {
                   if (res.checkUploadFile) {
-                    self.$router.push('/dashboard');
+                    self.$router.push("/dashboard");
                   } else {
-                    self.$router.push('/init');
+                    self.$router.push("/init");
                   }
                 } else {
-                  self.$router.push('/rz');
+                  self.$router.push("/rz");
                 }
-              })
-            })
-          }
-        });
-      }
-    },
-    created(){
-      document.body.setAttribute("class","loginBg");
+              });
+            } else {
+              self.$Spin.hide();
+            }
+          });
+        }
+      });
     }
+  },
+  created() {
+    document.body.setAttribute("class", "loginBg");
   }
+};
 </script>
 <style lang="less">
-@import url('~assets/less/login.less');
+@import url("~assets/less/login.less");
 
 @top: 44px;
-
-.Login{
+.demo-spin-icon-load {
+  animation: ani-demo-spin 1s linear infinite;
+}
+.Login {
   width: 926px;
   min-height: 240px;
   padding: @top 0;
   margin-top: 160px;
-  &:before{
+  &:before {
     position: absolute;
     top: @top;
     bottom: @top;
@@ -102,7 +121,7 @@
     background: @border-color;
     display: block;
   }
-  &>.logo{
+  & > .logo {
     width: 50%;
     position: absolute;
     top: 50%;
@@ -110,14 +129,14 @@
     transform: translateY(-50%);
     min-height: 150px;
     height: auto;
-    background: url('~assets/images/loginLogo.png') center no-repeat;
+    background: url("~assets/images/loginLogo.png") center no-repeat;
     overflow: hidden;
-    text-indent: -9999px;  
+    text-indent: -9999px;
   }
-  &>.content{
+  & > .content {
     width: 50%;
     float: right;
-    padding: 0 72px; 
+    padding: 0 72px;
   }
 }
 </style>

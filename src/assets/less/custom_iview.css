@@ -18,3 +18,13 @@
 .radius-button.ivu-btn {
   border-radius: 16px;
 }
+.loginBg .ivu-spin-fullscreen {
+  z-index: 1000;
+}
+.loginBg .ivu-spin-fullscreen .ivu-spin {
+  color: #fff;
+}
+.loginBg .ivu-spin-fullscreen .ivu-spin-fix {
+  background: rgba(0, 0, 0, 0.75);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#bf000000, 0, endColorstr=#bf000000, 0);
+}
