@@ -79,6 +79,11 @@ const echartsConfig = {
   bar8ChartOptions(params){
     // http://echarts.baidu.com/echarts2/doc/example/bar15.html
     let options = {
+      title: {
+        text: params.title ? params.title : '',
+        left: 'center',
+        textStyle: { fontWeight: 'normal', color: '#a9aaaf' }
+      },
       tooltip : { trigger: 'axis', formatter: "{b}：<br/> {c}", axisPointer : { type : 'shadow' } },
       xAxis : [{ type : 'value',position: 'bottom',splitLine: {lineStyle:{type:'dashed'}} }],
       yAxis : [{type: 'category',axisLine: {show: false},axisLabel: {show: false},axisTick: {show: false},splitLine: {show: false}, data : params.yAxis}],
@@ -132,13 +137,20 @@ const echartsConfig = {
   },
   line2ChartOption(params){
     let options = {
+      title:{
+        text: params.title ? params.title : '',
+        left: 'center',
+        textStyle: { fontWeight: 'normal', color: '#a9aaaf' }
+      },
       tooltip : {
         trigger: 'axis',
         backgroundColor: '#fff',
         extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3)'
       },
       legend: {
-        data: params.legendData? params.legendData: []
+        data: params.legendData? params.legendData: [],
+        orient: 'horizontal', 
+        y:'bottom'
       },
       xAxis : [
         {
@@ -146,10 +158,7 @@ const echartsConfig = {
           data : params.xAxis ? params.xAxis : this.mouth,
         }
       ],
-      yAxis : {
-        type : 'value',
-        axisLabel: { formatter: '{value}' } 
-      },
+      yAxis : [ { type : 'value' } ],
       color: params.color ? params.color : echartsConfig.color,
       series : params.seriesData
     }
