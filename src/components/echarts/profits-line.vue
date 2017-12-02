@@ -101,7 +101,7 @@
           legendData: legendData,
           seriesData: seriesData
         })
-
+        echartsConfig.formatyAxis(option.yAxis);
         this.myChart = echarts.init(document.querySelector('.profits-line .echarts'));
         if (option && typeof option === "object") {
           this.myChart.setOption(option, true);
