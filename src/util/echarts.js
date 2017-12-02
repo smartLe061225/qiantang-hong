@@ -130,6 +130,45 @@ const echartsConfig = {
     }
     return options;
   },
+  line2ChartOption(params){
+    let options = {
+      tooltip : {
+        trigger: 'axis',
+        backgroundColor: '#fff',
+        extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3)'
+      },
+      legend: {
+        data: params.legendData? params.legendData: []
+      },
+      xAxis : [
+        {
+          type : 'category',
+          data : params.xAxis ? params.xAxis : this.mouth,
+        }
+      ],
+      yAxis : {
+        type : 'value',
+        axisLabel: { formatter: '{value}' } 
+      },
+      color: params.color ? params.color : echartsConfig.color,
+      series : params.seriesData
+    }
+    options.tooltip.formatter = function (param, ticket, callback) {
+      var html = [];
+      if(param){
+        var font = [];
+        for(var i = 0 ;i <param.length;i++){
+          var _value = param[i].value;
+          var _name = param[i].seriesName;
+          var _font = '<font color="'+param[i].color+'">'+_name+'：'+_value+'</font>';
+          font.push(_font);
+        }
+        html.push(font.join("<br/>"));
+      }
+      return html.join("");
+    }
+    return options;
+  },
   lineChartOptionPercent(params){
     let options = {
       tooltip : {
@@ -155,7 +194,6 @@ const echartsConfig = {
     }
     options.tooltip.formatter = function (param, ticket, callback) {
       var html = [];
-      console.log(param)
       if(param){
         var font = [];
         for(var i = 0 ;i <param.length;i++){
@@ -258,6 +296,32 @@ const echartsConfig = {
       ]
     };
     return options;
+  },
+  pieCustomOptions(params){
+    // http://echarts.baidu.com/demo.html#pie-custom
+    let options = {
+      title: {
+        text: params.title ? params.title : '',
+        left: 'center',
+        textStyle: { fontWeight: 'normal', color: '#a9aaaf' }
+      },
+      color: params.color ? params.color : echartsConfig.color,
+      tooltip : {
+        trigger: 'item',
+        formatter: "{b} : <br>{c} ({d}%)"
+      },
+      series : [
+        {
+          name: params.seriesName,
+          type:'pie',
+          radius : '70%',
+          center: ['50%', '50%'],
+          data: params.seriesData,
+          roseType: 'radius'
+        }
+      ]
+    }
+    return options
   },
   getProfitsIndex(type){
     let data = {
