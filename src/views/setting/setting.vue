@@ -31,8 +31,8 @@
             </li>
         </ul>
         <div>
-            <Button @click="show_change_password_modal">修改密码</Button>
-            <Button @click="show_change_mail_modal">修改邮箱和手机</Button>
+            <Button @click="show_change_password_modal" class="radius-button">修改密码</Button>
+            <Button @click="show_change_mail_modal" class="radius-button">修改邮箱和手机</Button>
         </div>
       </div>
     </div>

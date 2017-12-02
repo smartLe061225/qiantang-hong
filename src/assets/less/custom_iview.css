@@ -28,3 +28,8 @@
   background: rgba(0, 0, 0, 0.75);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#bf000000, 0, endColorstr=#bf000000, 0);
 }
+.ivu-modal-footer {
+  .ivu-btn{
+    border-radius: 16px;
+  }
+}

@@ -111,8 +111,8 @@
         <li v-for="(company, index) in company_list_data" :key="company.id" class="clearfix">
           <span class="c-n">{{company.name}}</span>
           <span class="fr">
-            <Button type="ghost" size="small" @click="show_update_company_modal(index)" class="mr-5">编辑</Button>
-            <Button type="ghost" v-if="company_list_data.length > 1" size="small" @click="confirm_del_company(index)">删除</Button>
+            <Button type="ghost" size="small" @click="show_update_company_modal(index)" class="radius-button mr-5">编辑</Button>
+            <Button type="ghost" v-if="company_list_data.length > 1" size="small" class="radius-button" @click="confirm_del_company(index)">删除</Button>
           </span>
         </li>        
       </ul>
@@ -131,8 +131,8 @@
         <li v-for="(department, index) in modals.department.manager.department_list_data" :key="department.id" class="clearfix">
           <span class="c-n">{{department.name}}</span>
           <span class="fr">
-            <Button type="ghost" size="small" @click="show_update_department_modal(index)" class="mr-5">编辑</Button>
-            <Button type="ghost" size="small" @click="confirm_del_department(index)">删除</Button>
+            <Button type="ghost" size="small" @click="show_update_department_modal(index)" class="mr-5 radius-button">编辑</Button>
+            <Button type="ghost" size="small" @click="confirm_del_department(index)" class="radius-button">删除</Button>
           </span>
         </li>        
       </ul>
@@ -684,7 +684,7 @@ export default {
   margin-top: 46px;
 }
 .bg-organization {
-  background: url(../../assets/images/logo-default.png) top right no-repeat;
+  background: url(../../assets/images/bg-organization.jpg) top right no-repeat;
 }
 .company-logo-box {
   display: table-cell;

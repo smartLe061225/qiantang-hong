@@ -50,7 +50,7 @@
           </li>
         </ul>
         <div>
-          <Button type="ghost" class="radius-input" @click="change_cert_info">修改资料</Button>
+          <Button type="ghost" class="radius-button" @click="change_cert_info">修改资料</Button>
         </div>
       </div>
     </div>
