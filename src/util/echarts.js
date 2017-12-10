@@ -18,6 +18,40 @@ const echartsConfig = {
     }.bind(this))
   },
   filterDateArr: [{value: 1,label: '当月余额'},{value: 2,label: '本年累计'}],
+  // 格式化 饼状图浮动提示
+  formatPieTooltip(params) {
+    let html = '';
+    if(params){
+      html = '<font color="'+params.color+'">'+params.name+'：<br/>'+ transformValue(params.value) + '(' + params.percent + '%)</font>';
+    }
+    return html
+  },
+  // 格式化 线型图浮动提示
+  formatLineTooltip(params){
+    let html = [];
+    if(params){
+      let font = [];
+      for(let i = 0 ;i <params.length;i++){
+        let _font = '<font color="' + params[i].color + '">' + params[i].seriesName + '：' + transformValue(params[i].value) + '</font>';
+        font.push(_font);
+      }
+      html.push(font.join("<br/>"));
+    }
+    return html.join("");
+  },
+  // 格式化 百分比 浮动提示
+  formatPercentTooltip(params){
+    let html = [];
+    if(params){
+      let font = [];
+      for(let i = 0 ;i <params.length;i++){
+        let _font = '<font color="'+ params[i].color+ '">' + params[i].seriesName + '：' + params[i].value + '%</font>';
+        font.push(_font);
+      }
+      html.push(font.join("<br/>"));
+    }
+    return html.join("");
+  },
   pieChartOptions(params){
     let self = this;
     let legendType = params.type ? params.type : 'vertical';
@@ -163,19 +197,8 @@ const echartsConfig = {
       color: params.color ? params.color : echartsConfig.color,
       series : params.seriesData
     }
-    options.tooltip.formatter = function (param, ticket, callback) {
-      let html = [];
-      if(param){
-        let font = [];
-        for(let i = 0 ;i <param.length;i++){
-          let _value = param[i].value;
-          let _name = param[i].seriesName;
-          let _font = '<font color="'+param[i].color+'">'+_name+'：'+ transformValue(_value) +'</font>';
-          font.push(_font);
-        }
-        html.push(font.join("<br/>"));
-      }
-      return html.join("");
+    options.tooltip.formatter = function (param) {
+      return echartsConfig.formatLineTooltip(param)
     }
     return options;
   },
@@ -202,19 +225,8 @@ const echartsConfig = {
       color: echartsConfig.color,
       series : params.seriesData
     }
-    options.tooltip.formatter = function (param, ticket, callback) {
-      let html = [];
-      if(param){
-        let font = [];
-        for(let i = 0 ;i <param.length;i++){
-          let _value = param[i].value + '%';
-          let _name = param[i].seriesName;
-          let _font = '<font color="'+param[i].color+'">'+_name+'：'+_value+'</font>';
-          font.push(_font);
-        }
-        html.push(font.join("<br/>"));
-      }
-      return html.join("");
+    options.tooltip.formatter = function (param) {
+      return echartsConfig.formatPercentTooltip(param);
     }
     return options;
   },
@@ -334,11 +346,7 @@ const echartsConfig = {
       ]
     }
     options.tooltip.formatter = function (param) {
-      let html = '';
-      if(param){
-        html = '<font color="'+param.color+'">'+param.name+'：<br/>'+ transformValue(param.value) + '(' + param.percent + '%)</font>';
-      }
-      return html
+      return echartsConfig.formatPieTooltip(param);
     }
     return options
   },
