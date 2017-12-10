@@ -164,13 +164,13 @@ const echartsConfig = {
       series : params.seriesData
     }
     options.tooltip.formatter = function (param, ticket, callback) {
-      var html = [];
+      let html = [];
       if(param){
-        var font = [];
-        for(var i = 0 ;i <param.length;i++){
-          var _value = param[i].value;
-          var _name = param[i].seriesName;
-          var _font = '<font color="'+param[i].color+'">'+_name+'：'+ transformValue(_value) +'</font>';
+        let font = [];
+        for(let i = 0 ;i <param.length;i++){
+          let _value = param[i].value;
+          let _name = param[i].seriesName;
+          let _font = '<font color="'+param[i].color+'">'+_name+'：'+ transformValue(_value) +'</font>';
           font.push(_font);
         }
         html.push(font.join("<br/>"));
@@ -203,13 +203,13 @@ const echartsConfig = {
       series : params.seriesData
     }
     options.tooltip.formatter = function (param, ticket, callback) {
-      var html = [];
+      let html = [];
       if(param){
-        var font = [];
-        for(var i = 0 ;i <param.length;i++){
-          var _value = param[i].value + '%';
-          var _name = param[i].seriesName;
-          var _font = '<font color="'+param[i].color+'">'+_name+'：'+_value+'</font>';
+        let font = [];
+        for(let i = 0 ;i <param.length;i++){
+          let _value = param[i].value + '%';
+          let _name = param[i].seriesName;
+          let _font = '<font color="'+param[i].color+'">'+_name+'：'+_value+'</font>';
           font.push(_font);
         }
         html.push(font.join("<br/>"));
@@ -318,6 +318,8 @@ const echartsConfig = {
       color: params.color ? params.color : echartsConfig.color,
       tooltip : {
         trigger: 'item',
+        backgroundColor: '#fff',
+        extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3)',
         formatter: "{b} : <br>{c} ({d}%)"
       },
       series : [
@@ -330,6 +332,13 @@ const echartsConfig = {
           roseType: 'radius'
         }
       ]
+    }
+    options.tooltip.formatter = function (param) {
+      let html = '';
+      if(param){
+        html = '<font color="'+param.color+'">'+param.name+'：<br/>'+ transformValue(param.value) + '(' + param.percent + '%)</font>';
+      }
+      return html
     }
     return options
   },
@@ -399,7 +408,7 @@ const echartsConfig = {
   },
   formatyAxis: function(yAxis){
     if(yAxis && yAxis.length > 0){
-      for(var i = 0;i < yAxis.length;i++){
+      for(let i = 0;i < yAxis.length;i++){
         yAxis[i].axisLabel = {
           formatter:function(value){
             return chart_option_event.scaleValueConvert(value);
@@ -410,7 +419,7 @@ const echartsConfig = {
   },
   formatyAxisPercent: function(yAxis){
     if(yAxis && yAxis.length > 0){
-      for(var i = 0;i < yAxis.length;i++){
+      for(let i = 0;i < yAxis.length;i++){
         yAxis[i].axisLabel = {
           formatter:function(value){
             return chart_option_event.scaleValueConvert(value);
