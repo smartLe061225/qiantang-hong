@@ -517,3 +517,31 @@ export const getLine2seriesData = (legendData, legendValue, resourceData) => {
   }
   return result;
 }
+
+/**
+ * 方法说明： 格式化 为人民币，并保留后两位小数，如：100元，100万元，100亿元，100万亿元
+ * @method getCurrentValue
+ * @param {array}   label, 待传入数组，如： ['值一']
+ * @param {array}   data, 数据源，格式如： [{label: '值一',value: 1}, {label: '值二', value: 2}]
+ * @return {array} 返回结果，如：[1]
+ */
+export const transformValue = (value) => {
+    let endVal = 0;
+    let unit = '';
+    let flag = value < 0 ? true : false;
+    let val = Math.abs(value)
+    if (val < 10000) {
+        endVal = val;
+        unit = '元';
+    } else if (val >= 10000 && val < 100000000) {
+        endVal = val / 10000;
+        unit = '万元';
+    } else if (val >= 100000000 && val < 100000000000000) {
+        endVal = val / 100000000;
+        unit = '亿元';
+    } else {
+        endVal = val / 100000000000000;
+        unit = '万亿元';
+    }
+    return (flag ? (endVal.toFixed(2)*-1) : endVal.toFixed(2)) + unit;
+}

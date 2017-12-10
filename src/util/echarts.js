@@ -2,6 +2,7 @@ import { Message } from 'iview';
 import { ajaxPostAnalysisPublicData } from "src/apis/analysis";
 import { ajax_get_company_selectbox } from "src/apis/company";
 import chart_option_event from "src/util/chart_option_event";
+import { transformValue } from "src/util/tools"
 
 const echartsConfig = {
   // color: ['#00c35c','#0e7ccf','#ffd900','#b7a3df','#e55e7e','#ffc0c0','#ff9a23','#f1c2e6','#f8c66e','#26a9e6','#8be0db','#ff6b08'],
@@ -169,7 +170,7 @@ const echartsConfig = {
         for(var i = 0 ;i <param.length;i++){
           var _value = param[i].value;
           var _name = param[i].seriesName;
-          var _font = '<font color="'+param[i].color+'">'+_name+'：'+_value+'</font>';
+          var _font = '<font color="'+param[i].color+'">'+_name+'：'+ transformValue(_value) +'</font>';
           font.push(_font);
         }
         html.push(font.join("<br/>"));
