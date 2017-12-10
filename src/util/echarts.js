@@ -119,7 +119,8 @@ const echartsConfig = {
         left: 'center',
         textStyle: { fontWeight: 'normal', color: '#a9aaaf' }
       },
-      tooltip : { trigger: 'axis', formatter: "{b}：<br/> {c}", axisPointer : { type : 'shadow' } },
+      tooltip : { trigger: 'axis', formatter: "{b}：<br/> {c}", backgroundColor: '#fff',
+        extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3)', axisPointer : { type : 'shadow' } },
       xAxis : [{ type : 'value',position: 'bottom',splitLine: {lineStyle:{type:'dashed'}} }],
       yAxis : [{type: 'category',axisLine: {show: false},axisLabel: {show: false},axisTick: {show: false},splitLine: {show: false}, data : params.yAxis}],
       series : [
@@ -133,6 +134,18 @@ const echartsConfig = {
         }
       ]
     };
+    options.tooltip.formatter = function(param){
+      let html = [];
+      if(param){
+        let font = [];
+        for(let i = 0 ;i <param.length;i++){
+          let _font = '<font color="' + param[i].color + '"> ' + param[i].name + '：<br> ' + transformValue(param[i].value) + '</font>';
+          font.push(_font);
+        }
+        html.push(font.join("<br/>"));
+      }
+      return html.join("");
+    }    
     return options;
   },
   bar15ChartOptions(params){
@@ -153,7 +166,9 @@ const echartsConfig = {
   lineChartOption(params){
     let options = {
       tooltip : {
-        trigger: 'axis'
+        trigger: 'axis',
+        backgroundColor: '#fff',
+        extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3)'
       },
       legend: {
         data: params.legendData? params.legendData: []
@@ -167,6 +182,9 @@ const echartsConfig = {
       yAxis : [{ type : 'value' }],
       color: echartsConfig.color,
       series : params.seriesData
+    }
+    options.tooltip.formatter = function (param) {
+      return echartsConfig.formatLineTooltip(param)
     }
     return options;
   },
@@ -233,13 +251,16 @@ const echartsConfig = {
   line4ChartOption(params){
     // http://echarts.baidu.com/echarts2/doc/example/line4.html
     let options = {
-      tooltip : { trigger: 'axis' },
+      tooltip : { trigger: 'axis', backgroundColor: '#fff', extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3)' },
       calculable : true,
       color: echartsConfig.color,
       xAxis : [ { type : 'category', boundaryGap : false, data : params.xAxis? params.xAxis : this.mouth } ],
       yAxis : [ { type : 'value' } ],
       series : params.seriesData
     };
+    options.tooltip.formatter = function (param) {
+      return echartsConfig.formatLineTooltip(param);
+    }
     return options;
   },
   pie1ChartOptions(params){
@@ -298,7 +319,7 @@ const echartsConfig = {
     // url: http://echarts.baidu.com/echarts2/doc/example/pie3.html
     let options = {
       tooltip : {
-          trigger: 'item',
+          trigger: 'item', backgroundColor: '#fff', extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3)',
           formatter: "{a} <br/>{b} : {c} ({d}%)"
       },
       color: echartsConfig.color,
@@ -317,6 +338,9 @@ const echartsConfig = {
         }
       ]
     };
+    options.tooltip.formatter = function (param) {
+      return echartsConfig.formatPieTooltip(param);
+    }
     return options;
   },
   pieCustomOptions(params){
