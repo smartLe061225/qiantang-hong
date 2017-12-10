@@ -32,8 +32,7 @@ const echartsConfig = {
     if(params){
       let font = [];
       for(let i = 0 ;i <params.length;i++){
-        let _font = '<font color="' + params[i].color + '">' + params[i].seriesName + '：' + transformValue(params[i].value) + '</font>';
-        font.push(_font);
+        font.push('<font color="' + params[i].color + '">' + params[i].seriesName + '：' + transformValue(params[i].value) + '</font>');
       }
       html.push(font.join("<br/>"));
     }
@@ -45,8 +44,7 @@ const echartsConfig = {
     if(params){
       let font = [];
       for(let i = 0 ;i <params.length;i++){
-        let _font = '<font color="'+ params[i].color+ '">' + params[i].seriesName + '：' + params[i].value + '%</font>';
-        font.push(_font);
+        font.push('<font color="'+ params[i].color+ '">' + params[i].seriesName + '：' + params[i].value + '%</font>');
       }
       html.push(font.join("<br/>"));
     }
@@ -139,8 +137,7 @@ const echartsConfig = {
       if(param){
         let font = [];
         for(let i = 0 ;i <param.length;i++){
-          let _font = '<font color="' + param[i].color + '"> ' + param[i].name + '：<br> ' + transformValue(param[i].value) + '</font>';
-          font.push(_font);
+          font.push('<font color="' + param[i].color + '"> ' + param[i].name + '：<br> ' + transformValue(param[i].value) + '</font>');
         }
         html.push(font.join("<br/>"));
       }
