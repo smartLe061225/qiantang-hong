@@ -27,8 +27,7 @@ export default {
       }
 
       
-
-      if (first && (first.path == '/analysis/list/:id' )) {
+      if (first && (first.path == '/analysis/list/:id' || first.path == '/analysis/list')) {
         let url = window.location.href;
         let id = Number(url.substring(url.lastIndexOf('/')+1,url.length))
         switch(id){
@@ -53,6 +52,11 @@ export default {
               { name: "list", path: "", meta: { title: "导入列表" } }
             ];
             break;
+          default:
+            matched = [
+              { name: "dashboard", path: "/dashboard", meta: { title: "首页" } },
+              { name: "list", path: "/analysis/list", meta: { title: "数据管理" } }
+            ];
         }
       }
 

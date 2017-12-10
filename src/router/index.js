@@ -119,6 +119,14 @@ const routes = [
             show_in_bread_curmb_bar: true,
           }
         }, {
+          path: 'list/',
+          name: 'list',
+          component: importlist,
+          meta: {
+            title: '导入列表',
+            show_in_bread_curmb_bar: true,
+          }
+        }, {
           path: 'list/:id',
           name: 'list',
           component: importlist,

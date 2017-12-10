@@ -268,6 +268,8 @@
           case 3:
             return 'reportcashflow'
             break;
+          default:
+            return 'reportprofit'
         }
       },
       uploadType: function(){
@@ -281,6 +283,8 @@
           case 3:
             return 'reportcashflow'
             break;
+          default:
+            return 'reportprofit'
         }
       }
     }
