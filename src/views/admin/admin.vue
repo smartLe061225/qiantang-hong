@@ -35,7 +35,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="single-page-con">
+		<div id="vue-scrollBehavior" class="single-page-con">
 			<div class="single-page">
 				<router-view></router-view>
 				<div class="hong-copyright">浙ICP备09083569号-4 Copyright 2016 Hangzhou Qiantang Big Data Trading Center Co., Ltd. Allrights Reserved.</div>
