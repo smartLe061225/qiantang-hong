@@ -308,7 +308,9 @@ router.beforeEach((to, from, next) => {
   document.title = to.meta.title ? to.meta.title : '企知'
   document.body.scrollTop = 0;
 
-  document.getElementById('vue-scrollBehavior').scrollTop = 0;
+  if(document.getElementById('vue-scrollBehavior')){
+    document.getElementById('vue-scrollBehavior').scrollTop = 0;
+  }
   // next()
 
 })
