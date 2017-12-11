@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "mock": "json-server mock/data.json --port 9090",
+    "mockdev": "npm run mock & npm run dev"
   },
   "dependencies": {
     "axios": "^0.17.0",
