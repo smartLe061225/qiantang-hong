@@ -1,0 +1,37 @@
+{
+  "login":{
+  	"status":"success",
+    "message":"ok",
+    "data":"eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6IjEiLCJuYW1lIjoiTXIuaGVsbG8iLCJleHAiOjE1MTI4OTQ4NzN9.xuQdMXUaydAwi4uprHeKM8E_zq4tQj3dfAnV2B0S2lyK6jOEvNYE7-pYPhHimPxevGOfF8DMwR8XgrCzK9bTkxAITY3g-JyjeGcSl_i_wMwZgLqdXXlHqYXsPaqRqiXbZaTIFea6SAsXDrCBduzH_-RgzOP2PSGNSR0HHGueEbs"
+  },
+  "userinfo":{
+    "hasEnterprise": true,
+    "user": {
+        "id": 1,
+        "username": "admin",
+        "password": "",
+        "name": "Mr.hello",
+        "birthday": "",
+        "mobilePhone": "18989811111",
+        "email": "heelo@hlle.com",
+        "sex": "男",
+        "type": "1",
+        "description": "",
+        "updTime": "2017-12-01 12:54:39",
+        "updUser": "null",
+        "updName": "null",
+        "updHost": "null",
+        "isUsed": 1,
+        "enterpriseid": 1,
+        "imgUrl": "/static/avator/mrtx4.png"
+    },
+    "enterpriId": 1,
+    "enterpriseName": "总公司",
+    "enterpriseType": 2,
+    "enterpriseCreaterName": "Mr.AG",
+    "enterpriseLogo": "http://qtwoss.qtbigdata.com/jph_151210441586348bac45bc3cf4b77878ad8c9d2670d64",
+    "userImg": "/static/avator/mrtx4.png",
+    "enterpriseCreaterImg": "/static/avator/mrtx4.png",
+    "checkUploadFile": true
+  }
+}

@@ -7,9 +7,7 @@ server.use(middleware)
 
 // Add this before server.use(router)
 server.use(jsonServer.rewriter({
-  '/projects/:id/environments/:env_id/configs': '/environments/:env_id/configs',
-  '/projects/:id/environments/:env_id/latest_git_log': '/environments/:env_id/latest_git_log',
-  '/api/user/baseinfo': '/userinfo'
+  '/api/user/baseinfo': '/userinfo' // 配置请求路由到指定的json-server值；也可以不配置，'/api/user/baseinfo'会找 /baseinfo.
 }))
 
 // 支持加载多个db文件
@@ -24,16 +22,6 @@ files.forEach((file) => {
 })
 const router = jsonServer.router(base)
 
-// 自定义请求路由 - get
-// server.get('/api/user/baseinfo', (req, res) => {
-//   let db = router.db
-//   let data = db.get('userinfo').value()
-//   res.jsonp({
-//     data: data,
-//     status:"success",
-//     message:"ok"
-//   })
-// })
 
 // 自定义请求路由 - post
 server.post('/api/jwt/token', (req, res) => {
