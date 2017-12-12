@@ -1,0 +1,40 @@
+{
+	"demprtmentList": [
+        {
+            "id": 5,
+            "name": "运营部",
+            "companyId": 1,
+            "createTime": "2017-11-15 16:52:26",
+            "updateTime": "2017-11-30 18:59:08",
+            "createId": 1,
+            "createName": "Mr.AG"
+        },
+        {
+            "id": 11,
+            "name": "技术部",
+            "companyId": 1,
+            "createTime": "2017-11-23 09:56:59",
+            "updateTime": "2017-11-30 18:59:15",
+            "createId": 1,
+            "createName": "Mr.AG"
+        },
+        {
+            "id": 75,
+            "name": "研发部",
+            "companyId": 1,
+            "createTime": "2017-11-30 18:59:32",
+            "updateTime": "2017-11-30 18:59:32",
+            "createId": 1,
+            "createName": "Mr.AG"
+        },
+        {
+            "id": 76,
+            "name": "行政",
+            "companyId": 1,
+            "createTime": "2017-11-30 18:59:42",
+            "updateTime": "2017-11-30 18:59:42",
+            "createId": 1,
+            "createName": "Mr.AG"
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+{
+	"selectbox": [
+        {"id": 1,"enterpriseId": 1,"name": "分公司一","province": "10","city": "73","area": "418","address": "","companyImg": "http://qtwoss.qtbigdata.com/jph_1512104108816488a0fd3336c46ddbe242f75b120759b","createTime": "2017-11-14 13:44:46","updateTime": "2017-12-01 12:55:14","createId": 1,"createName": "","flag": 1,"provinceName": "北京","cityName": "北京市","areaName": "西城区"},
+        {"id": 2,"enterpriseId": 1,"name": "分公司二","province": "26","city": "240","area": "1929","address": "东湖大数据","companyImg": "http://qtwoss.qtbigdata.com/jph_15121041331291934394766c34ae2ba9f572fb4ebbf3b","createTime": "2017-11-15 09:35:43","updateTime": "2017-12-01 12:55:36","createId": 1,"flag": 1,"provinceName": "湖北","cityName": "武汉市","areaName": "江岸区"},
+        {"id": 3,"enterpriseId": 1,"name": "分公司三","province": "20","city": "159","area": "1255","address": "","companyImg": "http://qtwoss.qtbigdata.com/jph_1512104148658d38f7c6a33784acbbc889bb2646f43f9","createTime": "2017-11-15 09:40:04","updateTime": "2017-12-01 12:56:06","createId": 1,"flag": 1,"provinceName": "浙江","cityName": "杭州市","areaName": "萧山区"},
+        {"id": 4,"enterpriseId": 1,"name": "分公司四","province": "26","city": "240","area": "1932","address": "","companyImg": "http://qtwoss.qtbigdata.com/jph_1512104213103f6cf1fb42bac44e4882a31b5e6992ff9","createTime": "2017-11-15 09:41:06","updateTime": "2017-12-01 12:56:57","createId": 1,"flag": 1,"provinceName": "湖北","cityName": "武汉市","areaName": "汉阳区"},
+        {"id": 5,"enterpriseId": 1,"name": "分公司五","province": "10","city": "73","area": "418","address": "北三环中路29号院华尊大厦","companyImg": "http://qtwoss.qtbigdata.com/jph_15121042352651ecb2bccf4b941b89dec11424afef115","createTime": "2017-11-15 09:41:42","updateTime": "2017-12-01 12:57:17","createId": 1,"flag": 1,"provinceName": "北京","cityName": "北京市","areaName": "西城区"}
+    ]
+}

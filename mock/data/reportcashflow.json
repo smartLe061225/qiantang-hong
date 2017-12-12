@@ -1,0 +1,151 @@
+{
+	"cashList": [
+        {
+            "subclass": [
+                {
+                    "现金流入小计": "销售商品,提供劳务收到的现金|收到的税费返还|收到的其它与经营活动有关的现金"
+                },
+                {
+                    "现金流出小计": "购买商品,接受劳务支付的现金|支付给职工以及为职工支付的现金|支付的各项税费|支付的其它与经营活动有关的现金"
+                }
+            ],
+            "parentclass": "经营活动产生的现金流净额"
+        },
+        {
+            "subclass": [
+                {
+                    "现金流入小计": "收回投资所收到的现金|取得投资收益所收到的现金|处置固定资产,无形资产和其他长期资产所收回的现金净额|收到的其它与投资活动有关的现金"
+                },
+                {
+                    "现金流出小计": "构建固定资产,无形资产和其他长期资产所支付的现金|投资所支付的现金|支付的其他与投资活动有关的现金"
+                }
+            ],
+            "parentclass": "投资活动产生的现金流量净额"
+        },
+        {
+            "subclass": [
+                {
+                    "现金流入小计": "吸收投资所收到的现金|借款所收到的现金|收到的其它与筹资活动有关的现金"
+                },
+                {
+                    "现金流出小计": "偿还债务所支付的现金|分配股利,利润或偿付利息所支付的现金|支付的其它与筹资活动有关的现金"
+                }
+            ],
+            "parentclass": "筹资活动产生的现金流量净额"
+        }
+    ],
+    "cashDataList":[
+        {
+            "data": [
+                {
+                    "1": {
+                        "index": [
+                            {"companyid": 1,"total": 10751880317.45,"report_time": "2017-01-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 172493648.41,"report_time": "2017-01-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 665137816.51,"report_time": "2017-01-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 11223923794.38,"report_time": "2017-02-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 163655913.11,"report_time": "2017-02-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 678692997.95,"report_time": "2017-02-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 11714950824.31,"report_time": "2017-03-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 173801730.81,"report_time": "2017-03-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 711231732.38,"report_time": "2017-03-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 13653170449.03,"report_time": "2017-04-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 188496506.61,"report_time": "2017-04-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 815498175.11,"report_time": "2017-04-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 14606674300.89,"report_time": "2017-05-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 180237934.02,"report_time": "2017-05-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 852025435.97,"report_time": "2017-05-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 15407726362.37,"report_time": "2017-06-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 211880055.94,"report_time": "2017-06-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 919496224.67,"report_time": "2017-06-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 15574766194.74,"report_time": "2017-07-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 186567403.42,"report_time": "2017-07-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 903140738.84,"report_time": "2017-07-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 16044867076.67,"report_time": "2017-08-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 175787073.12,"report_time": "2017-08-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 914753325.27,"report_time": "2017-08-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 16568069500.6,"report_time": "2017-09-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 218108284.82,"report_time": "2017-09-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 979467453.7,"report_time": "2017-09-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 17529972881.46,"report_time": "2017-10-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 218249241.22,"report_time": "2017-10-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 1024394243.57,"report_time": "2017-10-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 18498720627.32,"report_time": "2017-11-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 225234562.62,"report_time": "2017-11-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 1076165398.43,"report_time": "2017-11-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 19461154999.18,"report_time": "2017-12-01 00:00:00","companyName": "分公司一","index_name": "销售商品,提供劳务收到的现金"},
+                            {"companyid": 1,"total": 225906510.02,"report_time": "2017-12-01 00:00:00","companyName": "分公司一","index_name": "收到的税费返还"},
+                            {"companyid": 1,"total": 1121623179.3,"report_time": "2017-12-01 00:00:00","companyName": "分公司一","index_name": "收到的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 7140094019.96,"report_time": "2017-01-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1111012249.66,"report_time": "2017-01-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 740213859.55,"report_time": "2017-01-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 1319700117.55,"report_time": "2017-01-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 7447965392.45,"report_time": "2017-02-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1144834450.78,"report_time": "2017-02-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 757181588.39,"report_time": "2017-02-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 1363008130.84,"report_time": "2017-02-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 7774820317.95,"report_time": "2017-03-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1197640204.9,"report_time": "2017-03-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 793132870.23,"report_time": "2017-03-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 1425299697.14,"report_time": "2017-03-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 9056351524.94,"report_time": "2017-04-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1382974726.39,"report_time": "2017-04-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 911049502.6,"report_time": "2017-04-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 1648577467.33,"report_time": "2017-04-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 9681511167.94,"report_time": "2017-05-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1460036026.63,"report_time": "2017-05-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 954401858.29,"report_time": "2017-05-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 1744610391.93,"report_time": "2017-05-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 10219887862.34,"report_time": "2017-06-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1559934046.82,"report_time": "2017-06-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 1027332722.84,"report_time": "2017-06-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 1859685711.6,"report_time": "2017-06-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 10321258852.94,"report_time": "2017-07-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1551685368.87,"report_time": "2017-07-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 1012342255.98,"report_time": "2017-07-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 1855231358.52,"report_time": "2017-07-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 10627187630.43,"report_time": "2017-08-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1583564974.99,"report_time": "2017-08-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 1027367389.82,"report_time": "2017-08-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 1896596776.82,"report_time": "2017-08-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 10986217949.93,"report_time": "2017-09-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1668546123.11,"report_time": "2017-09-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 1095494065.66,"report_time": "2017-09-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 1991063737.12,"report_time": "2017-09-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 11619777121.93,"report_time": "2017-10-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1754006952.36,"report_time": "2017-10-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 1147245950.35,"report_time": "2017-10-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 2095496190.71,"report_time": "2017-10-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 12260180658.92,"report_time": "2017-11-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1846312146.6,"report_time": "2017-11-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 1205842200.03,"report_time": "2017-11-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 2206773009.31,"report_time": "2017-11-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 12894270821.92,"report_time": "2017-12-01 00:00:00","companyName": "分公司一","index_name": "购买商品,接受劳务支付的现金"},
+                            {"companyid": 1,"total": 1932303966.84,"report_time": "2017-12-01 00:00:00","companyName": "分公司一","index_name": "支付给职工以及为职工支付的现金"},
+                            {"companyid": 1,"total": 1258125075.72,"report_time": "2017-12-01 00:00:00","companyName": "分公司一","index_name": "支付的各项税费"},
+                            {"companyid": 1,"total": 2311736453.9,"report_time": "2017-12-01 00:00:00","companyName": "分公司一","index_name": "支付的其它与经营活动有关的现金"},
+                            {"companyid": 1,"total": 1467533429.67,"report_time": "2017-01-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 1517561138.97,"report_time": "2017-02-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 1586572401.27,"report_time": "2017-03-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 1836728955.48,"report_time": "2017-04-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 1946201272.09,"report_time": "2017-05-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 2072028105.37,"report_time": "2017-06-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 2070261630.7,"report_time": "2017-07-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 2118346745,"report_time": "2017-08-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 2219533401.3,"report_time": "2017-09-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 2337405246.91,"report_time": "2017-10-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 2462121457.51,"report_time": "2017-11-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"},
+                            {"companyid": 1,"total": 2580524294.12,"report_time": "2017-12-01 00:00:00","companyName": "分公司一","index_name": "经营活动产生的现金流净额"}
+                        ]
+                    }
+                }
+            ],
+            "subclass": "现金流入小计,现金流出小计",
+            "parentclass": "经营活动产生的现金流净额",
+            "subclassSon": [
+                "销售商品,提供劳务收到的现金#收到的税费返还#收到的其它与经营活动有关的现金",
+                "购买商品,接受劳务支付的现金#支付给职工以及为职工支付的现金#支付的各项税费#支付的其它与经营活动有关的现金"
+            ]
+        }
+    ]
+}

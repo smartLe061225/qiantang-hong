@@ -1,0 +1,27 @@
+{
+	"enterpriseInfo": {
+        "id": 1,
+        "name": "总公司",
+        "type": 2,
+        "state": 2,
+        "province": "10",
+        "city": "73",
+        "area": "418",
+        "address": "北三环中路甲29号华尊大厦B座603-605室",
+        "contacts": "lixin",
+        "postcode": "430085",
+        "phone": "13986143361",
+        "toolcode": "lixin@infobigdata.com",
+        "businesslicense": "http://qtwoss.qtbigdata.com/jph_15120394592933a6f5b9981c94bad8668a0275d451a0d",
+        "legalperson": "http://qtwoss.qtbigdata.com/jph_1512039467611934fd93a353e42f1912129c49890bb90",
+        "createTime": "2017-11-14 20:03:10",
+        "updateTime": "2017-12-02 13:28:43",
+        "createId": 1,
+        "createName": "Mr.AG",
+        "logo": "http://qtwoss.qtbigdata.com/jph_151210441586348bac45bc3cf4b77878ad8c9d2670d64",
+        "branch": "钱塘",
+        "provinceName": "北京",
+        "cityName": "北京市",
+        "areaName": "西城区"
+    }
+}

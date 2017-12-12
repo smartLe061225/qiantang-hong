@@ -1,0 +1,19 @@
+{
+	"memberList": {
+        "pageSize": 10,
+        "pageNum": 1,
+        "totalNum": 13,
+        "data": [
+            {"id": 83,"name": "张国军","email": "","phone": "","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 0,"departLeaderFlag": 0,"createTime": "2017-11-29 15:41:47","updateTime": "2017-11-30 19:08:16","createId": 1,"createName": "Mr.AG","imgUrl": "http://qtwoss.qtbigdata.com/jph_151202167963595f9425d9d7b4c5984aff7d275a3147e","ifCompanyLeader": false,"ifDepartLeader": false},
+            {"id": 82,"name": "李光明","email": "","phone": "","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 0,"departLeaderFlag": 0,"createTime": "2017-11-29 15:41:06","updateTime": "2017-11-30 19:09:01","createId": 1,"createName": "Mr.AG","imgUrl": "/static/avator/mrtx5.png","ifCompanyLeader": false,"ifDepartLeader": false},
+            {"id": 76,"name": "王五来","email": "","phone": "","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 0,"departLeaderFlag": 0,"createTime": "2017-11-29 11:14:36","updateTime": "2017-11-30 19:09:09","createId": 1,"createName": "Mr.AG","imgUrl": "/static/avator/mrtx0.png","ifCompanyLeader": false,"ifDepartLeader": false},
+            {"id": 75,"name": "薄青","email": "","phone": "","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 0,"departLeaderFlag": 0,"createTime": "2017-11-29 10:58:56","updateTime": "2017-11-30 19:09:23","createId": 1,"createName": "Mr.AG","imgUrl": "/static/avator/mrtx0.png","ifCompanyLeader": false,"ifDepartLeader": false},
+            {"id": 33,"name": "刘思","email": "adf@ga.com","phone": "18888888888","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 0,"departLeaderFlag": 0,"createTime": "2017-11-22 10:51:15","updateTime": "2017-11-30 19:04:14","createId": 1,"createName": "Mr.AG","imgUrl": "/static/avator/mrtx0.png","ifCompanyLeader": false,"ifDepartLeader": false},
+            {"id": 23,"name": "李城","email": "wer@baidu.com","phone": "1787878787","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 0,"departLeaderFlag": 0,"createTime": "2017-11-20 10:03:42","updateTime": "2017-11-30 19:04:54","createId": 1,"createName": "Mr.AG","imgUrl": "/static/avator/mrtx7.png","ifCompanyLeader": false,"ifDepartLeader": false},
+            {"id": 22,"name": "张大伟","email": "wer@baidu.com","phone": "1787878787","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 1,"departLeaderFlag": 0,"createTime": "2017-11-20 10:03:29","updateTime": "2017-11-30 19:05:02","createId": 1,"createName": "Mr.AG","imgUrl": "/static/avator/mrtx0.png","ifCompanyLeader": true,"ifDepartLeader": false},
+            {"id": 21,"name": "罗一文","email": "wer@baidu.com","phone": "1787878787","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 1,"departLeaderFlag": 0,"createTime": "2017-11-20 10:03:23","updateTime": "2017-11-30 19:05:11","createId": 1,"createName": "Mr.AG","imgUrl": "/static/avator/mrtx0.png","ifCompanyLeader": true,"ifDepartLeader": false},
+            {"id": 20,"name": "郭小明","email": "ww3reh@baidu.com","phone": "1887908878","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 0,"departLeaderFlag": 0,"createTime": "2017-11-20 09:50:52","updateTime": "2017-11-30 19:05:21","createId": 1,"createName": "Mr.AG","imgUrl": "/static/avator/mrtx0.png","ifCompanyLeader": false,"ifDepartLeader": false},
+            {"id": 19,"name": "絮儿","email": "weh@baidu.com","phone": "1887877878","companyid": 1,"departid": 5,"status": 1,"companyLeaderFlag": 0,"departLeaderFlag": 0,"createTime": "2017-11-20 09:50:24","updateTime": "2017-11-29 16:00:56","createId": 1,"createName": "Mr.AG","imgUrl": "/static/avator/mrtx6.png","ifCompanyLeader": false,"ifDepartLeader": false}
+        ]
+    }
+}
