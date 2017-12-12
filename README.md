@@ -9,6 +9,14 @@
 | 路由管理 |  [vue-router](https://router.vuejs.org) | 图表插件 | [ECharts](http://echarts.baidu.com) | 表单验证 | [vee-validate](http://vee-validate.logaretm.com)|
 | 状态管理 | [vuex](https://vuex.vuejs.org) | AJAX请求 | [axios](https://github.com/axios/axios) | less | [less](http://lesscss.cn) |
 
+## 效果图
+| column | column |
+|--------|--------|
+|  ![login](resource/login.png) | ![join](resource/join.png) |
+| ![forget](resource/forget-1.png) | ![forget](resource/forget-2.png) |
+| ![主页](resource/v2.0/主页.jpg) | ![join](resource/v2.0/收入成本.jpg) |
+| ![主页](resource/v2.0/预警分析.jpg) | ![join](resource/v2.0/资产负债.jpg) |
+
 ## Build Setup
 
 ``` bash
