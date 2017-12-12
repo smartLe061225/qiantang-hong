@@ -33,5 +33,28 @@
     "userImg": "/static/avator/mrtx4.png",
     "enterpriseCreaterImg": "/static/avator/mrtx4.png",
     "checkUploadFile": true
-  }
+  },
+  "organizational": [
+    {
+        "id": 1,
+        "name": "分公司一",
+        "companyImg": "http://qtwoss.qtbigdata.com/jph_1512104108816488a0fd3336c46ddbe242f75b120759b",
+        "departNum": 4,
+        "memberNum": 16
+    },
+    {
+        "id": 2,
+        "name": "分公司二",
+        "companyImg": "http://qtwoss.qtbigdata.com/jph_15121041331291934394766c34ae2ba9f572fb4ebbf3b",
+        "departNum": 1,
+        "memberNum": 1
+    },
+    {
+        "id": 3,
+        "name": "分公司三",
+        "companyImg": "http://qtwoss.qtbigdata.com/jph_1512104148658d38f7c6a33784acbbc889bb2646f43f9",
+        "departNum": 1,
+        "memberNum": 3
+    }
+  ]
 }
