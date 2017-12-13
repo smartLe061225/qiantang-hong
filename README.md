@@ -42,3 +42,7 @@ npm run build --report
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ***
+
+## 总结
+>项目做完后学会总结，我觉得这才是做项目的真正意义。
+>本项目开发过程中get到了以下几个点：`vee-validate`(表单验证)、`FormData`(上传)、`Promise`、`json-server`(mock模拟假数据)，当然还有用的最多的 `echarts`（图表）。
